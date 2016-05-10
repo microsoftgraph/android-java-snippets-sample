@@ -17,10 +17,30 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.3.0'
+    // Azure AD
+    compile(project(':o365-auth'))
+    compile(project(':microsoftgraphapi'))
+
+    // Dagger compiler for DI annotation support
+    provided('com.squareup.dagger:dagger-compiler:1.2.2') {
+        exclude group: 'com.google.guava'
+    }
+
+    // Butterknife
+    compile 'com.jakewharton:butterknife:6.1.0'
+
+    // Timber
+    compile 'com.jakewharton.timber:timber:3.1.0'
+
+    // Apache Commons
+    compile 'commons-io:commons-io:2.4'
+
+    compile 'com.google.guava:guava:18.0'
 }
