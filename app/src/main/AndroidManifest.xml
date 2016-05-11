@@ -2,27 +2,30 @@
 xmlns:tools="http://schemas.android.com/tools"
 package="com.microsoft.graph.snippets">
 
-<application
-    android:name="com.microsoft.graph.snippets.application.SnippetApp"
-    android:allowBackup="false"
-    android:fullBackupContent="false"
-    android:icon="@drawable/ic_launcher"
-    android:label="@string/app_name"
-    android:theme="@style/AppTheme"
-    tools:replace="android:allowBackup">
-    <!-- TODO: We no longer need to use tools:replace="android:allowBackup", feedback for original snippets project -->
-    <activity
-        android:name="com.microsoft.graph.snippets.SignInActivity"
-        android:label="@string/app_name">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
-    <activity android:name="com.microsoft.graph.snippets.SnippetListActivity" />
-    <activity
-        android:name="com.microsoft.graph.snippets.SnippetDetailActivity"
-        android:label="@string/title_activity_snippet_detail" />
-</application>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name="com.microsoft.graph.snippets.application.SnippetApp"
+        android:allowBackup="false"
+        android:fullBackupContent="false"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        tools:replace="android:allowBackup">
+        <!-- TODO: We no longer need to use tools:replace="android:allowBackup", feedback for original snippets project -->
+        <activity
+            android:name="com.microsoft.graph.snippets.SignInActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.microsoft.graph.snippets.SnippetListActivity" />
+        <activity
+            android:name="com.microsoft.graph.snippets.SnippetDetailActivity"
+            android:label="@string/title_activity_snippet_detail" />
+    </application>
 
 </manifest>
