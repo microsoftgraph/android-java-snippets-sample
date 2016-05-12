@@ -6,7 +6,7 @@ package="com.microsoft.graph.snippets">
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name="com.microsoft.graph.snippets.application.SnippetApp"
+        android:name=".application.SnippetApp"
         android:allowBackup="false"
         android:fullBackupContent="false"
         android:icon="@drawable/ic_launcher"
@@ -23,10 +23,9 @@ package="com.microsoft.graph.snippets">
             </intent-filter>
         </activity>
         <activity android:name=".SnippetListActivity" />
-        <!--
         <activity
-            android:name="com.microsoft.graph.snippets.SnippetDetailActivity"
-            android:label="@string/title_activity_snippet_detail" />-->
+            android:name=".SnippetDetailActivity"
+            android:label="@string/title_activity_snippet_detail" />
     </application>
 
 </manifest>

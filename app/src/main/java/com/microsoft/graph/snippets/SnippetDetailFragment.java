@@ -75,17 +75,9 @@ public class SnippetDetailFragment<T, Result>
 //    @InjectView(txt_status_code)
 //    protected TextView mStatusCode;
 //
-//    /**
-//     * Displays the status code as color 'stoplight'
-//     */
-//    @InjectView(txt_status_color)
-//    protected View mStatusColor;
-//
-//    /**
-//     * On-screen description of the current snippet
-//     */
-//    @InjectView(txt_desc)
-//    protected TextView mSnippetDescription;
+
+    protected View mStatusColor;
+    protected TextView mSnippetDescription;
 //
 //    /**
 //     * The request url of the current snippet
@@ -116,14 +108,14 @@ public class SnippetDetailFragment<T, Result>
 //     */
 //    @InjectView(btn_run)
 //    protected Button mRunButton;
-//
-//    /**
-//     * Fragment default constructor
-//     */
-//    public SnippetDetailFragment() {
-//        // unimplemented
-//    }
-//
+
+    /**
+     * Fragment default constructor
+     */
+    public SnippetDetailFragment() {
+        // unimplemented
+    }
+
 //    //
 //    // UI event bindings
 //    //
@@ -177,53 +169,56 @@ public class SnippetDetailFragment<T, Result>
 //        launchUrl(Uri.parse(mItem.getUrl()));
 //    }
 //
-//    //
-//    // Lifecycle hooks
-//    //
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        if (getArguments().containsKey(ARG_ITEM_ID)) {
-//            mItem = (AbstractSnippet<T, Result>)
-//                    SnippetContent.ITEMS.get(getArguments().getInt(ARG_ITEM_ID));
-//        }
-//    }
-//
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        View rootView = inflater.inflate(R.layout.fragment_snippet_detail, container, false);
-//        ButterKnife.inject(this, rootView);
-//        mSnippetDescription.setText(mItem.getDescription());
-//        return rootView;
-//    }
-//
-//    @Override
-//    public void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        if (null != mStatusColor.getTag()) {
-//            outState.putInt(STATUS_COLOR, (Integer) mStatusColor.getTag());
-//        }
-//    }
-//
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//        if (null != getActivity() && getActivity() instanceof AppCompatActivity) {
-//            AppCompatActivity activity = (AppCompatActivity) getActivity();
-//            if (null != activity.getSupportActionBar()) {
-//                activity.getSupportActionBar().setTitle(mItem.getName());
-//            }
-//        }
-//        if (null != savedInstanceState && savedInstanceState.containsKey(STATUS_COLOR)) {
-//            int statusColor = savedInstanceState.getInt(STATUS_COLOR, UNSET);
-//            if (UNSET != statusColor) {
-//                mStatusColor.setBackgroundColor(statusColor);
-//                mStatusColor.setTag(statusColor);
-//            }
-//        }
-//    }
-//
+    //
+    // Lifecycle hooks
+    //
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments().containsKey(ARG_ITEM_ID)) {
+            mItem = (AbstractSnippet<T, Result>)
+                    SnippetContent.ITEMS.get(getArguments().getInt(ARG_ITEM_ID));
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_snippet_detail, container, false);
+        //ButterKnife.inject(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (null != mStatusColor.getTag()) {
+            outState.putInt(STATUS_COLOR, (Integer) mStatusColor.getTag());
+        }
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (null != getActivity() && getActivity() instanceof AppCompatActivity) {
+            AppCompatActivity activity = (AppCompatActivity) getActivity();
+            if (null != activity.getSupportActionBar()) {
+                activity.getSupportActionBar().setTitle(mItem.getName());
+            }
+
+            mStatusColor = getActivity().findViewById(R.id.txt_status_color);
+            mSnippetDescription = (TextView)getActivity().findViewById(R.id.txt_desc);
+            mSnippetDescription.setText(mItem.getDescription());
+        }
+        if (null != savedInstanceState && savedInstanceState.containsKey(STATUS_COLOR)) {
+            int statusColor = savedInstanceState.getInt(STATUS_COLOR, UNSET);
+            if (UNSET != statusColor) {
+                mStatusColor.setBackgroundColor(statusColor);
+                mStatusColor.setTag(statusColor);
+            }
+        }
+    }
+
 //    //
 //    // Custom event bindings
 //    //
