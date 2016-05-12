@@ -4,9 +4,9 @@
  */
 package com.microsoft.graph.snippets.snippet;
 
+import com.microsoft.graph.concurrency.ICallback;
+import com.microsoft.graph.extensions.IGraphServiceClient;
 import com.microsoft.graph.snippets.application.SnippetApp;
-
-import retrofit.Callback;
 
 import static com.microsoft.graph.snippets.R.string.beta;
 
@@ -18,7 +18,7 @@ public abstract class AbstractSnippet<Service, Result> {
     private static final int mO365VersionIndex = 3;
     private static final int mIsAdminRequiredIndex = 4;
 
-    public final Service mService;
+    public final IGraphServiceClient mService;
     boolean mIsAdminRequired;
     private String mName, mDesc, mUrl, mO365Version;
 
@@ -29,7 +29,7 @@ public abstract class AbstractSnippet<Service, Result> {
      * @param descriptionArray The String array for the specified snippet
      */
     public AbstractSnippet(
-            SnippetCategory<Service> category,
+            SnippetCategory<IGraphServiceClient> category,
             Integer descriptionArray) {
         //Get snippet configuration information from the
         //XML configuration for the snippet
@@ -46,7 +46,7 @@ public abstract class AbstractSnippet<Service, Result> {
      * @param category         Snippet category as corresponds to UI displayed sections (organization, me, groups, etc...)
      * @param descriptionArray The String array for the specified snippet
      */
-    private void getSnippetArrayContent(SnippetCategory<Service> category, Integer descriptionArray) {
+    private void getSnippetArrayContent(SnippetCategory<IGraphServiceClient> category, Integer descriptionArray) {
         if (null != descriptionArray) {
             String[] params = SnippetApp.getApp().getResources().getStringArray(descriptionArray);
 
@@ -103,6 +103,6 @@ public abstract class AbstractSnippet<Service, Result> {
         return mIsAdminRequired;
     }
 
-    public abstract void request(Service service, Callback<Result> callback);
+    public abstract void request(Service service, ICallback<Result> callback);
 
 }

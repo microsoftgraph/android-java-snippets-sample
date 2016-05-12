@@ -9,7 +9,7 @@ import android.content.SharedPreferences;
 
 import com.microsoft.aad.adal.AuthenticationResult;
 import com.microsoft.graph.snippets.application.SnippetApp;
-import com.microsoft.graph.snippets.inject.AppModule;
+//import com.microsoft.graph.snippets.inject.AppModule;
 
 public class SharedPrefsUtil {
 
@@ -18,7 +18,7 @@ public class SharedPrefsUtil {
     public static final String PREF_USER_ID = "PREF_USER_ID";
 
     public static SharedPreferences getSharedPreferences() {
-        return SnippetApp.getApp().getSharedPreferences(AppModule.PREFS, Context.MODE_PRIVATE);
+        return SnippetApp.getApp().getSharedPreferences("com.microsoft.o365_android_unified_API_REST_snippets", Context.MODE_PRIVATE);
     }
 
     public static void persistUserID(AuthenticationResult result) {

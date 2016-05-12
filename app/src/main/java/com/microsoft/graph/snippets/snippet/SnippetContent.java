@@ -9,12 +9,12 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.microsoft.graph.snippets.snippet.ContactsSnippets.getContactsSnippets;
-import static com.microsoft.graph.snippets.snippet.DrivesSnippets.getDrivesSnippets;
-import static com.microsoft.graph.snippets.snippet.EventsSnippets.getEventsSnippets;
-import static com.microsoft.graph.snippets.snippet.GroupsSnippets.getGroupsSnippets;
-import static com.microsoft.graph.snippets.snippet.MeSnippets.getMeSnippets;
-import static com.microsoft.graph.snippets.snippet.MessageSnippets.getMessageSnippets;
-import static com.microsoft.graph.snippets.snippet.UsersSnippets.getUsersSnippets;
+//import static com.microsoft.graph.snippets.snippet.DrivesSnippets.getDrivesSnippets;
+//import static com.microsoft.graph.snippets.snippet.EventsSnippets.getEventsSnippets;
+//import static com.microsoft.graph.snippets.snippet.GroupsSnippets.getGroupsSnippets;
+//import static com.microsoft.graph.snippets.snippet.MeSnippets.getMeSnippets;
+//import static com.microsoft.graph.snippets.snippet.MessageSnippets.getMessageSnippets;
+//import static com.microsoft.graph.snippets.snippet.UsersSnippets.getUsersSnippets;
 
 public class SnippetContent {
 
@@ -24,12 +24,12 @@ public class SnippetContent {
     static {
         AbstractSnippet<?, ?>[][] baseSnippets = new AbstractSnippet<?, ?>[][]{
                 getContactsSnippets(),
-                getGroupsSnippets(),
-                getEventsSnippets(),
-                getMeSnippets(),
-                getMessageSnippets(),
-                getUsersSnippets(),
-                getDrivesSnippets()
+//                getGroupsSnippets(),
+//                getEventsSnippets(),
+//                getMeSnippets(),
+//                getMessageSnippets(),
+//                getUsersSnippets(),
+//                getDrivesSnippets()
         };
 
         for (AbstractSnippet<?, ?>[] snippetArray : baseSnippets) {

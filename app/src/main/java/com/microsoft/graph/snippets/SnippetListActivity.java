@@ -7,10 +7,9 @@ package com.microsoft.graph.snippets;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-import com.microsoft.graph.snippets.inject.AppModule;
-
-public class SnippetListActivity extends BaseActivity
+public class SnippetListActivity extends AppCompatActivity
         implements SnippetListFragment.Callbacks {
 
     private boolean mTwoPane;
@@ -59,15 +58,15 @@ public class SnippetListActivity extends BaseActivity
 
     @Override
     public void onDisconnectClicked() {
-        finish();
-        // drop the application shared preferences to clear any old auth tokens
-        getSharedPreferences(AppModule.PREFS, Context.MODE_PRIVATE)
-                .edit() // get the editor
-                .clear() // clear it
-                .apply(); // asynchronously apply
-        mAuthenticationManager.disconnect();
-        Intent login = new Intent(this, SignInActivity.class);
-        login.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(login);
+//        finish();
+//        // drop the application shared preferences to clear any old auth tokens
+//        getSharedPreferences(AppModule.PREFS, Context.MODE_PRIVATE)
+//                .edit() // get the editor
+//                .clear() // clear it
+//                .apply(); // asynchronously apply
+//        mAuthenticationManager.disconnect();
+//        Intent login = new Intent(this, ConnectActivity.class);
+//        login.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        startActivity(login);
     }
 }
