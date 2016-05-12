@@ -4,56 +4,16 @@
  */
 package com.microsoft.graph.snippets;
 
-import android.annotation.TargetApi;
-import android.content.ClipData;
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.text.ClipboardManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.microsoft.graph.snippets.snippet.AbstractSnippet;
 import com.microsoft.graph.snippets.snippet.SnippetContent;
-
-import org.apache.commons.io.IOUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.List;
-
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
-import static com.microsoft.graph.snippets.R.color.code_1xx;
-import static com.microsoft.graph.snippets.R.color.code_3xx;
-import static com.microsoft.graph.snippets.R.color.code_4xx;
-import static com.microsoft.graph.snippets.R.color.transparent;
-import static com.microsoft.graph.snippets.R.id.btn_run;
-import static com.microsoft.graph.snippets.R.id.progressbar;
-import static com.microsoft.graph.snippets.R.id.txt_desc;
-import static com.microsoft.graph.snippets.R.id.txt_hyperlink;
-import static com.microsoft.graph.snippets.R.id.txt_request_url;
-import static com.microsoft.graph.snippets.R.id.txt_response_body;
-import static com.microsoft.graph.snippets.R.id.txt_response_headers;
-import static com.microsoft.graph.snippets.R.id.txt_status_code;
-import static com.microsoft.graph.snippets.R.id.txt_status_color;
-import static com.microsoft.graph.snippets.R.string.clippy;
-import static com.microsoft.graph.snippets.R.string.req_url;
-import static com.microsoft.graph.snippets.R.string.response_body;
-import static com.microsoft.graph.snippets.R.string.response_headers;
 
 public class SnippetDetailFragment<T, Result>
         extends BaseFragment {//implements Callback<Result> {
@@ -162,11 +122,6 @@ public class SnippetDetailFragment<T, Result>
 //
 //        // actually make the request
 //        mItem.request(mItem.mService, this);
-//    }
-//
-//    @OnClick(txt_hyperlink)
-//    public void onDocsLinkClicked(TextView textView) {
-//        launchUrl(Uri.parse(mItem.getUrl()));
 //    }
 //
     //

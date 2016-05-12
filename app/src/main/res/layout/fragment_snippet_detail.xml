@@ -14,21 +14,11 @@
             android:layout_height="wrap_content"
             android:weightSum="1">
 
-            <TextView
-                android:id="@+id/txt_hyperlink"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:ellipsize="end"
-                android:gravity="center_vertical"
-                android:text="@string/docs"
-                android:textColor="#FF0000FF" />
-
             <Button
                 android:id="@+id/btn_run"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:text="@string/run" />
         </LinearLayout>
 
@@ -64,10 +54,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:freezesText="true"
-            android:text="@string/req_url" />
+            android:text="@string/object_call" />
 
         <TextView
-            android:id="@+id/txt_request_url"
+            android:id="@+id/txt_object_call"
             style="@style/detail_rect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

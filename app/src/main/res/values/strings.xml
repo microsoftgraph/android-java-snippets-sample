@@ -9,7 +9,7 @@
     <string name="title_activity_snippet_detail">SnippetDetailActivity</string>
     <string name="docs"><u>Documentation</u></string>
     <string name="run">Run</string>
-    <string name="req_url">Request URL</string>
+    <string name="object_call">Object call</string>
     <string name="response">Response</string>
     <string name="status_code">HTTP Status Code</string>
     <string name="response_headers">Response Headers</string>
