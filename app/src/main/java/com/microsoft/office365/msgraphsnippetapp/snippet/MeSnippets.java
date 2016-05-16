@@ -4,11 +4,18 @@
  */
 package com.microsoft.office365.msgraphsnippetapp.snippet;
 
+import com.google.gson.JsonObject;
+import com.microsoft.graph.core.ClientException;
+import com.microsoft.graph.options.Option;
 import com.microsoft.office365.msgraphapiservices.MSGraphMeService;
 import com.microsoft.office365.msgraphsnippetapp.R;
 import com.microsoft.office365.msgraphsnippetapp.application.SnippetApp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit.Callback;
+import retrofit.client.Header;
 import retrofit.client.Response;
 
 import static com.microsoft.office365.msgraphsnippetapp.R.array.get_me;
@@ -45,10 +52,22 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                  */
                 new MeSnippets<Response>(get_me) {
                     @Override
-                    public void request(MSGraphMeService service, Callback<Response> callback) {
-                        service.getMe(
-                                getVersion(),
-                                callback);
+                    public void request(MSGraphMeService service, final Callback<Response> callback) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                JsonObject result = null;
+
+                                try {
+                                    result = SnippetApp.getApp().getGraphServiceClient().getMe().buildRequest().get().getRawObject();
+                                    Response response = new Response("the test", 200, "The stuff worked!", new ArrayList<Header>(), null);
+
+                                    callback.success(null, response);
+                                } catch (ClientException clientException) {
+                                    //callback.failure();
+                                }
+                            }
+                        }).start();
                     }
                 },
 
@@ -58,11 +77,26 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                  */
                 new MeSnippets<Response>(get_me_responsibilities) {
                     @Override
-                    public void request(MSGraphMeService service, Callback<Response> callback) {
-                        service.getMeResponsibilities(
-                                getVersion(),
-                                SnippetApp.getApp().getString(R.string.meResponsibility),
-                                callback);
+                    public void request(MSGraphMeService service, final Callback<Response> callback) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                JsonObject result = null;
+
+                                // TODO: This call fails with a Bad request error.
+                                // The SDK tries to make a request to https://graph.microsoft.com/v1.0/me?select=responsibilities
+                                // Instead of https://graph.microsoft.com/v1.0/me?$select=responsibilities
+                                // Note the $select clause is missing the '$'
+                                try {
+                                    result = SnippetApp.getApp().getGraphServiceClient().getMe().buildRequest().select("AboutMe,Responsibilities,Tags").get().getRawObject();
+                                    Response response = new Response("the test", 200, "The stuff worked!", new ArrayList<Header>(), null);
+
+                                    callback.success(null, response);
+                                } catch (ClientException clientException) {
+                                    clientException.getCause();
+                                }
+                            }
+                        }).start();
                     }
                 },
 
@@ -72,11 +106,22 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                  */
                 new MeSnippets<Response>(get_me_manager) {
                     @Override
-                    public void request(MSGraphMeService service, Callback<Response> callback) {
-                        service.getMeEntities(
-                                getVersion(),
-                                SnippetApp.getApp().getString(R.string.manager),
-                                callback);
+                    public void request(MSGraphMeService service, final Callback<Response> callback) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                JsonObject result = null;
+
+                                try {
+                                    result = SnippetApp.getApp().getGraphServiceClient().getMe().getManager().buildRequest().get().getRawObject();
+                                    Response response = new Response("the test", 200, "The stuff worked!", new ArrayList<Header>(), null);
+
+                                    callback.success(null, response);
+                                } catch (ClientException clientException) {
+                                    //callback.failure();
+                                }
+                            }
+                        }).start();
                     }
                 },
 
@@ -86,10 +131,22 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                  */
                 new MeSnippets<Response>(get_me_direct_reports) {
                     @Override
-                    public void request(MSGraphMeService service, Callback<Response> callback) {
-                        service.getMeEntities(getVersion(),
-                                SnippetApp.getApp().getString(R.string.directReports),
-                                callback);
+                    public void request(MSGraphMeService service, final Callback<Response> callback) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                JsonObject result = null;
+
+                                try {
+                                    result = SnippetApp.getApp().getGraphServiceClient().getMe().getDirectReports().buildRequest().get().getRawObject();
+                                    Response response = new Response("the test", 200, "The stuff worked!", new ArrayList<Header>(), null);
+
+                                    callback.success(null, response);
+                                } catch (ClientException clientException) {
+                                    //callback.failure();
+                                }
+                            }
+                        }).start();
                     }
                 },
 
@@ -99,11 +156,24 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                  */
                 new MeSnippets<Response>(get_me_group_membership) {
                     @Override
-                    public void request(MSGraphMeService service, Callback<Response> callback) {
-                        service.getMeEntities(
-                                getVersion(),
-                                SnippetApp.getApp().getString(R.string.memberOf),
-                                callback);
+                    public void request(MSGraphMeService service, final Callback<Response> callback) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                JsonObject result = null;
+
+                                try {
+                                    // TODO: Feedback for SDK - getGetMemberGroups seems odd. Also, why do we have to use a post to retrieve data?
+                                    result = SnippetApp.getApp().getGraphServiceClient().getMe().getMemberOf().buildRequest().get().getRawObject();
+                                    Response response = new Response("the test", 200, "The stuff worked!", new ArrayList<Header>(), null);
+
+                                    callback.success(null, response);
+                                } catch (ClientException clientException) {
+                                    //callback.failure();
+                                    clientException.getCause();
+                                }
+                            }
+                        }).start();
                     }
                 },
 
@@ -113,11 +183,22 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                  */
                 new MeSnippets<Response>(get_me_photo) {
                     @Override
-                    public void request(MSGraphMeService service, Callback<Response> callback) {
-                        service.getMeEntities(
-                                getVersion(),
-                                SnippetApp.getApp().getString(R.string.userPhoto),
-                                callback);
+                    public void request(MSGraphMeService service, final Callback<Response> callback) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                JsonObject result = null;
+
+                                try {
+                                    result = SnippetApp.getApp().getGraphServiceClient().getMe().getPhoto().buildRequest().get().getRawObject();
+                                    Response response = new Response("the test", 200, "The stuff worked!", new ArrayList<Header>(), null);
+
+                                    callback.success(null, response);
+                                } catch (ClientException clientException) {
+                                    //callback.failure();
+                                }
+                            }
+                        }).start();
                     }
                 }
         };
