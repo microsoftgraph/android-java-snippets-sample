@@ -1,8 +1,10 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/snippet_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:context=".SnippetDetailActivityFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,11 +16,21 @@
             android:layout_height="wrap_content"
             android:weightSum="1">
 
+            <TextView
+                android:id="@+id/txt_hyperlink"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:text="@string/docs"
+                android:textColor="#FF0000FF" />
+
             <Button
                 android:id="@+id/btn_run"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 android:text="@string/run" />
         </LinearLayout>
 
@@ -54,10 +66,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:freezesText="true"
-            android:text="@string/object_call" />
+            android:text="@string/req_url" />
 
         <TextView
-            android:id="@+id/txt_object_call"
+            android:id="@+id/txt_request_url"
             style="@style/detail_rect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Microsoft Graph SDK Snippets</string>
+    <string name="app_name">O365 Android MS Graph Snippets</string>
 
     <string name="action_settings">Settings</string>
     <string name="org_acct">Organizational Account</string>
@@ -9,7 +9,7 @@
     <string name="title_activity_snippet_detail">SnippetDetailActivity</string>
     <string name="docs"><u>Documentation</u></string>
     <string name="run">Run</string>
-    <string name="object_call">Object call</string>
+    <string name="req_url">Request URL</string>
     <string name="response">Response</string>
     <string name="status_code">HTTP Status Code</string>
     <string name="response_headers">Response Headers</string>
@@ -30,5 +30,4 @@
     <string name="signin_description">Welcome to the Office 365 Android Microsoft Graph Snippets sample! Let\'s sign in and get started…</string>
     <string name="beta">BETA</string>
     <string name="diagnostics">Diagnostics</string>
-    <string name="disconnect">Disconnect</string>
 </resources>
