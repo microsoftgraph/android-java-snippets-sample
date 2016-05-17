@@ -22,6 +22,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.microsoft.office365.msgraphsnippetapp.snippet.AbstractSnippet;
 import com.microsoft.office365.msgraphsnippetapp.snippet.SnippetContent;
 
@@ -60,8 +62,8 @@ import static com.microsoft.office365.msgraphsnippetapp.R.id.txt_response_header
 import static com.microsoft.office365.msgraphsnippetapp.R.id.txt_status_code;
 import static com.microsoft.office365.msgraphsnippetapp.R.id.txt_status_color;
 import static com.microsoft.office365.msgraphsnippetapp.R.string.clippy;
-import static com.microsoft.office365.msgraphsnippetapp.R.string.req_url;
-import static com.microsoft.office365.msgraphsnippetapp.R.string.response_body;
+import static com.microsoft.office365.msgraphsnippetapp.R.string.code_snippet;
+import static com.microsoft.office365.msgraphsnippetapp.R.string.raw_object;
 import static com.microsoft.office365.msgraphsnippetapp.R.string.response_headers;
 
 public class SnippetDetailFragment<T, Result>
@@ -250,6 +252,9 @@ public class SnippetDetailFragment<T, Result>
                         mRunButton.setEnabled(true);
                         mProgressbar.setVisibility(GONE);
                         displayResponse(response);
+                        // TODO: This call has to go in displayResponse
+                        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                        mResponseBody.setText(gson.toJson(result));
                     }
                 }
         );
@@ -274,7 +279,7 @@ public class SnippetDetailFragment<T, Result>
 
         switch (tv.getId()) {
             case txt_request_url: // the url field
-                which = req_url;
+                which = code_snippet;
                 break;
 
             case txt_response_headers: // the display headers
@@ -282,7 +287,7 @@ public class SnippetDetailFragment<T, Result>
                 break;
 
             case txt_response_body: // the response body
-                which = response_body;
+                which = raw_object;
                 break;
 
             default:

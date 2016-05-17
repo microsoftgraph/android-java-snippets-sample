@@ -66,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:freezesText="true"
-            android:text="@string/req_url" />
+            android:text="@string/code_snippet" />
 
         <TextView
             android:id="@+id/txt_request_url"
@@ -81,7 +81,7 @@
             android:layout_marginTop="5dp"
             android:freezesText="true"
             android:gravity="center"
-            android:text="@string/response" />
+            android:text="@string/result" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
-                android:text="@string/status_code"
+                android:text="@string/status"
                 android:textStyle="bold" />
 
             <!-- The HTTP status code -->
@@ -140,7 +140,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:freezesText="true"
-            android:text="@string/response_body" />
+            android:text="@string/raw_object" />
 
         <TextView
             android:id="@+id/txt_response_body"

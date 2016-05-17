@@ -50,9 +50,9 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                  * HTTP GET https://graph.microsoft.com/{version}/me
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/user_get
                  */
-                new MeSnippets<Response>(get_me) {
+                new MeSnippets<JsonObject>(get_me) {
                     @Override
-                    public void request(MSGraphMeService service, final Callback<Response> callback) {
+                    public void request(MSGraphMeService service, final Callback<JsonObject> callback) {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -60,9 +60,9 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
 
                                 try {
                                     result = SnippetApp.getApp().getGraphServiceClient().getMe().buildRequest().get().getRawObject();
-                                    Response response = new Response("the test", 200, "The stuff worked!", new ArrayList<Header>(), null);
+                                    Response response = new Response("getGraphServiceClient()\n    .getMe()\n    .buildRequest()\n    .get();", 200, "The stuff worked!", new ArrayList<Header>(), null);
 
-                                    callback.success(null, response);
+                                    callback.success(result, response);
                                 } catch (ClientException clientException) {
                                     //callback.failure();
                                 }
@@ -75,9 +75,9 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                  * HTTP GET https://graph.microsoft.com/{version}/me?$select=AboutMe,Responsibilities,Tags
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/resources/user
                  */
-                new MeSnippets<Response>(get_me_responsibilities) {
+                new MeSnippets<JsonObject>(get_me_responsibilities) {
                     @Override
-                    public void request(MSGraphMeService service, final Callback<Response> callback) {
+                    public void request(MSGraphMeService service, final Callback<JsonObject> callback) {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -91,7 +91,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                                     result = SnippetApp.getApp().getGraphServiceClient().getMe().buildRequest().select("AboutMe,Responsibilities,Tags").get().getRawObject();
                                     Response response = new Response("the test", 200, "The stuff worked!", new ArrayList<Header>(), null);
 
-                                    callback.success(null, response);
+                                    callback.success(result, response);
                                 } catch (ClientException clientException) {
                                     clientException.getCause();
                                 }
@@ -104,9 +104,9 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                  * HTTP GET https://graph.microsoft.com/{version}/me/manager
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/resources/user
                  */
-                new MeSnippets<Response>(get_me_manager) {
+                new MeSnippets<JsonObject>(get_me_manager) {
                     @Override
-                    public void request(MSGraphMeService service, final Callback<Response> callback) {
+                    public void request(MSGraphMeService service, final Callback<JsonObject> callback) {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -116,9 +116,9 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                                     result = SnippetApp.getApp().getGraphServiceClient().getMe().getManager().buildRequest().get().getRawObject();
                                     Response response = new Response("the test", 200, "The stuff worked!", new ArrayList<Header>(), null);
 
-                                    callback.success(null, response);
+                                    callback.success(result, response);
                                 } catch (ClientException clientException) {
-                                    //callback.failure();
+                                    clientException.getCause();
                                 }
                             }
                         }).start();
@@ -129,9 +129,9 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                  * HTTP GET https://graph.microsoft.com/{version}/me/directReports
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/resources/user
                  */
-                new MeSnippets<Response>(get_me_direct_reports) {
+                new MeSnippets<JsonObject>(get_me_direct_reports) {
                     @Override
-                    public void request(MSGraphMeService service, final Callback<Response> callback) {
+                    public void request(MSGraphMeService service, final Callback<JsonObject> callback) {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -141,7 +141,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                                     result = SnippetApp.getApp().getGraphServiceClient().getMe().getDirectReports().buildRequest().get().getRawObject();
                                     Response response = new Response("the test", 200, "The stuff worked!", new ArrayList<Header>(), null);
 
-                                    callback.success(null, response);
+                                    callback.success(result, response);
                                 } catch (ClientException clientException) {
                                     //callback.failure();
                                 }
@@ -154,9 +154,9 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                  * HTTP GET https://graph.microsoft.com/{version}/me/memberOf
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/resources/user
                  */
-                new MeSnippets<Response>(get_me_group_membership) {
+                new MeSnippets<JsonObject>(get_me_group_membership) {
                     @Override
-                    public void request(MSGraphMeService service, final Callback<Response> callback) {
+                    public void request(MSGraphMeService service, final Callback<JsonObject> callback) {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -167,7 +167,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                                     result = SnippetApp.getApp().getGraphServiceClient().getMe().getMemberOf().buildRequest().get().getRawObject();
                                     Response response = new Response("the test", 200, "The stuff worked!", new ArrayList<Header>(), null);
 
-                                    callback.success(null, response);
+                                    callback.success(result, response);
                                 } catch (ClientException clientException) {
                                     //callback.failure();
                                     clientException.getCause();
@@ -181,9 +181,9 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                  * HTTP GET https://graph.microsoft.com/{version}/me/userPhoto
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/resources/user
                  */
-                new MeSnippets<Response>(get_me_photo) {
+                new MeSnippets<JsonObject>(get_me_photo) {
                     @Override
-                    public void request(MSGraphMeService service, final Callback<Response> callback) {
+                    public void request(MSGraphMeService service, final Callback<JsonObject> callback) {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -193,9 +193,9 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                                     result = SnippetApp.getApp().getGraphServiceClient().getMe().getPhoto().buildRequest().get().getRawObject();
                                     Response response = new Response("the test", 200, "The stuff worked!", new ArrayList<Header>(), null);
 
-                                    callback.success(null, response);
+                                    callback.success(result, response);
                                 } catch (ClientException clientException) {
-                                    //callback.failure();
+                                    clientException.getCause();
                                 }
                             }
                         }).start();
