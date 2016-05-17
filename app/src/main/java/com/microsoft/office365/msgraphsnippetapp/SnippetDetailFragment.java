@@ -42,8 +42,6 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import retrofit.Callback;
-import retrofit.RetrofitError;
 import retrofit.client.Header;
 import retrofit.client.Response;
 import timber.log.Timber;

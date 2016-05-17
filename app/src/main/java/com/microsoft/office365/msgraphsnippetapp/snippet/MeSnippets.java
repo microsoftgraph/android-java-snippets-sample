@@ -9,11 +9,6 @@ import com.microsoft.graph.concurrency.ICallback;
 import com.microsoft.graph.core.ClientException;
 import com.microsoft.office365.msgraphsnippetapp.application.SnippetApp;
 
-import java.util.ArrayList;
-
-import retrofit.client.Header;
-import retrofit.client.Response;
-
 import static com.microsoft.office365.msgraphsnippetapp.R.array.get_me;
 import static com.microsoft.office365.msgraphsnippetapp.R.array.get_me_direct_reports;
 import static com.microsoft.office365.msgraphsnippetapp.R.array.get_me_group_membership;
@@ -129,8 +124,6 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<Result> {
 
                                 try {
                                     result = SnippetApp.getApp().getGraphServiceClient().getMe().getDirectReports().buildRequest().get().getRawObject();
-                                    Response response = new Response("the test", 200, "The stuff worked!", new ArrayList<Header>(), null);
-
                                     callback.success(result);
                                 } catch (ClientException clientException) {
                                     //callback.failure();

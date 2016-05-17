@@ -5,13 +5,7 @@
 package com.microsoft.office365.msgraphsnippetapp.snippet;
 
 import com.microsoft.graph.concurrency.ICallback;
-import com.microsoft.graph.core.DefaultClientConfig;
-import com.microsoft.graph.core.IClientConfig;
-import com.microsoft.graph.extensions.GraphServiceClient;
-import com.microsoft.graph.extensions.IGraphServiceClient;
 import com.microsoft.office365.msgraphsnippetapp.application.SnippetApp;
-
-import retrofit.Callback;
 
 import static com.microsoft.office365.msgraphsnippetapp.R.string.beta;
 
