@@ -6,6 +6,7 @@ package com.microsoft.office365.msgraphsnippetapp.snippet;
 
 import android.content.SharedPreferences;
 
+import com.microsoft.graph.concurrency.ICallback;
 import com.microsoft.office365.microsoftgraphvos.EmailAddress;
 import com.microsoft.office365.microsoftgraphvos.ItemBody;
 import com.microsoft.office365.microsoftgraphvos.Message;
@@ -36,7 +37,7 @@ public abstract class MessageSnippets<Result> extends AbstractSnippet<Result> {
                 // Marker element
                 new MessageSnippets(null) {
                     @Override
-                    public void request(Callback callback) {
+                    public void request(ICallback callback) {
                         // Not implemented
                     }
                 },
@@ -48,7 +49,7 @@ public abstract class MessageSnippets<Result> extends AbstractSnippet<Result> {
                  */
                 new MessageSnippets<Response>(get_user_messages) {
                     @Override
-                    public void request(Callback<Response> callback) {
+                    public void request(ICallback<Response> callback) {
 //                        service.getMail(
 //                                getVersion(),
 //                                callback);
@@ -61,7 +62,7 @@ public abstract class MessageSnippets<Result> extends AbstractSnippet<Result> {
                  */
                 new MessageSnippets<Response>(send_an_email_message) {
                     @Override
-                    public void request(Callback<Response> callback) {
+                    public void request(ICallback<Response> callback) {
                         // Get a context so we can interrogate Resources & SharedPreferences
 //                        SnippetApp app = SnippetApp.getApp();
 //                        SharedPreferences prefs = SharedPrefsUtil.getSharedPreferences();
@@ -82,7 +83,7 @@ public abstract class MessageSnippets<Result> extends AbstractSnippet<Result> {
     }
 
     @Override
-    public abstract void request(Callback<Result> callback);
+    public abstract void request(ICallback<Result> callback);
 
     private static MessageWrapper createMessage(
             String msgSubject,

@@ -4,6 +4,7 @@
  */
 package com.microsoft.office365.msgraphsnippetapp.snippet;
 
+import com.microsoft.graph.concurrency.ICallback;
 import com.microsoft.office365.microsoftgraphvos.Envelope;
 import com.microsoft.office365.microsoftgraphvos.Group;
 
@@ -32,7 +33,7 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                 // Marker element
                 new GroupsSnippets(null) {
                     @Override
-                    public void request(Callback callback) {
+                    public void request(ICallback callback) {
                         // Not implemented
                     }
                 },
@@ -45,7 +46,7 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                  */
                 new GroupsSnippets<Group>(get_a_group) {
                     @Override
-                    public void request(final Callback<Group> callback) {
+                    public void request(final ICallback<Group> callback) {
                         // create a group then query it
 //                        service.createGroup(getVersion(), createGroup(), new Callback<Group>() {
 //                            @Override
@@ -67,7 +68,7 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                  */
                 new GroupsSnippets<Response>(get_group_members) {
                     @Override
-                    public void request(final Callback<Response> callback) {
+                    public void request(final ICallback<Response> callback) {
                         // create a group then ask for its members
 //                        service.createGroup(getVersion(), createGroup(), new Callback<Group>() {
 //                            @Override
@@ -93,7 +94,7 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                  */
                 new GroupsSnippets<Response>(get_group_owners) {
                     @Override
-                    public void request(final Callback<Response> callback) {
+                    public void request(final ICallback<Response> callback) {
                         // create a group and then request its owner
 //                        service.createGroup(getVersion(), createGroup(), new Callback<Group>() {
 //                            @Override
@@ -118,7 +119,7 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                  */
                 new GroupsSnippets<Envelope<Group>>(get_all_groups) {
                     @Override
-                    public void request(Callback<Envelope<Group>> callback) {
+                    public void request(ICallback<Envelope<Group>> callback) {
 //                        service.getGroups(getVersion(), null, callback);
                     }
                 },
@@ -129,7 +130,7 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                  */
                 new GroupsSnippets<Group>(insert_a_group) {
                     @Override
-                    public void request(Callback<Group> callback) {
+                    public void request(ICallback<Group> callback) {
 //                        service.createGroup(getVersion(), createGroup(), callback);
                     }
                 },
@@ -140,7 +141,7 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                  */
                 new GroupsSnippets<Group>(update_a_group) {
                     @Override
-                    public void request(final Callback<Group> callback) {
+                    public void request(final ICallback<Group> callback) {
                         //Create a group that we will update
 //                        service.createGroup(getVersion(), createGroup(), new Callback<Group>() {
 //
@@ -171,7 +172,7 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                  */
                 new GroupsSnippets<Response>(delete_a_group) {
                     @Override
-                    public void request(final Callback<Response> callback) {
+                    public void request(final ICallback<Response> callback) {
                         //Create a group that we will delete
 //                        service.createGroup(getVersion(), createGroup(), new Callback<Group>() {
 //
@@ -193,7 +194,7 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
     }
 
     @Override
-    public abstract void request(Callback<Result> callback);
+    public abstract void request(ICallback<Result> callback);
 
     private static Group createGroup() {
         Group group = new Group();

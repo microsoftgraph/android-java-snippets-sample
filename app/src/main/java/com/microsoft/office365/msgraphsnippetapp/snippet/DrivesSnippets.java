@@ -4,6 +4,7 @@
  */
 package com.microsoft.office365.msgraphsnippetapp.snippet;
 
+import com.microsoft.graph.concurrency.ICallback;
 import com.microsoft.office365.microsoftgraphvos.Base;
 import com.microsoft.office365.microsoftgraphvos.DriveItem;
 import com.microsoft.office365.microsoftgraphvos.Folder;
@@ -37,7 +38,7 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                 // Marker element
                 new DrivesSnippets(null) {
                     @Override
-                    public void request(Callback callback) {
+                    public void request(ICallback callback) {
                         //No implementation
                     }
                 },
@@ -49,7 +50,7 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                  */
                 new DrivesSnippets<Response>(get_me_drive) {
                     @Override
-                    public void request(Callback<Response> callback) {
+                    public void request(ICallback<Response> callback) {
                         //msGraphDrivesService.getDrive(getVersion(), callback);
                     }
                 },
@@ -60,7 +61,7 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                  */
                 new DrivesSnippets<Response>(get_organization_drives) {
                     @Override
-                    public void request(Callback<Response> callback) {
+                    public void request(ICallback<Response> callback) {
                         //msGraphDrivesService.getOrganizationDrives(getVersion(), callback);
                     }
                 },
@@ -71,7 +72,7 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                  */
                 new DrivesSnippets<Response>(get_me_files) {
                     @Override
-                    public void request(final Callback<Response> callback) {
+                    public void request(final ICallback<Response> callback) {
                         //Get first group
                         //msGraphDrivesService.getCurrentUserFiles(getVersion(), callback);
                     }
@@ -83,7 +84,7 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                  */
                 new DrivesSnippets<Base>(create_me_file) {
                     @Override
-                    public void request(final Callback<Base> callback) {
+                    public void request(final ICallback<Base> callback) {
                         //Create a new file under root
 //                        msGraphDrivesService.putNewFile(
 //                                getVersion(),
@@ -99,7 +100,7 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                  */
                 new DrivesSnippets<Response>(download_me_file) {
                     @Override
-                    public void request(final Callback<Response> callback) {
+                    public void request(final ICallback<Response> callback) {
                         // create a new file to download
 //                        msGraphDrivesService.putNewFile(getVersion(),
 //                                UUID.randomUUID().toString(),
@@ -130,7 +131,7 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                  */
                 new DrivesSnippets<Base>(update_me_file) {
                     @Override
-                    public void request(final Callback<Base> callback) {
+                    public void request(final ICallback<Base> callback) {
 //                        msGraphDrivesService.putNewFile(getVersion(),
 //                                UUID.randomUUID().toString(),
 //                                fileContents,
@@ -162,7 +163,7 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                  */
                 new DrivesSnippets<Base>(delete_me_file) {
                     @Override
-                    public void request(final Callback<Base> callback) {
+                    public void request(final ICallback<Base> callback) {
 //                        msGraphDrivesService.putNewFile(
 //                                getVersion(),
 //                                UUID.randomUUID().toString(),
@@ -193,7 +194,7 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                  */
                 new DrivesSnippets<Base>(rename_me_file) {
                     @Override
-                    public void request(final Callback<Base> callback) {
+                    public void request(final ICallback<Base> callback) {
 //                        msGraphDrivesService.putNewFile(
 //                                getVersion(),
 //                                UUID.randomUUID().toString(),
@@ -232,7 +233,7 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                 new DrivesSnippets<Response>(create_me_folder) {
 
                     @Override
-                    public void request(final Callback<Response> callback) {
+                    public void request(final ICallback<Response> callback) {
 //                        // create a new driveitem
 //                        DriveItem folder = new DriveItem();
 //                        // give it a random name
@@ -250,5 +251,5 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
         };
     }
 
-    public abstract void request(Callback<Result> callback);
+    public abstract void request(ICallback<Result> callback);
 }

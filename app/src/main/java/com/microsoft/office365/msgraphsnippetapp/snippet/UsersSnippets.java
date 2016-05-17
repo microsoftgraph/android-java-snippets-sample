@@ -6,6 +6,7 @@ package com.microsoft.office365.msgraphsnippetapp.snippet;
 
 import android.content.SharedPreferences;
 
+import com.microsoft.graph.concurrency.ICallback;
 import com.microsoft.office365.microsoftgraphvos.PasswordProfile;
 import com.microsoft.office365.microsoftgraphvos.User;
 import com.microsoft.office365.msgraphsnippetapp.util.SharedPrefsUtil;
@@ -32,7 +33,7 @@ public abstract class UsersSnippets<Result> extends AbstractSnippet<Result> {
                 new UsersSnippets(null) {
 
                     @Override
-                    public void request(Callback callback) {
+                    public void request(ICallback callback) {
                     }
                 },
 
@@ -43,7 +44,7 @@ public abstract class UsersSnippets<Result> extends AbstractSnippet<Result> {
                  */
                 new UsersSnippets<Response>(get_organization_users) {
                     @Override
-                    public void request(Callback<Response> callback) {
+                    public void request(ICallback<Response> callback) {
 //                        msGraphUserService.getUsers(getVersion(), callback);
                     }
                 },
@@ -55,7 +56,7 @@ public abstract class UsersSnippets<Result> extends AbstractSnippet<Result> {
                  */
                 new UsersSnippets<Response>(get_organization_filtered_users) {
                     @Override
-                    public void request(Callback<Response> callback) {
+                    public void request(ICallback<Response> callback) {
 //                        msGraphUserService.getFilteredUsers(
 //                                getVersion(),
 //                                "country eq 'United States'",
@@ -70,7 +71,7 @@ public abstract class UsersSnippets<Result> extends AbstractSnippet<Result> {
                  */
                 new UsersSnippets<Response>(insert_organization_user) {
                     @Override
-                    public void request(Callback<Response> callback) {
+                    public void request(ICallback<Response> callback) {
                         //Use a random UUID for the user name
                         String randomUserName = UUID.randomUUID().toString();
 
@@ -98,5 +99,5 @@ public abstract class UsersSnippets<Result> extends AbstractSnippet<Result> {
         };
     }
 
-    public abstract void request(Callback<Result> callback);
+    public abstract void request(ICallback<Result> callback);
 }

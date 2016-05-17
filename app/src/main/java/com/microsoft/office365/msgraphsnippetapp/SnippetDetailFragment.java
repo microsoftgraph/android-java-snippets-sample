@@ -24,6 +24,8 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.microsoft.graph.concurrency.ICallback;
+import com.microsoft.graph.core.ClientException;
 import com.microsoft.office365.msgraphsnippetapp.snippet.AbstractSnippet;
 import com.microsoft.office365.msgraphsnippetapp.snippet.SnippetContent;
 
@@ -66,7 +68,7 @@ import static com.microsoft.office365.msgraphsnippetapp.R.string.raw_object;
 import static com.microsoft.office365.msgraphsnippetapp.R.string.response_headers;
 
 public class SnippetDetailFragment<T, Result>
-        extends BaseFragment implements Callback<Result> {
+        extends BaseFragment implements ICallback<Result> {
 
     public static final String ARG_ITEM_ID = "item_id";
 
@@ -161,10 +163,7 @@ public class SnippetDetailFragment<T, Result>
         mResponseBody.setText("");
 
         // reset the status 'stoplight'
-        displayStatus("",
-                getResources()
-                        .getColor(transparent)
-        );
+        displayStatus(getResources().getColor(code_3xx));
 
         // show the indeterminate spinner
         mProgressbar.setVisibility(VISIBLE);
@@ -230,7 +229,7 @@ public class SnippetDetailFragment<T, Result>
     // Custom event bindings
     //
     @Override
-    public void success(final Result result, final Response response) {
+    public void success(final Result result) {
         if (!isAdded()) {
             // the user has left...
             return;
@@ -242,8 +241,9 @@ public class SnippetDetailFragment<T, Result>
                     public void run() {
                         mRunButton.setEnabled(true);
                         mProgressbar.setVisibility(GONE);
-                        displayResponse(response);
-                        // TODO: This call has to go in displayResponse
+                        int color = code_1xx;
+                        mStatusColor.setBackgroundColor(getResources().getColor(color));
+                        mStatusColor.setTag(getResources().getColor(color));
                         Gson gson = new GsonBuilder().setPrettyPrinting().create();
                         mResponseBody.setText(gson.toJson(result));
                     }
@@ -252,13 +252,14 @@ public class SnippetDetailFragment<T, Result>
     }
 
     @Override
-    public void failure(RetrofitError error) {
+    public void failure(final ClientException error) {
         Timber.e(error, "");
         mRunButton.setEnabled(true);
         mProgressbar.setVisibility(GONE);
-        if (null != error.getResponse()) {
-            displayResponse(error.getResponse());
-        }
+        int color = code_4xx;
+        mStatusColor.setBackgroundColor(getResources().getColor(color));
+        mStatusColor.setTag(getResources().getColor(color));
+        mResponseBody.setText(error.getLocalizedMessage());
     }
 
     //
@@ -324,10 +325,8 @@ public class SnippetDetailFragment<T, Result>
     }
 
     private void displayResponse(Response response) {
-        int color = getColor(response);
-        displayStatus(Integer.toString(response.getStatus()), getResources().getColor(color));
-        maybeDisplayResponseHeaders(response);
-        maybeDisplayResponseBody(response);
+        //maybeDisplayResponseHeaders(response);
+        //maybeDisplayResponseBody(response);
     }
 
     private void maybeDisplayResponseBody(Response response) {
@@ -369,7 +368,7 @@ public class SnippetDetailFragment<T, Result>
         }
     }
 
-    private void displayStatus(String text, int color) {
+    private void displayStatus(int color) {
         mStatusColor.setBackgroundColor(color);
         mStatusColor.setTag(color);
     }

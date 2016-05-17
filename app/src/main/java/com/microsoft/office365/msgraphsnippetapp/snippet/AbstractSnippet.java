@@ -109,5 +109,5 @@ public abstract class AbstractSnippet<Result> {
         return mIsAdminRequired;
     }
 
-    public abstract void request(Callback<Result> callback);
+    public abstract void request(ICallback<Result> callback);
 }

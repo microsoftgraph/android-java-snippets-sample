@@ -4,6 +4,7 @@
  */
 package com.microsoft.office365.msgraphsnippetapp.snippet;
 
+import com.microsoft.graph.concurrency.ICallback;
 import com.microsoft.office365.microsoftgraphvos.Attendee;
 import com.microsoft.office365.microsoftgraphvos.DateTimeTimeZone;
 import com.microsoft.office365.microsoftgraphvos.EmailAddress;
@@ -34,7 +35,7 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
                 // Marker element
                 new EventsSnippets(null) {
                     @Override
-                    public void request(Callback callback) {
+                    public void request(ICallback callback) {
                         //No implementation
                     }
                 },
@@ -47,7 +48,7 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
                  */
                 new EventsSnippets<Envelope<Event>>(get_user_events) {
                     @Override
-                    public void request(Callback<Envelope<Event>> callback) {
+                    public void request(ICallback<Envelope<Event>> callback) {
                         //MSGraphEventsService.getEvents(getVersion(), callback);
                     }
                 },
@@ -59,7 +60,7 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
                  */
                 new EventsSnippets<Event>(create_event) {
                     @Override
-                    public void request(Callback<Event> callback) {
+                    public void request(ICallback<Event> callback) {
                         //MSGraphEventsService.createNewEvent(getVersion(), createEvent(), callback);
                     }
 
@@ -71,7 +72,7 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
                  */
                 new EventsSnippets<Event>(update_event) {
                     @Override
-                    public void request(final Callback<Event> callback) {
+                    public void request(final ICallback<Event> callback) {
                         // create a new event to update
 //                        MSGraphEventsService.createNewEvent(
 //                                getVersion(),
@@ -106,7 +107,7 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
                  */
                 new EventsSnippets<Response>(delete_event) {
                     @Override
-                    public void request(final Callback<Response> callback) {
+                    public void request(final ICallback<Response> callback) {
                         // create a new event to delete
 //                        Event event = createEvent();
 //                        MSGraphEventsService.createNewEvent(
@@ -132,7 +133,7 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
         };
     }
 
-    public abstract void request(Callback<Result> callback);
+    public abstract void request(ICallback<Result> callback);
 
     private static Event createEvent() {
         Event event = new Event();

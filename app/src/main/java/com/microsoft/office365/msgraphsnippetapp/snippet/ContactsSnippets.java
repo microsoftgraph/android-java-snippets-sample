@@ -4,6 +4,8 @@
  */
 package com.microsoft.office365.msgraphsnippetapp.snippet;
 
+import com.microsoft.graph.concurrency.ICallback;
+
 import retrofit.Callback;
 import retrofit.client.Response;
 
@@ -21,7 +23,7 @@ public abstract class ContactsSnippets<Result> extends AbstractSnippet<Result> {
                 // Marker element
                 new ContactsSnippets(null) {
                     @Override
-                    public void request(Callback callback) {
+                    public void request(ICallback callback) {
                         // Not implemented
                     }
                 },
@@ -33,7 +35,7 @@ public abstract class ContactsSnippets<Result> extends AbstractSnippet<Result> {
                  */
                 new ContactsSnippets<Response>(get_all_contacts) {
                     @Override
-                    public void request(Callback<Response> callback) {
+                    public void request(ICallback<Response> callback) {
                         //service.getContacts(getVersion(), callback);
                     }
                 }
@@ -41,6 +43,6 @@ public abstract class ContactsSnippets<Result> extends AbstractSnippet<Result> {
     }
 
     @Override
-    public abstract void request(Callback<Result> callback);
+    public abstract void request(ICallback<Result> callback);
 
 }
