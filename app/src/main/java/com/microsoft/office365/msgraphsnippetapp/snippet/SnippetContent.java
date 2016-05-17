@@ -23,13 +23,14 @@ public class SnippetContent {
 
     static {
         AbstractSnippet<?, ?>[][] baseSnippets = new AbstractSnippet<?, ?>[][]{
-                getContactsSnippets(),
-                getGroupsSnippets(),
-                getEventsSnippets(),
+                // TODO: Enable the rest of the snippets
+//                getContactsSnippets(),
+//                getGroupsSnippets(),
+//                getEventsSnippets(),
                 getMeSnippets(),
-                getMessageSnippets(),
-                getUsersSnippets(),
-                getDrivesSnippets()
+//                getMessageSnippets(),
+//                getUsersSnippets(),
+//                getDrivesSnippets()
         };
 
         for (AbstractSnippet<?, ?>[] snippetArray : baseSnippets) {

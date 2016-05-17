@@ -97,18 +97,7 @@
                 android:text="@string/status"
                 android:textStyle="bold" />
 
-            <!-- The HTTP status code -->
-            <TextView
-                android:id="@+id/txt_status_code"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp"
-                android:freezesText="true"
-                android:gravity="center_vertical" />
-
-            <!-- The HTTP status color -->
+            <!-- The status color -->
             <TextView
                 android:id="@+id/txt_status_color"
                 android:layout_width="10dp"

@@ -15,6 +15,7 @@ item 5: is admin account required to run snippet (true/false)
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/api/user_get</item>
         <item>v1.0</item>
         <item>false</item>
+        <item>graphServiceClient()\n    .getMe()\n    .buildRequest()\n    .get();</item>
     </string-array>
     <string-array name="get_me_responsibilities">
         <item>GET: Get user\'s responsibilities.</item>
@@ -22,6 +23,7 @@ item 5: is admin account required to run snippet (true/false)
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/resources/user</item>
         <item>v1.0</item>
         <item>false</item>
+        <item>graphServiceClient()\n    .getMe()\n    .buildRequest()\n    .select("AboutMe,Responsibilities,Tags")\n    .get();</item>
     </string-array>
     <string-array name="get_me_manager">
         <item>GET: Get user\'s manager</item>
@@ -29,6 +31,7 @@ item 5: is admin account required to run snippet (true/false)
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/api/user_list_manager</item>
         <item>v1.0</item>
         <item>false</item>
+        <item>graphServiceClient()\n    .getMe()\n    .getManager()\n    .buildRequest()\n    .get();</item>
     </string-array>
     <string-array name="get_me_direct_reports">
         <item>GET: Get user\'s direct reports</item>
@@ -36,6 +39,7 @@ item 5: is admin account required to run snippet (true/false)
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/api/user_list_directreports</item>
         <item>v1.0</item>
         <item>false</item>
+        <item>graphServiceClient()\n    .getMe()\n    .getDirectReports()\n    .buildRequest()\n    .get();</item>
     </string-array>
     <string-array name="get_me_photo">
         <item>GET: Get user\'s photo</item>
@@ -43,6 +47,7 @@ item 5: is admin account required to run snippet (true/false)
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/resources/user</item>
         <item>v1.0</item>
         <item>false</item>
+        <item>graphServiceClient()\n    .getMe()\n    .getPhoto()\n    .buildRequest()\n    .get();</item>
     </string-array>
     <string-array name="get_me_group_membership">
         <item>GET: Get groups user is member of</item>
@@ -50,5 +55,6 @@ item 5: is admin account required to run snippet (true/false)
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/api/user_getmembergroups</item>
         <item>v1.0</item>
         <item>false</item>
+        <item>graphServiceClient()\n    .getMe()\n    .getMemberOf()\n    .buildRequest()\n    .get();</item>
     </string-array>
 </resources>

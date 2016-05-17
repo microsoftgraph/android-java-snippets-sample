@@ -22,10 +22,11 @@ public abstract class AbstractSnippet<Service, Result> {
     private static final int mUrlIndex = 2;
     private static final int mO365VersionIndex = 3;
     private static final int mIsAdminRequiredIndex = 4;
+    private static final int mCodeSnippetIndex = 5;
 
     public final Service mService;
     boolean mIsAdminRequired;
-    private String mName, mDesc, mUrl, mO365Version;
+    private String mName, mDesc, mUrl, mO365Version, mCodeSnippet;
 
     /**
      * Snippet constructor
@@ -60,6 +61,7 @@ public abstract class AbstractSnippet<Service, Result> {
                 mDesc = params[mDescIndex];
                 mUrl = params[mUrlIndex];
                 mO365Version = params[mO365VersionIndex];
+                mCodeSnippet = params[mCodeSnippetIndex];
                 String isAdminRequired = params[mIsAdminRequiredIndex];
                 mIsAdminRequired = isAdminRequired.equalsIgnoreCase("true");
             } catch (IndexOutOfBoundsException ex) {
@@ -99,6 +101,8 @@ public abstract class AbstractSnippet<Service, Result> {
     public String getDescription() {
         return mDesc;
     }
+
+    public String getCodeSnippet() { return mCodeSnippet; }
 
     public String getUrl() {
         return mUrl;

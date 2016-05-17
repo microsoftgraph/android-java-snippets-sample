@@ -42,7 +42,6 @@ public class SnippetCategory<T> {
             = new SnippetCategory<>(section_me, create(MSGraphMeService.class));
 
 
-
     static final SnippetCategory<MSGraphDrivesService> drivesSnippetCategory
             = new SnippetCategory<>(section_drives, create(MSGraphDrivesService.class));
 
@@ -55,6 +54,7 @@ public class SnippetCategory<T> {
         mService = service;
     }
 
+    // TODO: Do we really need this?
     SnippetCategory(int sectionId, IGraphServiceClient service) {
         mSection = SnippetApp.getApp().getString(sectionId);
         mGraphServiceClient = service;

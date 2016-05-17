@@ -59,7 +59,6 @@ import static com.microsoft.office365.msgraphsnippetapp.R.id.txt_hyperlink;
 import static com.microsoft.office365.msgraphsnippetapp.R.id.txt_request_url;
 import static com.microsoft.office365.msgraphsnippetapp.R.id.txt_response_body;
 import static com.microsoft.office365.msgraphsnippetapp.R.id.txt_response_headers;
-import static com.microsoft.office365.msgraphsnippetapp.R.id.txt_status_code;
 import static com.microsoft.office365.msgraphsnippetapp.R.id.txt_status_color;
 import static com.microsoft.office365.msgraphsnippetapp.R.string.clippy;
 import static com.microsoft.office365.msgraphsnippetapp.R.string.code_snippet;
@@ -79,12 +78,6 @@ public class SnippetDetailFragment<T, Result>
     //
     // UI component bindings
     //
-
-    /**
-     * Displays the status code of the service call
-     */
-    @InjectView(txt_status_code)
-    protected TextView mStatusCode;
 
     /**
      * Displays the status code as color 'stoplight'
@@ -161,9 +154,6 @@ public class SnippetDetailFragment<T, Result>
         // disable the button while the snippet is running
         mRunButton.setEnabled(false);
 
-        // clear the old request url
-        mRequestUrl.setText("");
-
         // clear any old headers
         mResponseHeaders.setText("");
 
@@ -171,7 +161,7 @@ public class SnippetDetailFragment<T, Result>
         mResponseBody.setText("");
 
         // reset the status 'stoplight'
-        displayStatusCode("",
+        displayStatus("",
                 getResources()
                         .getColor(transparent)
         );
@@ -206,6 +196,7 @@ public class SnippetDetailFragment<T, Result>
         View rootView = inflater.inflate(R.layout.fragment_snippet_detail, container, false);
         ButterKnife.inject(this, rootView);
         mSnippetDescription.setText(mItem.getDescription());
+        mRequestUrl.setText(mItem.getCodeSnippet());
         return rootView;
     }
 
@@ -334,8 +325,7 @@ public class SnippetDetailFragment<T, Result>
 
     private void displayResponse(Response response) {
         int color = getColor(response);
-        displayStatusCode(Integer.toString(response.getStatus()), getResources().getColor(color));
-        displayRequestUrl(response);
+        displayStatus(Integer.toString(response.getStatus()), getResources().getColor(color));
         maybeDisplayResponseHeaders(response);
         maybeDisplayResponseBody(response);
     }
@@ -379,13 +369,7 @@ public class SnippetDetailFragment<T, Result>
         }
     }
 
-    private void displayRequestUrl(Response response) {
-        String requestUrl = response.getUrl();
-        mRequestUrl.setText(requestUrl);
-    }
-
-    private void displayStatusCode(String text, int color) {
-        mStatusCode.setText(text);
+    private void displayStatus(String text, int color) {
         mStatusColor.setBackgroundColor(color);
         mStatusColor.setTag(color);
     }
