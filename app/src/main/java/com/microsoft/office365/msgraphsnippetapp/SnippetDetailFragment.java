@@ -73,7 +73,7 @@ public class SnippetDetailFragment<T, Result>
     private static final int UNSET = -1;
     private static final String STATUS_COLOR = "STATUS_COLOR";
 
-    private AbstractSnippet<T, Result> mItem;
+    private AbstractSnippet<Result> mItem;
 
     //
     // UI component bindings
@@ -170,7 +170,7 @@ public class SnippetDetailFragment<T, Result>
         mProgressbar.setVisibility(VISIBLE);
 
         // actually make the request
-        mItem.request(mItem.mService, this);
+        mItem.request(this);
     }
 
     @OnClick(txt_hyperlink)
@@ -185,7 +185,7 @@ public class SnippetDetailFragment<T, Result>
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            mItem = (AbstractSnippet<T, Result>)
+            mItem = (AbstractSnippet<Result>)
                     SnippetContent.ITEMS.get(getArguments().getInt(ARG_ITEM_ID));
         }
     }

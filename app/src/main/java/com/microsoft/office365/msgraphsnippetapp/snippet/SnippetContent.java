@@ -19,10 +19,10 @@ import static com.microsoft.office365.msgraphsnippetapp.snippet.UsersSnippets.ge
 public class SnippetContent {
 
 
-    public static final List<AbstractSnippet<?, ?>> ITEMS = new ArrayList<>();
+    public static final List<AbstractSnippet<?>> ITEMS = new ArrayList<>();
 
     static {
-        AbstractSnippet<?, ?>[][] baseSnippets = new AbstractSnippet<?, ?>[][]{
+        AbstractSnippet<?>[][] baseSnippets = new AbstractSnippet<?>[][]{
                 // TODO: Enable the rest of the snippets
 //                getContactsSnippets(),
 //                getGroupsSnippets(),
@@ -33,7 +33,7 @@ public class SnippetContent {
 //                getDrivesSnippets()
         };
 
-        for (AbstractSnippet<?, ?>[] snippetArray : baseSnippets) {
+        for (AbstractSnippet<?>[] snippetArray : baseSnippets) {
             Collections.addAll(ITEMS, snippetArray);
         }
     }

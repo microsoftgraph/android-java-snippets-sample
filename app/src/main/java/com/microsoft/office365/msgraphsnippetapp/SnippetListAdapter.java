@@ -25,7 +25,7 @@ public class SnippetListAdapter extends BaseAdapter {
     }
 
     @Override
-    public AbstractSnippet<?, ?> getItem(int position) {
+    public AbstractSnippet<?> getItem(int position) {
         return (AbstractSnippet) SnippetContent.ITEMS.get(position);
     }
 
@@ -46,7 +46,7 @@ public class SnippetListAdapter extends BaseAdapter {
             mLayoutInflater = LayoutInflater.from(mContext);
         }
 
-        AbstractSnippet<?, ?> clickedSnippet = getItem(position);
+        AbstractSnippet<?> clickedSnippet = getItem(position);
         boolean isSegment = (null == clickedSnippet.getDescription());
 
         final int id = isSegment ? R.layout.list_segment : R.layout.list_element;

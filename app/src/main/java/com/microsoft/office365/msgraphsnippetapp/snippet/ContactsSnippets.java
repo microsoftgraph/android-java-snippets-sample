@@ -4,14 +4,12 @@
  */
 package com.microsoft.office365.msgraphsnippetapp.snippet;
 
-import com.microsoft.office365.msgraphapiservices.MSGraphContactService;
-
 import retrofit.Callback;
 import retrofit.client.Response;
 
 import static com.microsoft.office365.msgraphsnippetapp.R.array.get_all_contacts;
 
-public abstract class ContactsSnippets<Result> extends AbstractSnippet<MSGraphContactService, Result> {
+public abstract class ContactsSnippets<Result> extends AbstractSnippet<Result> {
 
     public ContactsSnippets(Integer descriptionArray) {
         super(SnippetCategory.contactSnippetCategory, descriptionArray);
@@ -23,7 +21,7 @@ public abstract class ContactsSnippets<Result> extends AbstractSnippet<MSGraphCo
                 // Marker element
                 new ContactsSnippets(null) {
                     @Override
-                    public void request(MSGraphContactService service, Callback callback) {
+                    public void request(Callback callback) {
                         // Not implemented
                     }
                 },
@@ -35,14 +33,14 @@ public abstract class ContactsSnippets<Result> extends AbstractSnippet<MSGraphCo
                  */
                 new ContactsSnippets<Response>(get_all_contacts) {
                     @Override
-                    public void request(MSGraphContactService service, Callback<Response> callback) {
-                        service.getContacts(getVersion(), callback);
+                    public void request(Callback<Response> callback) {
+                        //service.getContacts(getVersion(), callback);
                     }
                 }
         };
     }
 
     @Override
-    public abstract void request(MSGraphContactService service, Callback<Result> callback);
+    public abstract void request(Callback<Result> callback);
 
 }

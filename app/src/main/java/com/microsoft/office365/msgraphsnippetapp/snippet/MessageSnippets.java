@@ -11,7 +11,6 @@ import com.microsoft.office365.microsoftgraphvos.ItemBody;
 import com.microsoft.office365.microsoftgraphvos.Message;
 import com.microsoft.office365.microsoftgraphvos.MessageWrapper;
 import com.microsoft.office365.microsoftgraphvos.RecipientVO;
-import com.microsoft.office365.msgraphapiservices.MSGraphMailService;
 import com.microsoft.office365.msgraphsnippetapp.R;
 import com.microsoft.office365.msgraphsnippetapp.application.SnippetApp;
 import com.microsoft.office365.msgraphsnippetapp.util.SharedPrefsUtil;
@@ -22,7 +21,7 @@ import retrofit.client.Response;
 import static com.microsoft.office365.msgraphsnippetapp.R.array.get_user_messages;
 import static com.microsoft.office365.msgraphsnippetapp.R.array.send_an_email_message;
 
-public abstract class MessageSnippets<Result> extends AbstractSnippet<MSGraphMailService, Result> {
+public abstract class MessageSnippets<Result> extends AbstractSnippet<Result> {
     /**
      * Snippet constructor
      *
@@ -37,7 +36,7 @@ public abstract class MessageSnippets<Result> extends AbstractSnippet<MSGraphMai
                 // Marker element
                 new MessageSnippets(null) {
                     @Override
-                    public void request(MSGraphMailService service, Callback callback) {
+                    public void request(Callback callback) {
                         // Not implemented
                     }
                 },
@@ -49,10 +48,10 @@ public abstract class MessageSnippets<Result> extends AbstractSnippet<MSGraphMai
                  */
                 new MessageSnippets<Response>(get_user_messages) {
                     @Override
-                    public void request(MSGraphMailService service, Callback<Response> callback) {
-                        service.getMail(
-                                getVersion(),
-                                callback);
+                    public void request(Callback<Response> callback) {
+//                        service.getMail(
+//                                getVersion(),
+//                                callback);
                     }
                 },
 
@@ -62,28 +61,28 @@ public abstract class MessageSnippets<Result> extends AbstractSnippet<MSGraphMai
                  */
                 new MessageSnippets<Response>(send_an_email_message) {
                     @Override
-                    public void request(MSGraphMailService service, Callback<Response> callback) {
+                    public void request(Callback<Response> callback) {
                         // Get a context so we can interrogate Resources & SharedPreferences
-                        SnippetApp app = SnippetApp.getApp();
-                        SharedPreferences prefs = SharedPrefsUtil.getSharedPreferences();
-
-                        // load the contents
-                        String subject = app.getString(R.string.mailSubject);
-                        String body = app.getString(R.string.mailBody);
-                        String recipient = prefs.getString(SharedPrefsUtil.PREF_USER_ID, "");
-
-                        // make it
-                        MessageWrapper msgWrapper = createMessage(subject, body, recipient);
-
-                        // send it
-                        service.createNewMail(getVersion(), msgWrapper, callback);
+//                        SnippetApp app = SnippetApp.getApp();
+//                        SharedPreferences prefs = SharedPrefsUtil.getSharedPreferences();
+//
+//                        // load the contents
+//                        String subject = app.getString(R.string.mailSubject);
+//                        String body = app.getString(R.string.mailBody);
+//                        String recipient = prefs.getString(SharedPrefsUtil.PREF_USER_ID, "");
+//
+//                        // make it
+//                        MessageWrapper msgWrapper = createMessage(subject, body, recipient);
+//
+//                        // send it
+//                        service.createNewMail(getVersion(), msgWrapper, callback);
                     }
                 }
         };
     }
 
     @Override
-    public abstract void request(MSGraphMailService service, Callback<Result> callback);
+    public abstract void request(Callback<Result> callback);
 
     private static MessageWrapper createMessage(
             String msgSubject,

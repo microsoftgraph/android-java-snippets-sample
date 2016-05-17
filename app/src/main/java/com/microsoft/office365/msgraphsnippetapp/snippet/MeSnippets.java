@@ -7,7 +7,6 @@ package com.microsoft.office365.msgraphsnippetapp.snippet;
 import com.google.gson.JsonObject;
 import com.microsoft.graph.core.ClientException;
 import com.microsoft.graph.options.Option;
-import com.microsoft.office365.msgraphapiservices.MSGraphMeService;
 import com.microsoft.office365.msgraphsnippetapp.R;
 import com.microsoft.office365.msgraphsnippetapp.application.SnippetApp;
 
@@ -25,7 +24,7 @@ import static com.microsoft.office365.msgraphsnippetapp.R.array.get_me_manager;
 import static com.microsoft.office365.msgraphsnippetapp.R.array.get_me_photo;
 import static com.microsoft.office365.msgraphsnippetapp.R.array.get_me_responsibilities;
 
-public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeService, Result> {
+public abstract class MeSnippets<Result> extends AbstractSnippet<Result> {
     /**
      * Snippet constructor
      *
@@ -40,7 +39,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                 // Marker element
                 new MeSnippets(null) {
                     @Override
-                    public void request(MSGraphMeService service, Callback callback) {
+                    public void request(Callback callback) {
                         // Not implemented
                     }
                 },
@@ -52,7 +51,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                  */
                 new MeSnippets<JsonObject>(get_me) {
                     @Override
-                    public void request(MSGraphMeService service, final Callback<JsonObject> callback) {
+                    public void request(final Callback<JsonObject> callback) {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -77,7 +76,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                  */
                 new MeSnippets<JsonObject>(get_me_responsibilities) {
                     @Override
-                    public void request(MSGraphMeService service, final Callback<JsonObject> callback) {
+                    public void request(final Callback<JsonObject> callback) {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -106,7 +105,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                  */
                 new MeSnippets<JsonObject>(get_me_manager) {
                     @Override
-                    public void request(MSGraphMeService service, final Callback<JsonObject> callback) {
+                    public void request(final Callback<JsonObject> callback) {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -131,7 +130,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                  */
                 new MeSnippets<JsonObject>(get_me_direct_reports) {
                     @Override
-                    public void request(MSGraphMeService service, final Callback<JsonObject> callback) {
+                    public void request(final Callback<JsonObject> callback) {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -156,7 +155,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                  */
                 new MeSnippets<JsonObject>(get_me_group_membership) {
                     @Override
-                    public void request(MSGraphMeService service, final Callback<JsonObject> callback) {
+                    public void request(final Callback<JsonObject> callback) {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -183,7 +182,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                  */
                 new MeSnippets<JsonObject>(get_me_photo) {
                     @Override
-                    public void request(MSGraphMeService service, final Callback<JsonObject> callback) {
+                    public void request(final Callback<JsonObject> callback) {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -205,6 +204,6 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
     }
 
     @Override
-    public abstract void request(MSGraphMeService service, Callback<Result> callback);
+    public abstract void request(Callback<Result> callback);
 
 }

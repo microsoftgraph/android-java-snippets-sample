@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 
 import com.microsoft.office365.microsoftgraphvos.PasswordProfile;
 import com.microsoft.office365.microsoftgraphvos.User;
-import com.microsoft.office365.msgraphapiservices.MSGraphUserService;
 import com.microsoft.office365.msgraphsnippetapp.util.SharedPrefsUtil;
 
 import java.util.UUID;
@@ -21,7 +20,7 @@ import static com.microsoft.office365.msgraphsnippetapp.R.array.get_organization
 import static com.microsoft.office365.msgraphsnippetapp.R.array.insert_organization_user;
 import static com.microsoft.office365.msgraphsnippetapp.util.SharedPrefsUtil.PREF_USER_TENANT;
 
-public abstract class UsersSnippets<Result> extends AbstractSnippet<MSGraphUserService, Result> {
+public abstract class UsersSnippets<Result> extends AbstractSnippet<Result> {
 
     public UsersSnippets(Integer descriptionArray) {
         super(SnippetCategory.userSnippetCategory, descriptionArray);
@@ -33,7 +32,7 @@ public abstract class UsersSnippets<Result> extends AbstractSnippet<MSGraphUserS
                 new UsersSnippets(null) {
 
                     @Override
-                    public void request(MSGraphUserService msGraphUserService, Callback callback) {
+                    public void request(Callback callback) {
                     }
                 },
 
@@ -44,10 +43,8 @@ public abstract class UsersSnippets<Result> extends AbstractSnippet<MSGraphUserS
                  */
                 new UsersSnippets<Response>(get_organization_users) {
                     @Override
-                    public void request(
-                            MSGraphUserService msGraphUserService,
-                            Callback<Response> callback) {
-                        msGraphUserService.getUsers(getVersion(), callback);
+                    public void request(Callback<Response> callback) {
+//                        msGraphUserService.getUsers(getVersion(), callback);
                     }
                 },
 
@@ -58,13 +55,11 @@ public abstract class UsersSnippets<Result> extends AbstractSnippet<MSGraphUserS
                  */
                 new UsersSnippets<Response>(get_organization_filtered_users) {
                     @Override
-                    public void request(
-                            MSGraphUserService msGraphUserService,
-                            Callback<Response> callback) {
-                        msGraphUserService.getFilteredUsers(
-                                getVersion(),
-                                "country eq 'United States'",
-                                callback);
+                    public void request(Callback<Response> callback) {
+//                        msGraphUserService.getFilteredUsers(
+//                                getVersion(),
+//                                "country eq 'United States'",
+//                                callback);
                     }
                 },
 
@@ -75,9 +70,7 @@ public abstract class UsersSnippets<Result> extends AbstractSnippet<MSGraphUserS
                  */
                 new UsersSnippets<Response>(insert_organization_user) {
                     @Override
-                    public void request(
-                            MSGraphUserService msGraphUserService,
-                            Callback<Response> callback) {
+                    public void request(Callback<Response> callback) {
                         //Use a random UUID for the user name
                         String randomUserName = UUID.randomUUID().toString();
 
@@ -99,11 +92,11 @@ public abstract class UsersSnippets<Result> extends AbstractSnippet<MSGraphUserS
 
                         user.passwordProfile = password;
 
-                        msGraphUserService.createNewUser(getVersion(), user, callback);
+//                        msGraphUserService.createNewUser(getVersion(), user, callback);
                     }
                 }
         };
     }
 
-    public abstract void request(MSGraphUserService msGraphUserService, Callback<Result> callback);
+    public abstract void request(Callback<Result> callback);
 }

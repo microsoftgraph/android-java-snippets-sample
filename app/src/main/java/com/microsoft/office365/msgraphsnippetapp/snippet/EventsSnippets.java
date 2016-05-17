@@ -11,7 +11,6 @@ import com.microsoft.office365.microsoftgraphvos.Envelope;
 import com.microsoft.office365.microsoftgraphvos.Event;
 import com.microsoft.office365.microsoftgraphvos.ItemBody;
 import com.microsoft.office365.microsoftgraphvos.Location;
-import com.microsoft.office365.msgraphapiservices.MSGraphEventsService;
 
 import org.joda.time.DateTime;
 
@@ -24,7 +23,7 @@ import static com.microsoft.office365.msgraphsnippetapp.R.array.delete_event;
 import static com.microsoft.office365.msgraphsnippetapp.R.array.get_user_events;
 import static com.microsoft.office365.msgraphsnippetapp.R.array.update_event;
 
-public abstract class EventsSnippets<Result> extends AbstractSnippet<MSGraphEventsService, Result> {
+public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
 
     public EventsSnippets(Integer descriptionArray) {
         super(SnippetCategory.eventsSnippetCategory, descriptionArray);
@@ -34,9 +33,8 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<MSGraphEven
         return new EventsSnippets[]{
                 // Marker element
                 new EventsSnippets(null) {
-
                     @Override
-                    public void request(MSGraphEventsService o, Callback callback) {
+                    public void request(Callback callback) {
                         //No implementation
                     }
                 },
@@ -48,12 +46,9 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<MSGraphEven
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/user_list_events
                  */
                 new EventsSnippets<Envelope<Event>>(get_user_events) {
-
                     @Override
-                    public void request(
-                            MSGraphEventsService MSGraphEventsService,
-                            Callback<Envelope<Event>> callback) {
-                        MSGraphEventsService.getEvents(getVersion(), callback);
+                    public void request(Callback<Envelope<Event>> callback) {
+                        //MSGraphEventsService.getEvents(getVersion(), callback);
                     }
                 },
 
@@ -63,12 +58,9 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<MSGraphEven
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/user_post_events
                  */
                 new EventsSnippets<Event>(create_event) {
-
                     @Override
-                    public void request(
-                            MSGraphEventsService MSGraphEventsService,
-                            Callback<Event> callback) {
-                        MSGraphEventsService.createNewEvent(getVersion(), createEvent(), callback);
+                    public void request(Callback<Event> callback) {
+                        //MSGraphEventsService.createNewEvent(getVersion(), createEvent(), callback);
                     }
 
                 },
@@ -78,35 +70,32 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<MSGraphEven
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/event_update
                  */
                 new EventsSnippets<Event>(update_event) {
-
                     @Override
-                    public void request(
-                            final MSGraphEventsService MSGraphEventsService,
-                            final Callback<Event> callback) {
+                    public void request(final Callback<Event> callback) {
                         // create a new event to update
-                        MSGraphEventsService.createNewEvent(
-                                getVersion(),
-                                createEvent(),
-                                new Callback<Event>() {
-                                    @Override
-                                    public void success(Event eventVO, Response response) {
-                                        // now that the event has been created,
-                                        // let's change the subject
-                                        Event amended = new Event();
-                                        amended.subject = "Weekly Sync Meeting";
-
-                                        MSGraphEventsService.updateEvent(
-                                                getVersion(),
-                                                eventVO.id,
-                                                amended,
-                                                callback);
-                                    }
-
-                                    @Override
-                                    public void failure(RetrofitError error) {
-                                        callback.failure(error);
-                                    }
-                                });
+//                        MSGraphEventsService.createNewEvent(
+//                                getVersion(),
+//                                createEvent(),
+//                                new Callback<Event>() {
+//                                    @Override
+//                                    public void success(Event eventVO, Response response) {
+//                                        // now that the event has been created,
+//                                        // let's change the subject
+//                                        Event amended = new Event();
+//                                        amended.subject = "Weekly Sync Meeting";
+//
+//                                        MSGraphEventsService.updateEvent(
+//                                                getVersion(),
+//                                                eventVO.id,
+//                                                amended,
+//                                                callback);
+//                                    }
+//
+//                                    @Override
+//                                    public void failure(RetrofitError error) {
+//                                        callback.failure(error);
+//                                    }
+//                                });
                     }
 
                 },
@@ -116,37 +105,34 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<MSGraphEven
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/event_delete
                  */
                 new EventsSnippets<Response>(delete_event) {
-
                     @Override
-                    public void request(
-                            final MSGraphEventsService MSGraphEventsService,
-                            final Callback<Response> callback) {
+                    public void request(final Callback<Response> callback) {
                         // create a new event to delete
-                        Event event = createEvent();
-                        MSGraphEventsService.createNewEvent(
-                                getVersion(),
-                                event,
-                                new Callback<Event>() {
-                                    @Override
-                                    public void success(Event eventVO, Response response) {
-                                        // event created, now let's delete it
-                                        MSGraphEventsService.deleteEvent(
-                                                getVersion(),
-                                                eventVO.id,
-                                                callback);
-                                    }
-
-                                    @Override
-                                    public void failure(RetrofitError error) {
-                                        callback.failure(error);
-                                    }
-                                });
+//                        Event event = createEvent();
+//                        MSGraphEventsService.createNewEvent(
+//                                getVersion(),
+//                                event,
+//                                new Callback<Event>() {
+//                                    @Override
+//                                    public void success(Event eventVO, Response response) {
+//                                        // event created, now let's delete it
+//                                        MSGraphEventsService.deleteEvent(
+//                                                getVersion(),
+//                                                eventVO.id,
+//                                                callback);
+//                                    }
+//
+//                                    @Override
+//                                    public void failure(RetrofitError error) {
+//                                        callback.failure(error);
+//                                    }
+//                                });
                     }
                 }
         };
     }
 
-    public abstract void request(MSGraphEventsService service, Callback<Result> callback);
+    public abstract void request(Callback<Result> callback);
 
     private static Event createEvent() {
         Event event = new Event();
