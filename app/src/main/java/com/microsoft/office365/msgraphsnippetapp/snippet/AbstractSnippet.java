@@ -104,7 +104,7 @@ public abstract class AbstractSnippet<Service, Result> {
         return mUrl;
     }
 
-    public boolean getIsAdminRequiredAdmin() {
+    public boolean getIsAdminRequired() {
         return mIsAdminRequired;
     }
 

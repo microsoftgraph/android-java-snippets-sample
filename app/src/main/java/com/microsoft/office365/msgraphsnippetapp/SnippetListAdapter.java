@@ -61,7 +61,7 @@ public class SnippetListAdapter extends BaseAdapter {
         if (!isSegment) {
             TextView adminIndicator = (TextView) convertView.findViewById(R.id.admin_indicator);
             if (adminIndicator != null) {
-                if (clickedSnippet.getIsAdminRequiredAdmin()) {
+                if (clickedSnippet.getIsAdminRequired()) {
                     //Admin account required
                     adminIndicator.setText(R.string.admin);
                     adminIndicator.setVisibility(View.VISIBLE);
