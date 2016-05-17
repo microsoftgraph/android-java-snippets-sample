@@ -4,20 +4,8 @@
  */
 package com.microsoft.office365.msgraphsnippetapp.snippet;
 
-import android.content.SharedPreferences;
-
+import com.google.gson.JsonObject;
 import com.microsoft.graph.concurrency.ICallback;
-import com.microsoft.office365.microsoftgraphvos.EmailAddress;
-import com.microsoft.office365.microsoftgraphvos.ItemBody;
-import com.microsoft.office365.microsoftgraphvos.Message;
-import com.microsoft.office365.microsoftgraphvos.MessageWrapper;
-import com.microsoft.office365.microsoftgraphvos.RecipientVO;
-import com.microsoft.office365.msgraphsnippetapp.R;
-import com.microsoft.office365.msgraphsnippetapp.application.SnippetApp;
-import com.microsoft.office365.msgraphsnippetapp.util.SharedPrefsUtil;
-
-import retrofit.Callback;
-import retrofit.client.Response;
 
 import static com.microsoft.office365.msgraphsnippetapp.R.array.get_user_messages;
 import static com.microsoft.office365.msgraphsnippetapp.R.array.send_an_email_message;
@@ -47,9 +35,9 @@ public abstract class MessageSnippets<Result> extends AbstractSnippet<Result> {
                  * HTTP GET https://graph.microsoft.com/{version}/me/messages
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/user_list_messages
                  */
-                new MessageSnippets<Response>(get_user_messages) {
+                new MessageSnippets<JsonObject>(get_user_messages) {
                     @Override
-                    public void request(ICallback<Response> callback) {
+                    public void request(ICallback<JsonObject> callback) {
 //                        service.getMail(
 //                                getVersion(),
 //                                callback);
@@ -60,9 +48,9 @@ public abstract class MessageSnippets<Result> extends AbstractSnippet<Result> {
                  * HTTP POST https://graph.microsoft.com/{version}/me/messages/sendMail
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/user_post_messages
                  */
-                new MessageSnippets<Response>(send_an_email_message) {
+                new MessageSnippets<JsonObject>(send_an_email_message) {
                     @Override
-                    public void request(ICallback<Response> callback) {
+                    public void request(ICallback<JsonObject> callback) {
                         // Get a context so we can interrogate Resources & SharedPreferences
 //                        SnippetApp app = SnippetApp.getApp();
 //                        SharedPreferences prefs = SharedPrefsUtil.getSharedPreferences();
@@ -85,41 +73,41 @@ public abstract class MessageSnippets<Result> extends AbstractSnippet<Result> {
     @Override
     public abstract void request(ICallback<Result> callback);
 
-    private static MessageWrapper createMessage(
-            String msgSubject,
-            String msgBody,
-            String... msgRecipients) {
-        Message msg = new Message();
-
-        // add the recipient
-        RecipientVO recipient;
-        for (int ii = 0; ii < msgRecipients.length; ii++) {
-            // if the recipient array does not exist, new one up
-            if (null == msg.toRecipients) {
-                msg.toRecipients = new RecipientVO[msgRecipients.length];
-            }
-            // allocate a new recipient
-            recipient = new RecipientVO();
-            // give them an email address
-            recipient.emailAddress = new EmailAddress();
-            // set that address to be the currently iterated-upon recipient string
-            recipient.emailAddress.address = msgRecipients[ii];
-            // add it to the array at the position
-            msg.toRecipients[ii] = recipient;
-        }
-
-        // set the subject
-        msg.subject = msgSubject;
-
-        // create the body
-        ItemBody body = new ItemBody();
-        body.contentType = ItemBody.CONTENT_TYPE_TEXT;
-        body.content = msgBody;
-        msg.body = body;
-
-        MessageWrapper wrapper = new MessageWrapper();
-        wrapper.message = msg;
-        wrapper.saveToSentItems = true;
-        return wrapper;
-    }
+//    private static MessageWrapper createMessage(
+//            String msgSubject,
+//            String msgBody,
+//            String... msgRecipients) {
+//        Message msg = new Message();
+//
+//        // add the recipient
+//        RecipientVO recipient;
+//        for (int ii = 0; ii < msgRecipients.length; ii++) {
+//            // if the recipient array does not exist, new one up
+//            if (null == msg.toRecipients) {
+//                msg.toRecipients = new RecipientVO[msgRecipients.length];
+//            }
+//            // allocate a new recipient
+//            recipient = new RecipientVO();
+//            // give them an email address
+//            recipient.emailAddress = new EmailAddress();
+//            // set that address to be the currently iterated-upon recipient string
+//            recipient.emailAddress.address = msgRecipients[ii];
+//            // add it to the array at the position
+//            msg.toRecipients[ii] = recipient;
+//        }
+//
+//        // set the subject
+//        msg.subject = msgSubject;
+//
+//        // create the body
+//        ItemBody body = new ItemBody();
+//        body.contentType = ItemBody.CONTENT_TYPE_TEXT;
+//        body.content = msgBody;
+//        msg.body = body;
+//
+//        MessageWrapper wrapper = new MessageWrapper();
+//        wrapper.message = msg;
+//        wrapper.saveToSentItems = true;
+//        return wrapper;
+//    }
 }

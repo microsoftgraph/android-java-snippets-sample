@@ -4,20 +4,8 @@
  */
 package com.microsoft.office365.msgraphsnippetapp.snippet;
 
+import com.google.gson.JsonObject;
 import com.microsoft.graph.concurrency.ICallback;
-import com.microsoft.office365.microsoftgraphvos.Attendee;
-import com.microsoft.office365.microsoftgraphvos.DateTimeTimeZone;
-import com.microsoft.office365.microsoftgraphvos.EmailAddress;
-import com.microsoft.office365.microsoftgraphvos.Envelope;
-import com.microsoft.office365.microsoftgraphvos.Event;
-import com.microsoft.office365.microsoftgraphvos.ItemBody;
-import com.microsoft.office365.microsoftgraphvos.Location;
-
-import org.joda.time.DateTime;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 import static com.microsoft.office365.msgraphsnippetapp.R.array.create_event;
 import static com.microsoft.office365.msgraphsnippetapp.R.array.delete_event;
@@ -46,9 +34,9 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
                  * GET https://graph.microsoft.com/{version}/me/events
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/user_list_events
                  */
-                new EventsSnippets<Envelope<Event>>(get_user_events) {
+                new EventsSnippets<JsonObject>(get_user_events) {
                     @Override
-                    public void request(ICallback<Envelope<Event>> callback) {
+                    public void request(ICallback<JsonObject> callback) {
                         //MSGraphEventsService.getEvents(getVersion(), callback);
                     }
                 },
@@ -58,9 +46,9 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
                  * POST https://graph.microsoft.com/{version}/me/events
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/user_post_events
                  */
-                new EventsSnippets<Event>(create_event) {
+                new EventsSnippets<JsonObject>(create_event) {
                     @Override
-                    public void request(ICallback<Event> callback) {
+                    public void request(ICallback<JsonObject> callback) {
                         //MSGraphEventsService.createNewEvent(getVersion(), createEvent(), callback);
                     }
 
@@ -70,9 +58,9 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
                  * PATCH https://graph.microsoft.com/{version}/me/events/{Event.Id}
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/event_update
                  */
-                new EventsSnippets<Event>(update_event) {
+                new EventsSnippets<JsonObject>(update_event) {
                     @Override
-                    public void request(final ICallback<Event> callback) {
+                    public void request(final ICallback<JsonObject> callback) {
                         // create a new event to update
 //                        MSGraphEventsService.createNewEvent(
 //                                getVersion(),
@@ -105,9 +93,9 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
                  * DELETE https://graph.microsoft.com/{version}/me/events/{Event.Id}
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/event_delete
                  */
-                new EventsSnippets<Response>(delete_event) {
+                new EventsSnippets<JsonObject>(delete_event) {
                     @Override
-                    public void request(final ICallback<Response> callback) {
+                    public void request(final ICallback<JsonObject> callback) {
                         // create a new event to delete
 //                        Event event = createEvent();
 //                        MSGraphEventsService.createNewEvent(
@@ -135,42 +123,41 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
 
     public abstract void request(ICallback<Result> callback);
 
-    private static Event createEvent() {
-        Event event = new Event();
-        event.subject = "Microsoft Graph API Discussion";
-
-        // set start time to now
-        DateTimeTimeZone start = new DateTimeTimeZone();
-        start.dateTime = DateTime.now().toString();
-        event.start = start;
-
-        // and end in 1 hr
-        DateTimeTimeZone end = new DateTimeTimeZone();
-        end.dateTime = DateTime.now().plusHours(1).toString();
-        event.end = end;
-
-        // set the timezone
-        start.timeZone = end.timeZone = "UTC";
-
-        // set a location
-        Location location = new Location();
-        location.displayName = "Bill's Office";
-        event.location = location;
-
-        // add attendees
-        Attendee attendee = new Attendee();
-        attendee.type = Attendee.TYPE_REQUIRED;
-        attendee.emailAddress = new EmailAddress();
-        attendee.emailAddress.address = "mara@fabrikam.com";
-        event.attendees = new Attendee[]{attendee};
-
-        // add a msg
-        ItemBody msg = new ItemBody();
-        msg.content = "Let's discuss the power of the Office 365 unified API.";
-        msg.contentType = ItemBody.CONTENT_TYPE_TEXT;
-        event.body = msg;
-
-        return event;
-    }
-
+//    private static Event createEvent() {
+//        Event event = new Event();
+//        event.subject = "Microsoft Graph API Discussion";
+//
+//        // set start time to now
+//        DateTimeTimeZone start = new DateTimeTimeZone();
+//        start.dateTime = DateTime.now().toString();
+//        event.start = start;
+//
+//        // and end in 1 hr
+//        DateTimeTimeZone end = new DateTimeTimeZone();
+//        end.dateTime = DateTime.now().plusHours(1).toString();
+//        event.end = end;
+//
+//        // set the timezone
+//        start.timeZone = end.timeZone = "UTC";
+//
+//        // set a location
+//        Location location = new Location();
+//        location.displayName = "Bill's Office";
+//        event.location = location;
+//
+//        // add attendees
+//        Attendee attendee = new Attendee();
+//        attendee.type = Attendee.TYPE_REQUIRED;
+//        attendee.emailAddress = new EmailAddress();
+//        attendee.emailAddress.address = "mara@fabrikam.com";
+//        event.attendees = new Attendee[]{attendee};
+//
+//        // add a msg
+//        ItemBody msg = new ItemBody();
+//        msg.content = "Let's discuss the power of the Office 365 unified API.";
+//        msg.contentType = ItemBody.CONTENT_TYPE_TEXT;
+//        event.body = msg;
+//
+//        return event;
+//    }
 }

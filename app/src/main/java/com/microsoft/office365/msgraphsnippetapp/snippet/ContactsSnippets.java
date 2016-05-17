@@ -4,10 +4,8 @@
  */
 package com.microsoft.office365.msgraphsnippetapp.snippet;
 
+import com.google.gson.JsonObject;
 import com.microsoft.graph.concurrency.ICallback;
-
-import retrofit.Callback;
-import retrofit.client.Response;
 
 import static com.microsoft.office365.msgraphsnippetapp.R.array.get_all_contacts;
 
@@ -33,9 +31,9 @@ public abstract class ContactsSnippets<Result> extends AbstractSnippet<Result> {
                  * HTTP GET https://graph.microsoft.com/{version}/myOrganization/contacts
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/user_list_contacts
                  */
-                new ContactsSnippets<Response>(get_all_contacts) {
+                new ContactsSnippets<JsonObject>(get_all_contacts) {
                     @Override
-                    public void request(ICallback<Response> callback) {
+                    public void request(ICallback<JsonObject> callback) {
                         //service.getContacts(getVersion(), callback);
                     }
                 }

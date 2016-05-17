@@ -7,12 +7,9 @@ package com.microsoft.office365.msgraphsnippetapp.snippet;
 import com.google.gson.JsonObject;
 import com.microsoft.graph.concurrency.ICallback;
 import com.microsoft.graph.core.ClientException;
-import com.microsoft.graph.options.Option;
-import com.microsoft.office365.msgraphsnippetapp.R;
 import com.microsoft.office365.msgraphsnippetapp.application.SnippetApp;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit.client.Header;
 import retrofit.client.Response;

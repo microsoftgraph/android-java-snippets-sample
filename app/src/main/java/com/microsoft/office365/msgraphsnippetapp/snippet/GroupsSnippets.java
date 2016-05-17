@@ -4,15 +4,8 @@
  */
 package com.microsoft.office365.msgraphsnippetapp.snippet;
 
+import com.google.gson.JsonObject;
 import com.microsoft.graph.concurrency.ICallback;
-import com.microsoft.office365.microsoftgraphvos.Envelope;
-import com.microsoft.office365.microsoftgraphvos.Group;
-
-import java.util.UUID;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 import static com.microsoft.office365.msgraphsnippetapp.R.array.delete_a_group;
 import static com.microsoft.office365.msgraphsnippetapp.R.array.get_a_group;
@@ -44,9 +37,9 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                  * GET https://graph.microsoft.com/{version}/myOrganization/groups/{Group.objectId}
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/group_get
                  */
-                new GroupsSnippets<Group>(get_a_group) {
+                new GroupsSnippets<JsonObject>(get_a_group) {
                     @Override
-                    public void request(final ICallback<Group> callback) {
+                    public void request(final ICallback<JsonObject> callback) {
                         // create a group then query it
 //                        service.createGroup(getVersion(), createGroup(), new Callback<Group>() {
 //                            @Override
@@ -66,9 +59,9 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                  * GET https://graph.microsoft.com/{version}/myOrganization/groups/{Group.objectId}/members
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/group_list_members
                  */
-                new GroupsSnippets<Response>(get_group_members) {
+                new GroupsSnippets<JsonObject>(get_group_members) {
                     @Override
-                    public void request(final ICallback<Response> callback) {
+                    public void request(final ICallback<JsonObject> callback) {
                         // create a group then ask for its members
 //                        service.createGroup(getVersion(), createGroup(), new Callback<Group>() {
 //                            @Override
@@ -92,9 +85,9 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                  * GET https://graph.microsoft.com/{version}/myOrganization/groups/{Group.objectId}/owners
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/group_list_owners
                  */
-                new GroupsSnippets<Response>(get_group_owners) {
+                new GroupsSnippets<JsonObject>(get_group_owners) {
                     @Override
-                    public void request(final ICallback<Response> callback) {
+                    public void request(final ICallback<JsonObject> callback) {
                         // create a group and then request its owner
 //                        service.createGroup(getVersion(), createGroup(), new Callback<Group>() {
 //                            @Override
@@ -117,9 +110,9 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                  * GET https://graph.microsoft.com/v1.0/groupshttps://graph.microsoft.com/v1.0/groups
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/group_list
                  */
-                new GroupsSnippets<Envelope<Group>>(get_all_groups) {
+                new GroupsSnippets<JsonObject>(get_all_groups) {
                     @Override
-                    public void request(ICallback<Envelope<Group>> callback) {
+                    public void request(ICallback<JsonObject> callback) {
 //                        service.getGroups(getVersion(), null, callback);
                     }
                 },
@@ -128,9 +121,9 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                  * POST https://graph.microsoft.com/{version}/myOrganization/groups
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/resources/group
                  */
-                new GroupsSnippets<Group>(insert_a_group) {
+                new GroupsSnippets<JsonObject>(insert_a_group) {
                     @Override
-                    public void request(ICallback<Group> callback) {
+                    public void request(ICallback<JsonObject> callback) {
 //                        service.createGroup(getVersion(), createGroup(), callback);
                     }
                 },
@@ -139,9 +132,9 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                  * PATCH https://graph.microsoft.com/{version}/myOrganization/groups/{Group.objectId}
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/group_update
                  */
-                new GroupsSnippets<Group>(update_a_group) {
+                new GroupsSnippets<JsonObject>(update_a_group) {
                     @Override
-                    public void request(final ICallback<Group> callback) {
+                    public void request(final ICallback<JsonObject> callback) {
                         //Create a group that we will update
 //                        service.createGroup(getVersion(), createGroup(), new Callback<Group>() {
 //
@@ -170,9 +163,9 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                  * DELETE https://graph.microsoft.com/{version}/myOrganization/groups/{Group.objectId}
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/group_delete
                  */
-                new GroupsSnippets<Response>(delete_a_group) {
+                new GroupsSnippets<JsonObject>(delete_a_group) {
                     @Override
-                    public void request(final ICallback<Response> callback) {
+                    public void request(final ICallback<JsonObject> callback) {
                         //Create a group that we will delete
 //                        service.createGroup(getVersion(), createGroup(), new Callback<Group>() {
 //
@@ -196,10 +189,10 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
     @Override
     public abstract void request(ICallback<Result> callback);
 
-    private static Group createGroup() {
-        Group group = new Group();
-        group.displayName = group.mailNickname = UUID.randomUUID().toString();
-        return group;
-    }
+//    private static Group createGroup() {
+//        Group group = new Group();
+//        group.displayName = group.mailNickname = UUID.randomUUID().toString();
+//        return group;
+//    }
 
 }
