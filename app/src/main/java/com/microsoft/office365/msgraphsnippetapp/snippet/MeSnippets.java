@@ -5,18 +5,9 @@
 package com.microsoft.office365.msgraphsnippetapp.snippet;
 
 import com.google.gson.JsonObject;
+import com.microsoft.graph.concurrency.ICallback;
 import com.microsoft.graph.core.ClientException;
-import com.microsoft.graph.options.Option;
-import com.microsoft.office365.msgraphapiservices.MSGraphMeService;
-import com.microsoft.office365.msgraphsnippetapp.R;
 import com.microsoft.office365.msgraphsnippetapp.application.SnippetApp;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import retrofit.Callback;
-import retrofit.client.Header;
-import retrofit.client.Response;
 
 import static com.microsoft.office365.msgraphsnippetapp.R.array.get_me;
 import static com.microsoft.office365.msgraphsnippetapp.R.array.get_me_direct_reports;
@@ -25,7 +16,7 @@ import static com.microsoft.office365.msgraphsnippetapp.R.array.get_me_manager;
 import static com.microsoft.office365.msgraphsnippetapp.R.array.get_me_photo;
 import static com.microsoft.office365.msgraphsnippetapp.R.array.get_me_responsibilities;
 
-public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeService, Result> {
+public abstract class MeSnippets<Result> extends AbstractSnippet<Result> {
     /**
      * Snippet constructor
      *
@@ -40,7 +31,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                 // Marker element
                 new MeSnippets(null) {
                     @Override
-                    public void request(MSGraphMeService service, Callback callback) {
+                    public void request(ICallback callback) {
                         // Not implemented
                     }
                 },
@@ -52,7 +43,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                  */
                 new MeSnippets<JsonObject>(get_me) {
                     @Override
-                    public void request(MSGraphMeService service, final Callback<JsonObject> callback) {
+                    public void request(final ICallback<JsonObject> callback) {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -60,9 +51,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
 
                                 try {
                                     result = SnippetApp.getApp().getGraphServiceClient().getMe().buildRequest().get().getRawObject();
-                                    Response response = new Response("getGraphServiceClient()\n    .getMe()\n    .buildRequest()\n    .get();", 200, "The stuff worked!", new ArrayList<Header>(), null);
-
-                                    callback.success(result, response);
+                                    callback.success(result);
                                 } catch (ClientException clientException) {
                                     //callback.failure();
                                 }
@@ -77,7 +66,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                  */
                 new MeSnippets<JsonObject>(get_me_responsibilities) {
                     @Override
-                    public void request(MSGraphMeService service, final Callback<JsonObject> callback) {
+                    public void request(final ICallback<JsonObject> callback) {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -89,9 +78,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                                 // Note the $select clause is missing the '$'
                                 try {
                                     result = SnippetApp.getApp().getGraphServiceClient().getMe().buildRequest().select("AboutMe,Responsibilities,Tags").get().getRawObject();
-                                    Response response = new Response("the test", 200, "The stuff worked!", new ArrayList<Header>(), null);
-
-                                    callback.success(result, response);
+                                    callback.success(result);
                                 } catch (ClientException clientException) {
                                     clientException.getCause();
                                 }
@@ -106,7 +93,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                  */
                 new MeSnippets<JsonObject>(get_me_manager) {
                     @Override
-                    public void request(MSGraphMeService service, final Callback<JsonObject> callback) {
+                    public void request(final ICallback<JsonObject> callback) {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -114,9 +101,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
 
                                 try {
                                     result = SnippetApp.getApp().getGraphServiceClient().getMe().getManager().buildRequest().get().getRawObject();
-                                    Response response = new Response("the test", 200, "The stuff worked!", new ArrayList<Header>(), null);
-
-                                    callback.success(result, response);
+                                    callback.success(result);
                                 } catch (ClientException clientException) {
                                     clientException.getCause();
                                 }
@@ -131,7 +116,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                  */
                 new MeSnippets<JsonObject>(get_me_direct_reports) {
                     @Override
-                    public void request(MSGraphMeService service, final Callback<JsonObject> callback) {
+                    public void request(final ICallback<JsonObject> callback) {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -139,9 +124,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
 
                                 try {
                                     result = SnippetApp.getApp().getGraphServiceClient().getMe().getDirectReports().buildRequest().get().getRawObject();
-                                    Response response = new Response("the test", 200, "The stuff worked!", new ArrayList<Header>(), null);
-
-                                    callback.success(result, response);
+                                    callback.success(result);
                                 } catch (ClientException clientException) {
                                     //callback.failure();
                                 }
@@ -156,7 +139,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                  */
                 new MeSnippets<JsonObject>(get_me_group_membership) {
                     @Override
-                    public void request(MSGraphMeService service, final Callback<JsonObject> callback) {
+                    public void request(final ICallback<JsonObject> callback) {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -165,9 +148,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                                 try {
                                     // TODO: Feedback for SDK - getGetMemberGroups seems odd. Also, why do we have to use a post to retrieve data?
                                     result = SnippetApp.getApp().getGraphServiceClient().getMe().getMemberOf().buildRequest().get().getRawObject();
-                                    Response response = new Response("the test", 200, "The stuff worked!", new ArrayList<Header>(), null);
-
-                                    callback.success(result, response);
+                                    callback.success(result);
                                 } catch (ClientException clientException) {
                                     //callback.failure();
                                     clientException.getCause();
@@ -183,7 +164,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
                  */
                 new MeSnippets<JsonObject>(get_me_photo) {
                     @Override
-                    public void request(MSGraphMeService service, final Callback<JsonObject> callback) {
+                    public void request(final ICallback<JsonObject> callback) {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -191,9 +172,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
 
                                 try {
                                     result = SnippetApp.getApp().getGraphServiceClient().getMe().getPhoto().buildRequest().get().getRawObject();
-                                    Response response = new Response("the test", 200, "The stuff worked!", new ArrayList<Header>(), null);
-
-                                    callback.success(result, response);
+                                    callback.success(result);
                                 } catch (ClientException clientException) {
                                     clientException.getCause();
                                 }
@@ -205,6 +184,6 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<MSGraphMeServic
     }
 
     @Override
-    public abstract void request(MSGraphMeService service, Callback<Result> callback);
+    public abstract void request(ICallback<Result> callback);
 
 }

@@ -4,15 +4,8 @@
  */
 package com.microsoft.office365.msgraphsnippetapp.snippet;
 
-import com.microsoft.office365.microsoftgraphvos.Envelope;
-import com.microsoft.office365.microsoftgraphvos.Group;
-import com.microsoft.office365.msgraphapiservices.MSGraphGroupsService;
-
-import java.util.UUID;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import com.google.gson.JsonObject;
+import com.microsoft.graph.concurrency.ICallback;
 
 import static com.microsoft.office365.msgraphsnippetapp.R.array.delete_a_group;
 import static com.microsoft.office365.msgraphsnippetapp.R.array.get_a_group;
@@ -22,7 +15,7 @@ import static com.microsoft.office365.msgraphsnippetapp.R.array.get_group_owners
 import static com.microsoft.office365.msgraphsnippetapp.R.array.insert_a_group;
 import static com.microsoft.office365.msgraphsnippetapp.R.array.update_a_group;
 
-public abstract class GroupsSnippets<Result> extends AbstractSnippet<MSGraphGroupsService, Result> {
+public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
 
     public GroupsSnippets(Integer descriptionArray) {
         super(SnippetCategory.groupSnippetCategory, descriptionArray);
@@ -33,7 +26,7 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<MSGraphGrou
                 // Marker element
                 new GroupsSnippets(null) {
                     @Override
-                    public void request(MSGraphGroupsService service, Callback callback) {
+                    public void request(ICallback callback) {
                         // Not implemented
                     }
                 },
@@ -44,49 +37,47 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<MSGraphGrou
                  * GET https://graph.microsoft.com/{version}/myOrganization/groups/{Group.objectId}
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/group_get
                  */
-                new GroupsSnippets<Group>(get_a_group) {
+                new GroupsSnippets<JsonObject>(get_a_group) {
                     @Override
-                    public void request(final MSGraphGroupsService service,
-                                        final Callback<Group> callback) {
+                    public void request(final ICallback<JsonObject> callback) {
                         // create a group then query it
-                        service.createGroup(getVersion(), createGroup(), new Callback<Group>() {
-                            @Override
-                            public void success(Group groupVO, Response response) {
-                                // request the newly created group
-                                service.getGroup(getVersion(), groupVO.id, callback);
-                            }
-
-                            @Override
-                            public void failure(RetrofitError error) {
-                                callback.failure(error);
-                            }
-                        });
+//                        service.createGroup(getVersion(), createGroup(), new Callback<Group>() {
+//                            @Override
+//                            public void success(Group groupVO, Response response) {
+//                                // request the newly created group
+//                                service.getGroup(getVersion(), groupVO.id, callback);
+//                            }
+//
+//                            @Override
+//                            public void failure(RetrofitError error) {
+//                                callback.failure(error);
+//                            }
+//                        });
                     }
                 },
                 /* Get all of the members of a newly created organization group
                  * GET https://graph.microsoft.com/{version}/myOrganization/groups/{Group.objectId}/members
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/group_list_members
                  */
-                new GroupsSnippets<Response>(get_group_members) {
+                new GroupsSnippets<JsonObject>(get_group_members) {
                     @Override
-                    public void request(final MSGraphGroupsService service,
-                                        final Callback<Response> callback) {
+                    public void request(final ICallback<JsonObject> callback) {
                         // create a group then ask for its members
-                        service.createGroup(getVersion(), createGroup(), new Callback<Group>() {
-                            @Override
-                            public void success(Group groupVO, Response response) {
-                                service.getGroupEntities(
-                                        getVersion(),
-                                        groupVO.id,
-                                        "members",
-                                        callback);
-                            }
-
-                            @Override
-                            public void failure(RetrofitError error) {
-                                callback.failure(error);
-                            }
-                        });
+//                        service.createGroup(getVersion(), createGroup(), new Callback<Group>() {
+//                            @Override
+//                            public void success(Group groupVO, Response response) {
+//                                service.getGroupEntities(
+//                                        getVersion(),
+//                                        groupVO.id,
+//                                        "members",
+//                                        callback);
+//                            }
+//
+//                            @Override
+//                            public void failure(RetrofitError error) {
+//                                callback.failure(error);
+//                            }
+//                        });
                     }
                 },
 
@@ -94,37 +85,35 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<MSGraphGrou
                  * GET https://graph.microsoft.com/{version}/myOrganization/groups/{Group.objectId}/owners
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/group_list_owners
                  */
-                new GroupsSnippets<Response>(get_group_owners) {
+                new GroupsSnippets<JsonObject>(get_group_owners) {
                     @Override
-                    public void request(final MSGraphGroupsService service,
-                                        final Callback<Response> callback) {
+                    public void request(final ICallback<JsonObject> callback) {
                         // create a group and then request its owner
-                        service.createGroup(getVersion(), createGroup(), new Callback<Group>() {
-                            @Override
-                            public void success(Group groupVO, Response response) {
-                                service.getGroupEntities(
-                                        getVersion(),
-                                        groupVO.id,
-                                        "owners",
-                                        callback);
-                            }
-
-                            @Override
-                            public void failure(RetrofitError error) {
-                                callback.failure(error);
-                            }
-                        });
+//                        service.createGroup(getVersion(), createGroup(), new Callback<Group>() {
+//                            @Override
+//                            public void success(Group groupVO, Response response) {
+//                                service.getGroupEntities(
+//                                        getVersion(),
+//                                        groupVO.id,
+//                                        "owners",
+//                                        callback);
+//                            }
+//
+//                            @Override
+//                            public void failure(RetrofitError error) {
+//                                callback.failure(error);
+//                            }
+//                        });
                     }
                 },
                 /* List all organization groups
                  * GET https://graph.microsoft.com/v1.0/groupshttps://graph.microsoft.com/v1.0/groups
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/group_list
                  */
-                new GroupsSnippets<Envelope<Group>>(get_all_groups) {
+                new GroupsSnippets<JsonObject>(get_all_groups) {
                     @Override
-                    public void request(MSGraphGroupsService service,
-                                        Callback<Envelope<Group>> callback) {
-                        service.getGroups(getVersion(), null, callback);
+                    public void request(ICallback<JsonObject> callback) {
+//                        service.getGroups(getVersion(), null, callback);
                     }
                 },
 
@@ -132,12 +121,10 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<MSGraphGrou
                  * POST https://graph.microsoft.com/{version}/myOrganization/groups
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/resources/group
                  */
-                new GroupsSnippets<Group>(insert_a_group) {
-
+                new GroupsSnippets<JsonObject>(insert_a_group) {
                     @Override
-                    public void request(final MSGraphGroupsService service,
-                                        Callback<Group> callback) {
-                        service.createGroup(getVersion(), createGroup(), callback);
+                    public void request(ICallback<JsonObject> callback) {
+//                        service.createGroup(getVersion(), createGroup(), callback);
                     }
                 },
 
@@ -145,32 +132,30 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<MSGraphGrou
                  * PATCH https://graph.microsoft.com/{version}/myOrganization/groups/{Group.objectId}
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/group_update
                  */
-                new GroupsSnippets<Group>(update_a_group) {
-
+                new GroupsSnippets<JsonObject>(update_a_group) {
                     @Override
-                    public void request(final MSGraphGroupsService service,
-                                        final Callback<Group> callback) {
+                    public void request(final ICallback<JsonObject> callback) {
                         //Create a group that we will update
-                        service.createGroup(getVersion(), createGroup(), new Callback<Group>() {
-
-                            @Override
-                            public void success(Group group, Response response) {
-                                Group amended = new Group();
-                                amended.displayName = "A renamed group";
-                                //Update the group we created
-                                service.updateGroup(
-                                        getVersion(),
-                                        group.id,
-                                        amended,
-                                        callback);
-                            }
-
-                            @Override
-                            public void failure(RetrofitError error) {
-                                //pass along error to original callback
-                                callback.failure(error);
-                            }
-                        });
+//                        service.createGroup(getVersion(), createGroup(), new Callback<Group>() {
+//
+//                            @Override
+//                            public void success(Group group, Response response) {
+//                                Group amended = new Group();
+//                                amended.displayName = "A renamed group";
+//                                //Update the group we created
+//                                service.updateGroup(
+//                                        getVersion(),
+//                                        group.id,
+//                                        amended,
+//                                        callback);
+//                            }
+//
+//                            @Override
+//                            public void failure(RetrofitError error) {
+//                                //pass along error to original callback
+//                                callback.failure(error);
+//                            }
+//                        });
                     }
                 },
 
@@ -178,38 +163,36 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<MSGraphGrou
                  * DELETE https://graph.microsoft.com/{version}/myOrganization/groups/{Group.objectId}
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/group_delete
                  */
-                new GroupsSnippets<Response>(delete_a_group) {
-
+                new GroupsSnippets<JsonObject>(delete_a_group) {
                     @Override
-                    public void request(final MSGraphGroupsService service,
-                                        final Callback<Response> callback) {
+                    public void request(final ICallback<JsonObject> callback) {
                         //Create a group that we will delete
-                        service.createGroup(getVersion(), createGroup(), new Callback<Group>() {
-
-                            @Override
-                            public void success(Group group, Response response) {
-                                //Delete the group we created
-                                service.deleteGroup(getVersion(), group.id, callback);
-                            }
-
-                            @Override
-                            public void failure(RetrofitError error) {
-                                //pass along error to original callback
-                                callback.failure(error);
-                            }
-                        });
+//                        service.createGroup(getVersion(), createGroup(), new Callback<Group>() {
+//
+//                            @Override
+//                            public void success(Group group, Response response) {
+//                                //Delete the group we created
+//                                service.deleteGroup(getVersion(), group.id, callback);
+//                            }
+//
+//                            @Override
+//                            public void failure(RetrofitError error) {
+//                                //pass along error to original callback
+//                                callback.failure(error);
+//                            }
+//                        });
                     }
                 }
         };
     }
 
     @Override
-    public abstract void request(MSGraphGroupsService service, Callback<Result> callback);
+    public abstract void request(ICallback<Result> callback);
 
-    private static Group createGroup() {
-        Group group = new Group();
-        group.displayName = group.mailNickname = UUID.randomUUID().toString();
-        return group;
-    }
+//    private static Group createGroup() {
+//        Group group = new Group();
+//        group.displayName = group.mailNickname = UUID.randomUUID().toString();
+//        return group;
+//    }
 
 }

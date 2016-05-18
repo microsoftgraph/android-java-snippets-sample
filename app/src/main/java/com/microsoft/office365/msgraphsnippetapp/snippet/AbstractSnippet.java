@@ -5,17 +5,11 @@
 package com.microsoft.office365.msgraphsnippetapp.snippet;
 
 import com.microsoft.graph.concurrency.ICallback;
-import com.microsoft.graph.core.DefaultClientConfig;
-import com.microsoft.graph.core.IClientConfig;
-import com.microsoft.graph.extensions.GraphServiceClient;
-import com.microsoft.graph.extensions.IGraphServiceClient;
 import com.microsoft.office365.msgraphsnippetapp.application.SnippetApp;
-
-import retrofit.Callback;
 
 import static com.microsoft.office365.msgraphsnippetapp.R.string.beta;
 
-public abstract class AbstractSnippet<Service, Result> {
+public abstract class AbstractSnippet<Result> {
 
     private static final int mNameIndex = 0;
     private static final int mDescIndex = 1;
@@ -24,7 +18,6 @@ public abstract class AbstractSnippet<Service, Result> {
     private static final int mIsAdminRequiredIndex = 4;
     private static final int mCodeSnippetIndex = 5;
 
-    public final Service mService;
     boolean mIsAdminRequired;
     private String mName, mDesc, mUrl, mO365Version, mCodeSnippet;
 
@@ -35,13 +28,11 @@ public abstract class AbstractSnippet<Service, Result> {
      * @param descriptionArray The String array for the specified snippet
      */
     public AbstractSnippet(
-            SnippetCategory<Service> category,
+            SnippetCategory category,
             Integer descriptionArray) {
         //Get snippet configuration information from the
         //XML configuration for the snippet
         getSnippetArrayContent(category, descriptionArray);
-
-        mService = category.mService;
     }
 
 
@@ -52,7 +43,7 @@ public abstract class AbstractSnippet<Service, Result> {
      * @param category         Snippet category as corresponds to UI displayed sections (organization, me, groups, etc...)
      * @param descriptionArray The String array for the specified snippet
      */
-    private void getSnippetArrayContent(SnippetCategory<Service> category, Integer descriptionArray) {
+    private void getSnippetArrayContent(SnippetCategory category, Integer descriptionArray) {
         if (null != descriptionArray) {
             String[] params = SnippetApp.getApp().getResources().getStringArray(descriptionArray);
 
@@ -112,5 +103,5 @@ public abstract class AbstractSnippet<Service, Result> {
         return mIsAdminRequired;
     }
 
-    public abstract void request(Service service, Callback<Result> callback);
+    public abstract void request(ICallback<Result> callback);
 }

@@ -4,14 +4,12 @@
  */
 package com.microsoft.office365.msgraphsnippetapp.snippet;
 
-import com.microsoft.office365.msgraphapiservices.MSGraphContactService;
-
-import retrofit.Callback;
-import retrofit.client.Response;
+import com.google.gson.JsonObject;
+import com.microsoft.graph.concurrency.ICallback;
 
 import static com.microsoft.office365.msgraphsnippetapp.R.array.get_all_contacts;
 
-public abstract class ContactsSnippets<Result> extends AbstractSnippet<MSGraphContactService, Result> {
+public abstract class ContactsSnippets<Result> extends AbstractSnippet<Result> {
 
     public ContactsSnippets(Integer descriptionArray) {
         super(SnippetCategory.contactSnippetCategory, descriptionArray);
@@ -23,7 +21,7 @@ public abstract class ContactsSnippets<Result> extends AbstractSnippet<MSGraphCo
                 // Marker element
                 new ContactsSnippets(null) {
                     @Override
-                    public void request(MSGraphContactService service, Callback callback) {
+                    public void request(ICallback callback) {
                         // Not implemented
                     }
                 },
@@ -33,16 +31,16 @@ public abstract class ContactsSnippets<Result> extends AbstractSnippet<MSGraphCo
                  * HTTP GET https://graph.microsoft.com/{version}/myOrganization/contacts
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/user_list_contacts
                  */
-                new ContactsSnippets<Response>(get_all_contacts) {
+                new ContactsSnippets<JsonObject>(get_all_contacts) {
                     @Override
-                    public void request(MSGraphContactService service, Callback<Response> callback) {
-                        service.getContacts(getVersion(), callback);
+                    public void request(ICallback<JsonObject> callback) {
+                        //service.getContacts(getVersion(), callback);
                     }
                 }
         };
     }
 
     @Override
-    public abstract void request(MSGraphContactService service, Callback<Result> callback);
+    public abstract void request(ICallback<Result> callback);
 
 }

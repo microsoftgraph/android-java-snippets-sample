@@ -24,26 +24,17 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.microsoft.graph.concurrency.ICallback;
+import com.microsoft.graph.core.ClientException;
 import com.microsoft.office365.msgraphsnippetapp.snippet.AbstractSnippet;
 import com.microsoft.office365.msgraphsnippetapp.snippet.SnippetContent;
 
-import org.apache.commons.io.IOUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Header;
-import retrofit.client.Response;
 import timber.log.Timber;
 
 import static android.view.View.GONE;
@@ -51,7 +42,6 @@ import static android.view.View.VISIBLE;
 import static com.microsoft.office365.msgraphsnippetapp.R.color.code_1xx;
 import static com.microsoft.office365.msgraphsnippetapp.R.color.code_3xx;
 import static com.microsoft.office365.msgraphsnippetapp.R.color.code_4xx;
-import static com.microsoft.office365.msgraphsnippetapp.R.color.transparent;
 import static com.microsoft.office365.msgraphsnippetapp.R.id.btn_run;
 import static com.microsoft.office365.msgraphsnippetapp.R.id.progressbar;
 import static com.microsoft.office365.msgraphsnippetapp.R.id.txt_desc;
@@ -66,14 +56,14 @@ import static com.microsoft.office365.msgraphsnippetapp.R.string.raw_object;
 import static com.microsoft.office365.msgraphsnippetapp.R.string.response_headers;
 
 public class SnippetDetailFragment<T, Result>
-        extends BaseFragment implements Callback<Result> {
+        extends BaseFragment implements ICallback<Result> {
 
     public static final String ARG_ITEM_ID = "item_id";
 
     private static final int UNSET = -1;
     private static final String STATUS_COLOR = "STATUS_COLOR";
 
-    private AbstractSnippet<T, Result> mItem;
+    private AbstractSnippet<Result> mItem;
 
     //
     // UI component bindings
@@ -161,16 +151,13 @@ public class SnippetDetailFragment<T, Result>
         mResponseBody.setText("");
 
         // reset the status 'stoplight'
-        displayStatus("",
-                getResources()
-                        .getColor(transparent)
-        );
+        displayStatus(getResources().getColor(code_3xx));
 
         // show the indeterminate spinner
         mProgressbar.setVisibility(VISIBLE);
 
         // actually make the request
-        mItem.request(mItem.mService, this);
+        mItem.request(this);
     }
 
     @OnClick(txt_hyperlink)
@@ -185,7 +172,7 @@ public class SnippetDetailFragment<T, Result>
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            mItem = (AbstractSnippet<T, Result>)
+            mItem = (AbstractSnippet<Result>)
                     SnippetContent.ITEMS.get(getArguments().getInt(ARG_ITEM_ID));
         }
     }
@@ -230,7 +217,7 @@ public class SnippetDetailFragment<T, Result>
     // Custom event bindings
     //
     @Override
-    public void success(final Result result, final Response response) {
+    public void success(final Result result) {
         if (!isAdded()) {
             // the user has left...
             return;
@@ -242,8 +229,9 @@ public class SnippetDetailFragment<T, Result>
                     public void run() {
                         mRunButton.setEnabled(true);
                         mProgressbar.setVisibility(GONE);
-                        displayResponse(response);
-                        // TODO: This call has to go in displayResponse
+                        int color = code_1xx;
+                        mStatusColor.setBackgroundColor(getResources().getColor(color));
+                        mStatusColor.setTag(getResources().getColor(color));
                         Gson gson = new GsonBuilder().setPrettyPrinting().create();
                         mResponseBody.setText(gson.toJson(result));
                     }
@@ -252,13 +240,14 @@ public class SnippetDetailFragment<T, Result>
     }
 
     @Override
-    public void failure(RetrofitError error) {
+    public void failure(final ClientException error) {
         Timber.e(error, "");
         mRunButton.setEnabled(true);
         mProgressbar.setVisibility(GONE);
-        if (null != error.getResponse()) {
-            displayResponse(error.getResponse());
-        }
+        int color = code_4xx;
+        mStatusColor.setBackgroundColor(getResources().getColor(color));
+        mStatusColor.setTag(getResources().getColor(color));
+        mResponseBody.setText(error.getLocalizedMessage());
     }
 
     //
@@ -323,53 +312,7 @@ public class SnippetDetailFragment<T, Result>
         startActivity(viewDocs);
     }
 
-    private void displayResponse(Response response) {
-        int color = getColor(response);
-        displayStatus(Integer.toString(response.getStatus()), getResources().getColor(color));
-        maybeDisplayResponseHeaders(response);
-        maybeDisplayResponseBody(response);
-    }
-
-    private void maybeDisplayResponseBody(Response response) {
-        if (null != response.getBody()) {
-            String body = null;
-            InputStream is = null;
-            try {
-                is = response.getBody().in();
-                body = IOUtils.toString(is);
-                String formattedJson = new JSONObject(body).toString(2);
-                mResponseBody.setText(formattedJson);
-            } catch (JSONException e) {
-                if (null != body) {
-                    // body wasn't JSON
-                    mResponseBody.setText(body);
-                } else {
-                    // set the stack trace as the response body
-                    displayThrowable(e);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                displayThrowable(e);
-            } finally {
-                if (null != is) {
-                    IOUtils.closeQuietly(is);
-                }
-            }
-        }
-    }
-
-    private void maybeDisplayResponseHeaders(Response response) {
-        if (null != response.getHeaders()) {
-            List<Header> headers = response.getHeaders();
-            String headerText = "";
-            for (Header header : headers) {
-                headerText += header.getName() + " : " + header.getValue() + "\n";
-            }
-            mResponseHeaders.setText(headerText);
-        }
-    }
-
-    private void displayStatus(String text, int color) {
+    private void displayStatus(int color) {
         mStatusColor.setBackgroundColor(color);
         mStatusColor.setTag(color);
     }
@@ -381,25 +324,4 @@ public class SnippetDetailFragment<T, Result>
         String trace = sw.toString();
         mResponseBody.setText(trace);
     }
-
-    private int getColor(Response response) {
-        int color;
-        switch (response.getStatus() / 100) {
-            case 1:
-            case 2:
-                color = code_1xx;
-                break;
-            case 3:
-                color = code_3xx;
-                break;
-            case 4:
-            case 5:
-                color = code_4xx;
-                break;
-            default:
-                color = transparent;
-        }
-        return color;
-    }
-
 }

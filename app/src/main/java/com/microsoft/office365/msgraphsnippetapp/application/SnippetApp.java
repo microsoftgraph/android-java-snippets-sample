@@ -17,8 +17,6 @@ import com.microsoft.office365.msgraphsnippetapp.inject.AppModule;
 import javax.inject.Inject;
 
 import dagger.ObjectGraph;
-import retrofit.RequestInterceptor;
-import retrofit.RestAdapter;
 import timber.log.Timber;
 
 public class SnippetApp extends Application {
@@ -36,12 +34,6 @@ public class SnippetApp extends Application {
     protected String endpoint;
 
     @Inject
-    protected RestAdapter.LogLevel logLevel;
-
-    @Inject
-    protected RequestInterceptor requestInterceptor;
-
-    @Inject
     protected IAuthenticationProvider authenticationProvider;
 
     public static SnippetApp getApp() {
@@ -57,14 +49,6 @@ public class SnippetApp extends Application {
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         }
-    }
-
-    public RestAdapter getRestAdapter() {
-        return new RestAdapter.Builder()
-                .setEndpoint(endpoint)
-                .setLogLevel(logLevel)
-                .setRequestInterceptor(requestInterceptor)
-                .build();
     }
 
     public IGraphServiceClient getGraphServiceClient() {
