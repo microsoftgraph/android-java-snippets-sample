@@ -41,8 +41,4 @@ public class SnippetCategory {
     SnippetCategory(int sectionId) {
         mSection = SnippetApp.getApp().getString(sectionId);
     }
-
-    private static <T> T create(Class<T> clazz) {
-        return SnippetApp.getApp().getRestAdapter().create(clazz);
-    }
 }

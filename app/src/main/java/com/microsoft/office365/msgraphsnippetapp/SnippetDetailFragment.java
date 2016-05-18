@@ -29,21 +29,12 @@ import com.microsoft.graph.core.ClientException;
 import com.microsoft.office365.msgraphsnippetapp.snippet.AbstractSnippet;
 import com.microsoft.office365.msgraphsnippetapp.snippet.SnippetContent;
 
-import org.apache.commons.io.IOUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import retrofit.client.Header;
-import retrofit.client.Response;
 import timber.log.Timber;
 
 import static android.view.View.GONE;
@@ -51,7 +42,6 @@ import static android.view.View.VISIBLE;
 import static com.microsoft.office365.msgraphsnippetapp.R.color.code_1xx;
 import static com.microsoft.office365.msgraphsnippetapp.R.color.code_3xx;
 import static com.microsoft.office365.msgraphsnippetapp.R.color.code_4xx;
-import static com.microsoft.office365.msgraphsnippetapp.R.color.transparent;
 import static com.microsoft.office365.msgraphsnippetapp.R.id.btn_run;
 import static com.microsoft.office365.msgraphsnippetapp.R.id.progressbar;
 import static com.microsoft.office365.msgraphsnippetapp.R.id.txt_desc;
@@ -322,50 +312,6 @@ public class SnippetDetailFragment<T, Result>
         startActivity(viewDocs);
     }
 
-    private void displayResponse(Response response) {
-        //maybeDisplayResponseHeaders(response);
-        //maybeDisplayResponseBody(response);
-    }
-
-    private void maybeDisplayResponseBody(Response response) {
-        if (null != response.getBody()) {
-            String body = null;
-            InputStream is = null;
-            try {
-                is = response.getBody().in();
-                body = IOUtils.toString(is);
-                String formattedJson = new JSONObject(body).toString(2);
-                mResponseBody.setText(formattedJson);
-            } catch (JSONException e) {
-                if (null != body) {
-                    // body wasn't JSON
-                    mResponseBody.setText(body);
-                } else {
-                    // set the stack trace as the response body
-                    displayThrowable(e);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                displayThrowable(e);
-            } finally {
-                if (null != is) {
-                    IOUtils.closeQuietly(is);
-                }
-            }
-        }
-    }
-
-    private void maybeDisplayResponseHeaders(Response response) {
-        if (null != response.getHeaders()) {
-            List<Header> headers = response.getHeaders();
-            String headerText = "";
-            for (Header header : headers) {
-                headerText += header.getName() + " : " + header.getValue() + "\n";
-            }
-            mResponseHeaders.setText(headerText);
-        }
-    }
-
     private void displayStatus(int color) {
         mStatusColor.setBackgroundColor(color);
         mStatusColor.setTag(color);
@@ -378,25 +324,4 @@ public class SnippetDetailFragment<T, Result>
         String trace = sw.toString();
         mResponseBody.setText(trace);
     }
-
-    private int getColor(Response response) {
-        int color;
-        switch (response.getStatus() / 100) {
-            case 1:
-            case 2:
-                color = code_1xx;
-                break;
-            case 3:
-                color = code_3xx;
-                break;
-            case 4:
-            case 5:
-                color = code_4xx;
-                break;
-            default:
-                color = transparent;
-        }
-        return color;
-    }
-
 }
