@@ -6,7 +6,6 @@ package com.microsoft.office365.msgraphsnippetapp.snippet;
 
 import com.microsoft.office365.msgraphsnippetapp.application.SnippetApp;
 
-import static com.microsoft.office365.msgraphsnippetapp.R.string.section_contacts;
 import static com.microsoft.office365.msgraphsnippetapp.R.string.section_drives;
 import static com.microsoft.office365.msgraphsnippetapp.R.string.section_events;
 import static com.microsoft.office365.msgraphsnippetapp.R.string.section_groups;
@@ -15,9 +14,6 @@ import static com.microsoft.office365.msgraphsnippetapp.R.string.section_message
 import static com.microsoft.office365.msgraphsnippetapp.R.string.section_user;
 
 public class SnippetCategory {
-    static final SnippetCategory contactSnippetCategory
-            = new SnippetCategory(section_contacts);
-
     static final SnippetCategory eventsSnippetCategory
             = new SnippetCategory(section_events);
 
