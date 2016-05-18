@@ -7,19 +7,16 @@ package com.microsoft.office365.msgraphsnippetapp.snippet;
 import com.microsoft.graph.concurrency.ICallback;
 import com.microsoft.office365.msgraphsnippetapp.application.SnippetApp;
 
-import static com.microsoft.office365.msgraphsnippetapp.R.string.beta;
-
 public abstract class AbstractSnippet<Result> {
 
     private static final int mNameIndex = 0;
     private static final int mDescIndex = 1;
     private static final int mUrlIndex = 2;
-    private static final int mO365VersionIndex = 3;
-    private static final int mIsAdminRequiredIndex = 4;
-    private static final int mCodeSnippetIndex = 5;
+    private static final int mIsAdminRequiredIndex = 3;
+    private static final int mCodeSnippetIndex = 4;
 
     boolean mIsAdminRequired;
-    private String mName, mDesc, mUrl, mO365Version, mCodeSnippet;
+    private String mName, mDesc, mUrl, mCodeSnippet;
 
     /**
      * Snippet constructor
@@ -51,7 +48,6 @@ public abstract class AbstractSnippet<Result> {
                 mName = params[mNameIndex];
                 mDesc = params[mDescIndex];
                 mUrl = params[mUrlIndex];
-                mO365Version = params[mO365VersionIndex];
                 mCodeSnippet = params[mCodeSnippetIndex];
                 String isAdminRequired = params[mIsAdminRequiredIndex];
                 mIsAdminRequired = isAdminRequired.equalsIgnoreCase("true");
@@ -65,24 +61,7 @@ public abstract class AbstractSnippet<Result> {
         } else {
             mName = category.mSection;
             mDesc = mUrl = null;
-            mO365Version = null;
-
         }
-    }
-
-    /**
-     * Returns the version segment of the endpoint url with input from
-     * XML snippet description
-     *
-     * @return Which version of the endpoint to use (beta, v1, etc...)
-     */
-    protected String getVersion() {
-        return mO365Version;
-    }
-
-    public boolean isBeta() {
-        String betaString = SnippetApp.getApp().getString(beta);
-        return mO365Version.equalsIgnoreCase(betaString);
     }
 
     public String getName() {

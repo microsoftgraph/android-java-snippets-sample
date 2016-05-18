@@ -18,7 +18,6 @@ public class SnippetContent {
     static {
         AbstractSnippet<?>[][] baseSnippets = new AbstractSnippet<?>[][]{
                 // TODO: Enable the rest of the snippets
-//                getContactsSnippets(),
 //                getGroupsSnippets(),
 //                getEventsSnippets(),
                 getMeSnippets(),
