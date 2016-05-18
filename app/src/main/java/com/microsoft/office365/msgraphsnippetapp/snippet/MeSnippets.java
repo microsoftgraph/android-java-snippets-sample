@@ -53,7 +53,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<Result> {
                                     result = SnippetApp.getApp().getGraphServiceClient().getMe().buildRequest().get().getRawObject();
                                     callback.success(result);
                                 } catch (ClientException clientException) {
-                                    //callback.failure();
+                                    callback.failure(clientException);
                                 }
                             }
                         }).start();
@@ -80,7 +80,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<Result> {
                                     result = SnippetApp.getApp().getGraphServiceClient().getMe().buildRequest().select("AboutMe,Responsibilities,Tags").get().getRawObject();
                                     callback.success(result);
                                 } catch (ClientException clientException) {
-                                    clientException.getCause();
+                                    callback.failure(clientException);
                                 }
                             }
                         }).start();
@@ -103,7 +103,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<Result> {
                                     result = SnippetApp.getApp().getGraphServiceClient().getMe().getManager().buildRequest().get().getRawObject();
                                     callback.success(result);
                                 } catch (ClientException clientException) {
-                                    clientException.getCause();
+                                    callback.failure(clientException);
                                 }
                             }
                         }).start();
@@ -126,7 +126,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<Result> {
                                     result = SnippetApp.getApp().getGraphServiceClient().getMe().getDirectReports().buildRequest().get().getRawObject();
                                     callback.success(result);
                                 } catch (ClientException clientException) {
-                                    //callback.failure();
+                                    callback.failure(clientException);
                                 }
                             }
                         }).start();
@@ -150,8 +150,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<Result> {
                                     result = SnippetApp.getApp().getGraphServiceClient().getMe().getMemberOf().buildRequest().get().getRawObject();
                                     callback.success(result);
                                 } catch (ClientException clientException) {
-                                    //callback.failure();
-                                    clientException.getCause();
+                                    callback.failure(clientException);
                                 }
                             }
                         }).start();
@@ -174,7 +173,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<Result> {
                                     result = SnippetApp.getApp().getGraphServiceClient().getMe().getPhoto().buildRequest().get().getRawObject();
                                     callback.success(result);
                                 } catch (ClientException clientException) {
-                                    clientException.getCause();
+                                    callback.failure(clientException);
                                 }
                             }
                         }).start();
