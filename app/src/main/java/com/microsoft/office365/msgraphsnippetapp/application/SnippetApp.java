@@ -31,9 +31,6 @@ public class SnippetApp extends Application {
     public ObjectGraph mObjectGraph;
 
     @Inject
-    protected String endpoint;
-
-    @Inject
     protected IAuthenticationProvider authenticationProvider;
 
     public static SnippetApp getApp() {
