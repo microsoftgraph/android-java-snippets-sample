@@ -30,6 +30,7 @@ public class AppModule {
     }
 
     @Provides
+    @SuppressWarnings("unused") // not actually unused -- used by Dagger
     public IAuthenticationProvider providesAuthenticateProvider() {
         return new IAuthenticationProvider() {
             @Override
