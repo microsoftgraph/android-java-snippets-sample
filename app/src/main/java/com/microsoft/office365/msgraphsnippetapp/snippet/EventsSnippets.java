@@ -4,8 +4,6 @@
  */
 package com.microsoft.office365.msgraphsnippetapp.snippet;
 
-import android.text.format.DateUtils;
-
 import com.google.gson.JsonObject;
 import com.microsoft.graph.concurrency.ICallback;
 import com.microsoft.graph.core.ClientException;
@@ -21,9 +19,7 @@ import com.microsoft.office365.msgraphsnippetapp.application.SnippetApp;
 
 import org.joda.time.DateTime;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 
 import static com.microsoft.office365.msgraphsnippetapp.R.array.create_event;
 import static com.microsoft.office365.msgraphsnippetapp.R.array.delete_event;
@@ -93,7 +89,7 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
                                 JsonObject result = null;
 
                                 try {
-                                    Event event = createEvent();
+                                    Event event = createEventObject();
 
                                     result =
                                             SnippetApp
@@ -129,7 +125,7 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
 
                                 try {
                                     // create a new event to update
-                                    Event event = createEvent();
+                                    Event event = createEventObject();
 
                                     result =
                                             SnippetApp
@@ -181,7 +177,7 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
 
                                 try {
                                     // create a new event to delete
-                                    Event event = createEvent();
+                                    Event event = createEventObject();
 
                                     result =
                                             SnippetApp
@@ -217,7 +213,7 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
 
     public abstract void request(ICallback<Result> callback);
 
-    private static Event createEvent() {
+    private static Event createEventObject() {
         Event event = new Event();
         event.subject = "Microsoft Graph SDK Discussion";
         // set start time to now
