@@ -10,6 +10,7 @@ import java.util.List;
 
 import static com.microsoft.office365.msgraphsnippetapp.snippet.MeSnippets.getMeSnippets;
 import static com.microsoft.office365.msgraphsnippetapp.snippet.DrivesSnippets.getDrivesSnippets;
+import static com.microsoft.office365.msgraphsnippetapp.snippet.EventsSnippets.getEventsSnippets;
 
 public class SnippetContent {
 
@@ -20,7 +21,7 @@ public class SnippetContent {
         AbstractSnippet<?>[][] baseSnippets = new AbstractSnippet<?>[][]{
                 // TODO: Enable the rest of the snippets
 //                getGroupsSnippets(),
-//                getEventsSnippets(),
+                getEventsSnippets(),
                 getMeSnippets(),
 //                getMessageSnippets(),
 //                getUsersSnippets(),
