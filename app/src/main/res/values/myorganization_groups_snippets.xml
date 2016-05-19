@@ -22,7 +22,7 @@ item 4: is admin account required to run snippet (true/false)
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/resources/group</item>
         <item>false</item>
         <item>
-Group group = new Group();\n
+Group group = new Group();\napp/src/main/java/com/microsoft/office365/msgraphsnippetapp/snippet/GroupsSnippets.java
 group.displayName = \"Name of group\";\n
 group.mailNickname = \"Group nickname\";\n
 group.mailEnabled = false;\n
