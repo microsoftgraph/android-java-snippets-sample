@@ -6,6 +6,13 @@ package com.microsoft.office365.msgraphsnippetapp.snippet;
 
 import com.google.gson.JsonObject;
 import com.microsoft.graph.concurrency.ICallback;
+import com.microsoft.graph.core.ClientException;
+import com.microsoft.graph.extensions.Group;
+import com.microsoft.office365.msgraphsnippetapp.application.SnippetApp;
+
+import java.io.UnsupportedEncodingException;
+import java.util.Collections;
+import java.util.UUID;
 
 import static com.microsoft.office365.msgraphsnippetapp.R.array.delete_a_group;
 import static com.microsoft.office365.msgraphsnippetapp.R.array.get_a_group;
@@ -13,7 +20,6 @@ import static com.microsoft.office365.msgraphsnippetapp.R.array.get_all_groups;
 import static com.microsoft.office365.msgraphsnippetapp.R.array.get_group_members;
 import static com.microsoft.office365.msgraphsnippetapp.R.array.get_group_owners;
 import static com.microsoft.office365.msgraphsnippetapp.R.array.insert_a_group;
-import static com.microsoft.office365.msgraphsnippetapp.R.array.update_a_group;
 
 public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
 
@@ -41,18 +47,41 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
                         // create a group then query it
-//                        service.createGroup(getVersion(), createGroup(), new Callback<Group>() {
-//                            @Override
-//                            public void success(Group groupVO, Response response) {
-//                                // request the newly created group
-//                                service.getGroup(getVersion(), groupVO.id, callback);
-//                            }
-//
-//                            @Override
-//                            public void failure(RetrofitError error) {
-//                                callback.failure(error);
-//                            }
-//                        });
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                JsonObject result = null;
+
+                                try {
+                                    Group group = createGroupObject();
+
+                                    result =
+                                            SnippetApp
+                                                    .getApp()
+                                                    .getGraphServiceClient()
+                                                    .getGroups()
+                                                    .buildRequest()
+                                                    .post(group)
+                                                    .getRawObject();
+
+                                    String guid = result.get("id").getAsString();
+
+                                    result =
+                                            SnippetApp
+                                                    .getApp()
+                                                    .getGraphServiceClient()
+                                                    .getGroups()
+                                                    .byId(guid)
+                                                    .buildRequest()
+                                                    .get()
+                                                    .getRawObject();
+
+                                    callback.success(result);
+                                } catch (ClientException clientException) {
+                                    callback.failure(clientException);
+                                }
+                            }
+                        }).start();
                     }
                 },
                 /* Get all of the members of a newly created organization group
@@ -63,21 +92,42 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
                         // create a group then ask for its members
-//                        service.createGroup(getVersion(), createGroup(), new Callback<Group>() {
-//                            @Override
-//                            public void success(Group groupVO, Response response) {
-//                                service.getGroupEntities(
-//                                        getVersion(),
-//                                        groupVO.id,
-//                                        "members",
-//                                        callback);
-//                            }
-//
-//                            @Override
-//                            public void failure(RetrofitError error) {
-//                                callback.failure(error);
-//                            }
-//                        });
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                JsonObject result = null;
+
+                                try {
+                                    Group group = createGroupObject();
+
+                                    result =
+                                            SnippetApp
+                                                    .getApp()
+                                                    .getGraphServiceClient()
+                                                    .getGroups()
+                                                    .buildRequest()
+                                                    .post(group)
+                                                    .getRawObject();
+
+                                    String guid = result.get("id").getAsString();
+
+                                    result =
+                                            SnippetApp
+                                                    .getApp()
+                                                    .getGraphServiceClient()
+                                                    .getGroups()
+                                                    .byId(guid)
+                                                    .getMembers()
+                                                    .buildRequest()
+                                                    .get()
+                                                    .getRawObject();
+
+                                    callback.success(result);
+                                } catch (ClientException clientException) {
+                                    callback.failure(clientException);
+                                }
+                            }
+                        }).start();
                     }
                 },
 
@@ -89,31 +139,72 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
                         // create a group and then request its owner
-//                        service.createGroup(getVersion(), createGroup(), new Callback<Group>() {
-//                            @Override
-//                            public void success(Group groupVO, Response response) {
-//                                service.getGroupEntities(
-//                                        getVersion(),
-//                                        groupVO.id,
-//                                        "owners",
-//                                        callback);
-//                            }
-//
-//                            @Override
-//                            public void failure(RetrofitError error) {
-//                                callback.failure(error);
-//                            }
-//                        });
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                JsonObject result = null;
+
+                                try {
+                                    Group group = createGroupObject();
+
+                                    result =
+                                            SnippetApp
+                                                    .getApp()
+                                                    .getGraphServiceClient()
+                                                    .getGroups()
+                                                    .buildRequest()
+                                                    .post(group)
+                                                    .getRawObject();
+
+                                    String guid = result.get("id").getAsString();
+
+                                    result =
+                                            SnippetApp
+                                                    .getApp()
+                                                    .getGraphServiceClient()
+                                                    .getGroups()
+                                                    .byId(guid)
+                                                    .getOwners()
+                                                    .buildRequest()
+                                                    .get()
+                                                    .getRawObject();
+
+                                    callback.success(result);
+                                } catch (ClientException clientException) {
+                                    callback.failure(clientException);
+                                }
+                            }
+                        }).start();
                     }
                 },
+
                 /* List all organization groups
-                 * GET https://graph.microsoft.com/v1.0/groupshttps://graph.microsoft.com/v1.0/groups
+                 * GET https://graph.microsoft.com/v1.0/groups
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/group_list
                  */
                 new GroupsSnippets<JsonObject>(get_all_groups) {
                     @Override
-                    public void request(ICallback<JsonObject> callback) {
-//                        service.getGroups(getVersion(), null, callback);
+                    public void request(final ICallback<JsonObject> callback) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                JsonObject result = null;
+
+                                try {
+                                    result =
+                                            SnippetApp
+                                                    .getApp()
+                                                    .getGraphServiceClient()
+                                                    .getGroups()
+                                                    .buildRequest()
+                                                    .get()
+                                                    .getRawObject();
+                                    callback.success(result);
+                                } catch (ClientException clientException) {
+                                    callback.failure(clientException);
+                                }
+                            }
+                        }).start();
                     }
                 },
 
@@ -123,39 +214,31 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                  */
                 new GroupsSnippets<JsonObject>(insert_a_group) {
                     @Override
-                    public void request(ICallback<JsonObject> callback) {
-//                        service.createGroup(getVersion(), createGroup(), callback);
-                    }
-                },
-
-                /* Update a group
-                 * PATCH https://graph.microsoft.com/{version}/myOrganization/groups/{Group.objectId}
-                 * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/group_update
-                 */
-                new GroupsSnippets<JsonObject>(update_a_group) {
-                    @Override
                     public void request(final ICallback<JsonObject> callback) {
-                        //Create a group that we will update
-//                        service.createGroup(getVersion(), createGroup(), new Callback<Group>() {
-//
-//                            @Override
-//                            public void success(Group group, Response response) {
-//                                Group amended = new Group();
-//                                amended.displayName = "A renamed group";
-//                                //Update the group we created
-//                                service.updateGroup(
-//                                        getVersion(),
-//                                        group.id,
-//                                        amended,
-//                                        callback);
-//                            }
-//
-//                            @Override
-//                            public void failure(RetrofitError error) {
-//                                //pass along error to original callback
-//                                callback.failure(error);
-//                            }
-//                        });
+                        // create a new group
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                JsonObject result = null;
+
+                                try {
+                                    Group group = createGroupObject();
+
+                                    result =
+                                            SnippetApp
+                                                    .getApp()
+                                                    .getGraphServiceClient()
+                                                    .getGroups()
+                                                    .buildRequest()
+                                                    .post(group)
+                                                    .getRawObject();
+
+                                    callback.success(result);
+                                } catch (ClientException clientException) {
+                                    callback.failure(clientException);
+                                }
+                            }
+                        }).start();
                     }
                 },
 
@@ -167,20 +250,39 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
                         //Create a group that we will delete
-//                        service.createGroup(getVersion(), createGroup(), new Callback<Group>() {
-//
-//                            @Override
-//                            public void success(Group group, Response response) {
-//                                //Delete the group we created
-//                                service.deleteGroup(getVersion(), group.id, callback);
-//                            }
-//
-//                            @Override
-//                            public void failure(RetrofitError error) {
-//                                //pass along error to original callback
-//                                callback.failure(error);
-//                            }
-//                        });
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                JsonObject result = null;
+
+                                try {
+                                    Group group = createGroupObject();
+
+                                    result =
+                                            SnippetApp
+                                                    .getApp()
+                                                    .getGraphServiceClient()
+                                                    .getGroups()
+                                                    .buildRequest()
+                                                    .post(group)
+                                                    .getRawObject();
+
+                                    String guid = result.get("id").getAsString();
+
+                                    SnippetApp
+                                            .getApp()
+                                            .getGraphServiceClient()
+                                            .getGroups()
+                                            .byId(guid)
+                                            .buildRequest()
+                                            .delete();
+
+                                    callback.success(null);
+                                } catch (ClientException clientException) {
+                                    callback.failure(clientException);
+                                }
+                            }
+                        }).start();
                     }
                 }
         };
@@ -189,10 +291,17 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
     @Override
     public abstract void request(ICallback<Result> callback);
 
-//    private static Group createGroup() {
-//        Group group = new Group();
-//        group.displayName = group.mailNickname = UUID.randomUUID().toString();
-//        return group;
-//    }
+    private static  Group createGroupObject() {
+        String guid = UUID.randomUUID().toString();
+
+        Group group = new Group();
+        group.displayName = guid;
+        group.mailNickname = guid;
+        group.mailEnabled = false;
+        group.securityEnabled = false;
+        group.groupTypes = Collections.singletonList("Unified");
+
+        return group;
+    }
 
 }
