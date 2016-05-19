@@ -13,7 +13,7 @@ item 4: is admin account required to run snippet (true/false)
         <item>Gets the signed-in user\'s drive.</item>
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/resources/drive</item>
         <item>false</item>
-        <item>graphServiceClient()\n    .getMe()\n    .getDrive()\n    .buildRequest()\n    .get()</item>
+        <item>graphServiceClient()\n    .getMe()\n    .getDrive()\n    .buildRequest()\n    .get();</item>
     </string-array>
     <string-array name="get_me_files">
         <item>GET: Get children under root</item>
@@ -55,7 +55,7 @@ item 4: is admin account required to run snippet (true/false)
         <item>Renames a file under the root folder.</item>
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/api/item_update</item>
         <item>false</item>
-        <item>DriveItem driveItem = new DriveItem();\ndriveItem.name = \"Updated name\";\n\ngraphServiceClient()\n    .getMe()\n    .getDrive()\n    .getItems()\n    .byId(guid)\n    .buildRequest()\n    .patch(driveItem)</item>
+        <item>DriveItem driveItem = new DriveItem();\ndriveItem.name = \"Updated name\";\n\ngraphServiceClient()\n    .getMe()\n    .getDrive()\n    .getItems()\n    .byId(guid)\n    .buildRequest()\n    .patch(driveItem);</item>
     </string-array>
     <string-array name="create_me_folder">
         <item>POST: Create a folder under root</item>
