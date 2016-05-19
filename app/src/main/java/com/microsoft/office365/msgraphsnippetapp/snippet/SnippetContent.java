@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.microsoft.office365.msgraphsnippetapp.snippet.MeSnippets.getMeSnippets;
+import static com.microsoft.office365.msgraphsnippetapp.snippet.DrivesSnippets.getDrivesSnippets;
 
 public class SnippetContent {
 
@@ -23,7 +24,7 @@ public class SnippetContent {
                 getMeSnippets(),
 //                getMessageSnippets(),
 //                getUsersSnippets(),
-//                getDrivesSnippets()
+                getDrivesSnippets()
         };
 
         for (AbstractSnippet<?>[] snippetArray : baseSnippets) {
