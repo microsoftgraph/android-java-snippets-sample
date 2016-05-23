@@ -10,7 +10,6 @@ import com.microsoft.graph.core.ClientException;
 import com.microsoft.graph.extensions.Group;
 import com.microsoft.office365.msgraphsnippetapp.application.SnippetApp;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.UUID;
 

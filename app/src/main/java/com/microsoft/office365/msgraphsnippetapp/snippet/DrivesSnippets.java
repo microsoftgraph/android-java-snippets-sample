@@ -9,22 +9,17 @@ import com.google.gson.JsonObject;
 import com.microsoft.graph.concurrency.ICallback;
 import com.microsoft.graph.core.ClientException;
 import com.microsoft.graph.extensions.DriveItem;
-import com.microsoft.graph.extensions.DriveItemCollectionRequestBuilder;
-import com.microsoft.graph.extensions.File;
 import com.microsoft.graph.extensions.Folder;
 import com.microsoft.office365.msgraphsnippetapp.application.SnippetApp;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
-import static com.microsoft.office365.msgraphsnippetapp.R.array.create_me_folder;
 import static com.microsoft.office365.msgraphsnippetapp.R.array.create_me_file;
+import static com.microsoft.office365.msgraphsnippetapp.R.array.create_me_folder;
 import static com.microsoft.office365.msgraphsnippetapp.R.array.delete_me_file;
 import static com.microsoft.office365.msgraphsnippetapp.R.array.download_me_file;
 import static com.microsoft.office365.msgraphsnippetapp.R.array.get_me_drive;
