@@ -52,7 +52,6 @@ import static com.microsoft.office365.msgraphsnippetapp.R.id.txt_status_color;
 import static com.microsoft.office365.msgraphsnippetapp.R.string.clippy;
 import static com.microsoft.office365.msgraphsnippetapp.R.string.code_snippet;
 import static com.microsoft.office365.msgraphsnippetapp.R.string.raw_object;
-import static com.microsoft.office365.msgraphsnippetapp.R.string.response_headers;
 
 public class SnippetDetailFragment<T, Result>
         extends BaseFragment implements ICallback<Result> {

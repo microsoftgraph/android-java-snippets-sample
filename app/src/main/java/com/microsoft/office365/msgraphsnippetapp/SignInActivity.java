@@ -27,8 +27,8 @@ import static com.microsoft.office365.msgraphsnippetapp.R.id.layout_diagnostics;
 import static com.microsoft.office365.msgraphsnippetapp.R.id.o365_signin;
 import static com.microsoft.office365.msgraphsnippetapp.R.id.view_diagnosticsdata;
 import static com.microsoft.office365.msgraphsnippetapp.R.layout.activity_signin;
-import static com.microsoft.office365.msgraphsnippetapp.R.string.signin_err;
-import static com.microsoft.office365.msgraphsnippetapp.R.string.warning_clientid_redirecturi_incorrect;
+import static com.microsoft.office365.msgraphsnippetapp.R.string.sign_in_err;
+import static com.microsoft.office365.msgraphsnippetapp.R.string.warning_client_id_redirect_uri_incorrect;
 
 public class SignInActivity
         extends BaseActivity
@@ -97,7 +97,7 @@ public class SignInActivity
         //localized message cannot be obtained
         String msg;
         if (null == (msg = e.getLocalizedMessage())) {
-            msg = getString(signin_err);
+            msg = getString(sign_in_err);
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         } else {
             mDiagnosticsTxt.setText(msg);
@@ -107,7 +107,7 @@ public class SignInActivity
 
     private void warnBadClient() {
         Toast.makeText(this,
-                warning_clientid_redirecturi_incorrect,
+                warning_client_id_redirect_uri_incorrect,
                 Toast.LENGTH_LONG)
                 .show();
     }

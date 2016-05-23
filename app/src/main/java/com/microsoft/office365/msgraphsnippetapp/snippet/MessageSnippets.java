@@ -125,11 +125,11 @@ public abstract class MessageSnippets<Result> extends AbstractSnippet<Result> {
         recipient.emailAddress.address = prefs.getString(SharedPrefsUtil.PREF_USER_ID, "");
         message.toRecipients = Collections.singletonList(recipient);
 
-        message.subject = app.getString(R.string.mailSubject);
+        message.subject = app.getString(R.string.mail_subject);
 
         ItemBody itemBody = new ItemBody();
         itemBody.contentType = BodyType.text;
-        itemBody.content = app.getString(R.string.mailBody);
+        itemBody.content = app.getString(R.string.mail_body);
         message.body = itemBody;
 
         return message;

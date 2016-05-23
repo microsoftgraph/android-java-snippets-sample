@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:freezesText="true"
-            android:text="@string/fragment_snippet_textview_description" />
+            android:text="@string/fragment_snippet_text_view_description" />
 
         <TextView
             style="@style/detail_section"
