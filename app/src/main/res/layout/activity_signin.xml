@@ -18,13 +18,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/signin_description" />
+            android:text="@string/sign_in_description" />
 
         <Button
             android:id="@+id/o365_signin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/signin_button" />
+            android:text="@string/sign_in_button" />
 
     </LinearLayout>
 
