@@ -64,7 +64,7 @@ You can explore the following operations in Microsoft Graph:
 * [Creates a folder under the user's root folder.](/app/src/main/java/com/microsoft/graph/snippets/snippet/DrivesSnippets.java#L395)
 
 ##Device requirement
-To run the Microsoft Graph API REST snippets project, your device must meet the following requirement:
+To run snippets project, your device must meet the following requirement:
 * Android API level 16 or newer
 
 ###Prerequisites
@@ -77,7 +77,7 @@ To use the Microsoft Graph SDK snippets project, you need the following:
 
 ##Azure client application registration
 1. Sign in to the [Azure Management Portal](https://manage.windowsazure.com), using your Azure AD credentials.
-2.	Click **Active Directory** on the left menu, then select the directory for your Office 365 developer site.
+2.	Click **Active Directory** on the left menu, then select the directory for your Office 365 tenant.
 3.	On the top menu, click **Applications**.
 4.	Click **Add** from the bottom menu.
 5.	On the **What do you want to do page**, click **Add an application my organization is developing**.
@@ -119,7 +119,7 @@ After you've built the project you can run it on an emulator or device.
 3. Enter your credentials.
 4. Review and accept the permission scopes requested by the app.
 4. Click an operation in the main activity to show operation details.
-5. Click the **RUN** button to start the REST operation and wait for the operation to finish.
+5. Click the **RUN** button to start the operation and wait for the operation to finish.
 6. Click in the **Raw Object** text box to copy the box contents to the emulator/device clipboard.
 7. Click the back button on the toolbar to return to the operation list.
 8. (Optional) Click the overflow menu to get the Disconnect menu option.
@@ -131,7 +131,7 @@ This sample runs commands that create, read, update, or delete data. When runnin
 The snippets project uses these classes to manage interactions with Microsoft Graph:
 
 ###Sample project organization
-The snippets project is comprised of two modules. The modular design enables you to build a new app based on this sample by importing the modules into your app. After you've imported the modules, use the code in the Office 365 Android unified API snippets [app](/app) module as an example of how to call methods in the other sample modules.
+The snippets project is comprised of two modules. The modular design enables you to build a new app based on this sample by importing the modules into your app. After you've imported the modules, use the code in the snippets [app](/app) module as an example of how to call methods in the other sample modules.
 
 ###Modules in the snippets project
 * [`o365-Auth`](/o365-auth). This module contains the library calls to authenticate a user with Microsoft Graph.
