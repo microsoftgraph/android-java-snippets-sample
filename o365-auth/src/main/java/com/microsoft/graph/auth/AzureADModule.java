@@ -25,10 +25,6 @@ public class AzureADModule {
         mBuilder = builder;
     }
 
-    public static void skipBroker(boolean shouldSkip) {
-        AuthenticationSettings.INSTANCE.setSkipBroker(shouldSkip);
-    }
-
     @Provides
     @SuppressWarnings("unused") // not actually unused -- used by Dagger
     public AuthenticationContext providesAuthenticationContext() {
@@ -82,11 +78,6 @@ public class AzureADModule {
 
         public Builder validateAuthority(boolean shouldEvaluate) {
             mValidateAuthority = shouldEvaluate;
-            return this;
-        }
-
-        public Builder skipBroker(boolean shouldSkip) {
-            AzureADModule.skipBroker(shouldSkip);
             return this;
         }
 
