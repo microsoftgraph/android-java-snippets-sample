@@ -13,23 +13,62 @@ item 4: is admin account required to run snippet (true/false)
         <item>Gets the signed-in user\'s calendar events.</item>
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/api/user_list_events</item>
         <item>false</item>
+        <item>graphServiceClient()\n    .getMe()\n    .getEvents()\n    .buildRequest()\n    .get();</item>
     </string-array>
     <string-array name="create_event">
         <item>POST: Add an event</item>
         <item>Adds an event to the signed-in user\'s calendar.</item>
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/api/user_post_events</item>
         <item>false</item>
+        <item>
+Event event = new Event();\n
+event.subject = "Microsoft Graph SDK Discussion";\n
+DateTimeTimeZone start =\n
+    new DateTimeTimeZone();\n
+start.dateTime = DateTime.now().toString();\n
+event.start = start;\n\n
+
+DateTimeTimeZone end =\n
+    new DateTimeTimeZone();\n
+end.dateTime =\n
+    DateTime.now().plusHours(1).toString();\n
+event.end = end;\n\n
+
+start.timeZone = end.timeZone = "UTC";\n\n
+
+Location location = new Location();\n
+location.displayName = "Bill's Office";\n
+event.location = location;\n\n
+
+Attendee attendee = new Attendee();\n
+attendee.type = AttendeeType.required;\n
+attendee.emailAddress = new EmailAddress();\n
+attendee.emailAddress.address =\n
+    "mara@fabrikam.com";\n
+event.attendees =\n
+    Collections.singletonList(attendee);\n\n
+
+ItemBody msg = new ItemBody();\n
+msg.content = "Let's discuss&#8230;";\n
+msg.contentType = BodyType.text;\n
+event.body = msg;\n\n
+graphServiceClient()\n    .getMe()\n    .getEvents()\n    .buildRequest()\n    .post(event);</item>
     </string-array>
     <string-array name="update_event">
         <item>PATCH Update an event</item>
         <item>Adds an event to the signed-in user\'s calendar, then updates the subject of the event.</item>
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/api/event_update</item>
         <item>false</item>
+        <item>
+event.subject = "Updated event";\n\n
+
+graphServiceClient()\n    .getMe()\n    .getEvents()\n    .byId(eventId)\n    .buildRequest()\n    .patch(event);</item>
     </string-array>
     <string-array name="delete_event">
         <item>DELETE Delete an event</item>
         <item>Adds an event to the signed-in user\'s calendar, then deletes the event.</item>
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/api/event_delete</item>
         <item>false</item>
+        <item>graphServiceClient()\n    .getMe()\n    .getEvents()\n    .byId(eventId)\n    .buildRequest()\n    .delete();</item>
     </string-array>
 </resources>

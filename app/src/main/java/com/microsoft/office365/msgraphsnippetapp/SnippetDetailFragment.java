@@ -242,12 +242,20 @@ public class SnippetDetailFragment<T, Result>
     @Override
     public void failure(final ClientException error) {
         Timber.e(error, "");
-        mRunButton.setEnabled(true);
-        mProgressbar.setVisibility(GONE);
-        int color = code_4xx;
-        mStatusColor.setBackgroundColor(getResources().getColor(color));
-        mStatusColor.setTag(getResources().getColor(color));
-        mResponseBody.setText(error.getLocalizedMessage());
+
+        getActivity().runOnUiThread(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        mRunButton.setEnabled(true);
+                        mProgressbar.setVisibility(GONE);
+                        int color = code_4xx;
+                        mStatusColor.setBackgroundColor(getResources().getColor(color));
+                        mStatusColor.setTag(getResources().getColor(color));
+                        mResponseBody.setText(error.getLocalizedMessage());
+                    }
+                }
+        );
     }
 
     //

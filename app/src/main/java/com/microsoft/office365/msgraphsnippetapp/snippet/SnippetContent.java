@@ -8,7 +8,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static com.microsoft.office365.msgraphsnippetapp.snippet.DrivesSnippets.getDrivesSnippets;
+import static com.microsoft.office365.msgraphsnippetapp.snippet.EventsSnippets.getEventsSnippets;
+import static com.microsoft.office365.msgraphsnippetapp.snippet.GroupsSnippets.getGroupsSnippets;
 import static com.microsoft.office365.msgraphsnippetapp.snippet.MeSnippets.getMeSnippets;
+import static com.microsoft.office365.msgraphsnippetapp.snippet.MessageSnippets.getMessageSnippets;
+import static com.microsoft.office365.msgraphsnippetapp.snippet.UsersSnippets.getUsersSnippets;
 
 public class SnippetContent {
 
@@ -17,13 +22,12 @@ public class SnippetContent {
 
     static {
         AbstractSnippet<?>[][] baseSnippets = new AbstractSnippet<?>[][]{
-                // TODO: Enable the rest of the snippets
-//                getGroupsSnippets(),
-//                getEventsSnippets(),
+                getGroupsSnippets(),
+                getEventsSnippets(),
                 getMeSnippets(),
-//                getMessageSnippets(),
-//                getUsersSnippets(),
-//                getDrivesSnippets()
+                getMessageSnippets(),
+                getUsersSnippets(),
+                getDrivesSnippets()
         };
 
         for (AbstractSnippet<?>[] snippetArray : baseSnippets) {

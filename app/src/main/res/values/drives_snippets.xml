@@ -13,52 +13,54 @@ item 4: is admin account required to run snippet (true/false)
         <item>Gets the signed-in user\'s drive.</item>
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/resources/drive</item>
         <item>false</item>
-    </string-array>
-    <string-array name="get_organization_drives">
-        <item>GET: Get drives</item>
-        <item>Gets  all of the drives in your tenant.</item>
-        <item>https://graph.microsoft.io/docs/api-reference/v1.0/resources/drive</item>
-        <item>false</item>
+        <item>graphServiceClient()\n    .getMe()\n    .getDrive()\n    .buildRequest()\n    .get();</item>
     </string-array>
     <string-array name="get_me_files">
         <item>GET: Get children under root</item>
         <item>Gets the metadata list of children files under the root folder.</item>
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/api/item_list_children</item>
         <item>false</item>
+        <item>graphServiceClient()\n    .getMe()\n    .getDrive()\n    .getDrive()\n    .getRoot()\n    .getChildren()\n    .buildRequest()\n    .get();</item>
     </string-array>
     <string-array name="create_me_file">
         <item>PUT: Create a file under root</item>
         <item>Gets the metadata list of children files under the root folder.</item>
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/api/item_post_children</item>
         <item>false</item>
+        <item>graphServiceClient()\n    .getMe()\n    .getDrive()\n    .getDrive()\n    .getRoot()\n    .getChildren(guid)\n    .getContent()\n    .buildRequest()\n    .put(byteArray);</item>
     </string-array>
     <string-array name="download_me_file">
         <item>GET: Download a file under root</item>
         <item>Gets the contents of a file under the root folder.</item>
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/api/item_get</item>
         <item>false</item>
+        <item>graphServiceClient()\n    .getMe()\n    .getDrive()\n    .getItems()\n    .byId(guid)\n    .getContent()\n    .buildRequest()\n    .get();</item>
     </string-array>
     <string-array name="update_me_file">
         <item>PUT: Update the contents of a file under root</item>
         <item>Gets the metadata list of children files under the root folder.</item>
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/api/item_update</item>
         <item>false</item>
+        <item>graphServiceClient()\n    .getMe()\n    .getDrive()\n    .getItems()\n    .byId(guid)\n    .getContent()\n    .buildRequest()\n    .put(byteArray)\n    .getRawObject();</item>
     </string-array>
     <string-array name="delete_me_file">
         <item>DELETE: Delete a file under root</item>
         <item>Gets the metadata list of children files under the root folder.</item>
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/api/item_delete</item>
         <item>false</item>
+        <item>graphServiceClient()\n    .getMe()\n    .getDrive()\n    .getItems()\n    .byId(guid)\n    .buildRequest()\n    .delete();</item>
     </string-array>
     <string-array name="rename_me_file">
         <item>PATCH: Rename a file in the root</item>
         <item>Renames a file under the root folder.</item>
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/api/item_update</item>
         <item>false</item>
+        <item>DriveItem driveItem = new DriveItem();\ndriveItem.name = \"Updated name\";\n\ngraphServiceClient()\n    .getMe()\n    .getDrive()\n    .getItems()\n    .byId(guid)\n    .buildRequest()\n    .patch(driveItem);</item>
     </string-array>
     <string-array name="create_me_folder">
         <item>POST: Create a folder under root</item>
         <item>Creates a folder under the root folder.</item>
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/api/item_post_children</item>
         <item>false</item>
+        <item>DriveItem driveItem = new DriveItem();\ndriveItem.name = guid;\ndriveItem.folder = new Folder();\n\ngetGraphServiceClient()\n    .getMe()\n    .getDrive()\n    .getRoot()\n    .getChildren()\n    .buildRequest()\n    .post(driveItem);</item>
     </string-array></resources>
