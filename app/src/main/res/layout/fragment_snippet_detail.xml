@@ -115,20 +115,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:freezesText="true"
-            android:text="@string/response_headers" />
-
-        <TextView
-            android:id="@+id/txt_response_headers"
-            style="@style/detail_rect"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:freezesText="true" />
-
-        <TextView
-            style="@style/detail_section"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:freezesText="true"
             android:text="@string/raw_object" />
 
         <TextView

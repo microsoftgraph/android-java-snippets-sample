@@ -48,7 +48,6 @@ import static com.microsoft.office365.msgraphsnippetapp.R.id.txt_desc;
 import static com.microsoft.office365.msgraphsnippetapp.R.id.txt_hyperlink;
 import static com.microsoft.office365.msgraphsnippetapp.R.id.txt_request_url;
 import static com.microsoft.office365.msgraphsnippetapp.R.id.txt_response_body;
-import static com.microsoft.office365.msgraphsnippetapp.R.id.txt_response_headers;
 import static com.microsoft.office365.msgraphsnippetapp.R.id.txt_status_color;
 import static com.microsoft.office365.msgraphsnippetapp.R.string.clippy;
 import static com.microsoft.office365.msgraphsnippetapp.R.string.code_snippet;
@@ -88,12 +87,6 @@ public class SnippetDetailFragment<T, Result>
     protected TextView mRequestUrl;
 
     /**
-     * The response headers of the current snippet's request
-     */
-    @InjectView(txt_response_headers)
-    protected TextView mResponseHeaders;
-
-    /**
      * The response body of the snippet's request
      */
     @InjectView(txt_response_body)
@@ -127,12 +120,6 @@ public class SnippetDetailFragment<T, Result>
         clipboard(tv);
     }
 
-    @OnClick(txt_response_headers)
-    public void onResponseHeadersClicked(TextView tv) {
-        // copy to clip
-        clipboard(tv);
-    }
-
     @OnClick(txt_response_body)
     public void onResponseBodyClicked(TextView tv) {
         // copy to clip
@@ -143,9 +130,6 @@ public class SnippetDetailFragment<T, Result>
     public void onRunClicked(Button btn) {
         // disable the button while the snippet is running
         mRunButton.setEnabled(false);
-
-        // clear any old headers
-        mResponseHeaders.setText("");
 
         // clear any old response body
         mResponseBody.setText("");
@@ -268,10 +252,6 @@ public class SnippetDetailFragment<T, Result>
         switch (tv.getId()) {
             case txt_request_url: // the url field
                 which = code_snippet;
-                break;
-
-            case txt_response_headers: // the display headers
-                which = response_headers;
                 break;
 
             case txt_response_body: // the response body
