@@ -101,7 +101,7 @@ To use the Microsoft Graph SDK snippets project, you need the following:
 
 ##Configure the project
 
-1. Download or clone the [Android Unified API Snippets sample](../../).
+1. Download or clone the [snippets sample](../../).
 2. Start Android Studio.
 3. From the **Welcome to Android Studio** dialog box, choose **Import project (Eclipse ADT, Gradle, etc)**.
 4. Select the **settings.gradle** file in the **
@@ -160,7 +160,7 @@ General questions about Microsoft Graph development should be posted to [Stack O
 
 ## Additional resources
 
-* Get started with Office 365 APIs powered by Microsoft Graph](http://dev.office.com/getting-started/office365apis)
+* [Get started with Office 365 APIs powered by Microsoft Graph](http://dev.office.com/getting-started/office365apis)
 * [Microsoft Graph overview](http://graph.microsoft.io)
 * [Microsoft Graph SDK for Android](../../../msgraph-sdk-android)
 * [Connect Sample for Android Using the Microsoft Graph SDK](../../../android-java-connect-sample)
