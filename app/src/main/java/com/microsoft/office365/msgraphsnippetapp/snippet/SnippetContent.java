@@ -13,6 +13,7 @@ import static com.microsoft.office365.msgraphsnippetapp.snippet.DrivesSnippets.g
 import static com.microsoft.office365.msgraphsnippetapp.snippet.EventsSnippets.getEventsSnippets;
 import static com.microsoft.office365.msgraphsnippetapp.snippet.GroupsSnippets.getGroupsSnippets;
 import static com.microsoft.office365.msgraphsnippetapp.snippet.MessageSnippets.getMessageSnippets;
+import static com.microsoft.office365.msgraphsnippetapp.snippet.UsersSnippets.getUsersSnippets;
 
 public class SnippetContent {
 
@@ -21,12 +22,11 @@ public class SnippetContent {
 
     static {
         AbstractSnippet<?>[][] baseSnippets = new AbstractSnippet<?>[][]{
-                // TODO: Enable the rest of the snippets
                 getGroupsSnippets(),
                 getEventsSnippets(),
                 getMeSnippets(),
                 getMessageSnippets(),
-//                getUsersSnippets(),
+                getUsersSnippets(),
                 getDrivesSnippets()
         };
 
