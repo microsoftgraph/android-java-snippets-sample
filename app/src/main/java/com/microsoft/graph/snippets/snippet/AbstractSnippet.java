@@ -5,6 +5,8 @@
 package com.microsoft.graph.snippets.snippet;
 
 import com.microsoft.graph.concurrency.ICallback;
+import com.microsoft.graph.extensions.GraphServiceClient;
+import com.microsoft.graph.extensions.IGraphServiceClient;
 import com.microsoft.graph.snippets.application.SnippetApp;
 
 public abstract class AbstractSnippet<Result> {
@@ -14,6 +16,7 @@ public abstract class AbstractSnippet<Result> {
     private static final int mUrlIndex = 2;
     private static final int mIsAdminRequiredIndex = 3;
     private static final int mCodeSnippetIndex = 4;
+    protected final IGraphServiceClient mGraphServiceClient;
 
     boolean mIsAdminRequired;
     private String mName, mDesc, mUrl, mCodeSnippet;
@@ -30,6 +33,7 @@ public abstract class AbstractSnippet<Result> {
         //Get snippet configuration information from the
         //XML configuration for the snippet
         getSnippetArrayContent(category, descriptionArray);
+        mGraphServiceClient = SnippetApp.getApp().getGraphServiceClient();
     }
 
 
