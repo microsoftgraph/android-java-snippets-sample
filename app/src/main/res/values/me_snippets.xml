@@ -21,7 +21,9 @@ item 5: Code snippet
         <item>Gets responsibilities of the signed-in user by using $select.</item>
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/resources/user</item>
         <item>false</item>
-        <item>graphServiceClient()\n    .getMe()\n    .buildRequest()\n    .select("AboutMe,Responsibilities,Tags")\n    .get();</item>
+        <item>final List&lt;Option&gt; options = new LinkedList&lt;&gt;();\n
+options.add(new QueryOption(\"$select\", \"AboutMe,Responsibilities,Tags\"));\n\n
+graphServiceClient()\n    .getMe()\n    .buildRequest(options)\n    .get();</item>
     </string-array>
     <string-array name="get_me_manager">
         <item>Get user\'s manager</item>

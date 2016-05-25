@@ -5,7 +5,6 @@
 package com.microsoft.graph.snippets.snippet;
 
 import com.microsoft.graph.concurrency.ICallback;
-import com.microsoft.graph.extensions.GraphServiceClient;
 import com.microsoft.graph.extensions.IGraphServiceClient;
 import com.microsoft.graph.snippets.application.SnippetApp;
 

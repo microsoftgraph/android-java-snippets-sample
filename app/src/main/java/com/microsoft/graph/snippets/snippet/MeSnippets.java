@@ -7,7 +7,15 @@ package com.microsoft.graph.snippets.snippet;
 import com.google.gson.JsonObject;
 import com.microsoft.graph.concurrency.ICallback;
 import com.microsoft.graph.core.ClientException;
-import com.microsoft.graph.snippets.application.SnippetApp;
+import com.microsoft.graph.extensions.DirectoryObject;
+import com.microsoft.graph.extensions.IDirectoryObjectCollectionWithReferencesPage;
+import com.microsoft.graph.extensions.ProfilePhoto;
+import com.microsoft.graph.extensions.User;
+import com.microsoft.graph.options.Option;
+import com.microsoft.graph.options.QueryOption;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import static com.microsoft.graph.snippets.R.array.get_me;
 import static com.microsoft.graph.snippets.R.array.get_me_direct_reports;
@@ -44,19 +52,20 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<Result> {
                 new MeSnippets<JsonObject>(get_me) {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                JsonObject result = null;
+                        mGraphServiceClient
+                                .getMe()
+                                .buildRequest()
+                                .get(new ICallback<User>() {
+                                    @Override
+                                    public void success(User user) {
+                                        callback.success(user.getRawObject());
+                                    }
 
-                                try {
-                                    result = SnippetApp.getApp().getGraphServiceClient().getMe().buildRequest().get().getRawObject();
-                                    callback.success(result);
-                                } catch (ClientException clientException) {
-                                    callback.failure(clientException);
-                                }
-                            }
-                        }).start();
+                                    @Override
+                                    public void failure(ClientException ex) {
+                                        callback.failure(ex);
+                                    }
+                                });
                     }
                 },
 
@@ -67,23 +76,22 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<Result> {
                 new MeSnippets<JsonObject>(get_me_responsibilities) {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                JsonObject result = null;
+                        final List<Option> options = new LinkedList<>();
+                        options.add(new QueryOption("$select", "AboutMe,Responsibilities,Tags"));
+                        mGraphServiceClient
+                                .getMe()
+                                .buildRequest(options)
+                                .get(new ICallback<User>() {
+                                    @Override
+                                    public void success(User user) {
+                                        callback.success(user.getRawObject());
+                                    }
 
-                                // TODO: This call fails with a Bad request error.
-                                // The SDK tries to make a request to https://graph.microsoft.com/v1.0/me?select=responsibilities
-                                // Instead of https://graph.microsoft.com/v1.0/me?$select=responsibilities
-                                // Note the $select clause is missing the '$'
-                                try {
-                                    result = SnippetApp.getApp().getGraphServiceClient().getMe().buildRequest().select("AboutMe,Responsibilities,Tags").get().getRawObject();
-                                    callback.success(result);
-                                } catch (ClientException clientException) {
-                                    callback.failure(clientException);
-                                }
-                            }
-                        }).start();
+                                    @Override
+                                    public void failure(ClientException ex) {
+                                        callback.failure(ex);
+                                    }
+                                });
                     }
                 },
 
@@ -94,19 +102,21 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<Result> {
                 new MeSnippets<JsonObject>(get_me_manager) {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                JsonObject result = null;
+                        mGraphServiceClient
+                                .getMe()
+                                .getManager()
+                                .buildRequest()
+                                .get(new ICallback<DirectoryObject>() {
+                                    @Override
+                                    public void success(DirectoryObject directoryObject) {
+                                        callback.success(directoryObject.getRawObject());
+                                    }
 
-                                try {
-                                    result = SnippetApp.getApp().getGraphServiceClient().getMe().getManager().buildRequest().get().getRawObject();
-                                    callback.success(result);
-                                } catch (ClientException clientException) {
-                                    callback.failure(clientException);
-                                }
-                            }
-                        }).start();
+                                    @Override
+                                    public void failure(ClientException ex) {
+                                        callback.failure(ex);
+                                    }
+                                });
                     }
                 },
 
@@ -117,19 +127,21 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<Result> {
                 new MeSnippets<JsonObject>(get_me_direct_reports) {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                JsonObject result = null;
+                        mGraphServiceClient
+                                .getMe()
+                                .getDirectReports()
+                                .buildRequest()
+                                .get(new ICallback<IDirectoryObjectCollectionWithReferencesPage>() {
+                                    @Override
+                                    public void success(IDirectoryObjectCollectionWithReferencesPage iDirectoryObjectCollectionWithReferencesPage) {
+                                        callback.success(iDirectoryObjectCollectionWithReferencesPage.getRawObject());
+                                    }
 
-                                try {
-                                    result = SnippetApp.getApp().getGraphServiceClient().getMe().getDirectReports().buildRequest().get().getRawObject();
-                                    callback.success(result);
-                                } catch (ClientException clientException) {
-                                    callback.failure(clientException);
-                                }
-                            }
-                        }).start();
+                                    @Override
+                                    public void failure(ClientException ex) {
+                                        callback.failure(ex);
+                                    }
+                                });
                     }
                 },
 
@@ -140,20 +152,21 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<Result> {
                 new MeSnippets<JsonObject>(get_me_group_membership) {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                JsonObject result = null;
+                        mGraphServiceClient
+                                .getMe()
+                                .getMemberOf()
+                                .buildRequest()
+                                .get(new ICallback<IDirectoryObjectCollectionWithReferencesPage>() {
+                                    @Override
+                                    public void success(IDirectoryObjectCollectionWithReferencesPage iDirectoryObjectCollectionWithReferencesPage) {
+                                        callback.success(iDirectoryObjectCollectionWithReferencesPage.getRawObject());
+                                    }
 
-                                try {
-                                    // TODO: Feedback for SDK - getGetMemberGroups seems odd. Also, why do we have to use a post to retrieve data?
-                                    result = SnippetApp.getApp().getGraphServiceClient().getMe().getMemberOf().buildRequest().get().getRawObject();
-                                    callback.success(result);
-                                } catch (ClientException clientException) {
-                                    callback.failure(clientException);
-                                }
-                            }
-                        }).start();
+                                    @Override
+                                    public void failure(ClientException ex) {
+                                        callback.failure(ex);
+                                    }
+                                });
                     }
                 },
 
@@ -164,19 +177,21 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<Result> {
                 new MeSnippets<JsonObject>(get_me_photo) {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                JsonObject result = null;
+                        mGraphServiceClient
+                                .getMe()
+                                .getPhoto()
+                                .buildRequest()
+                                .get(new ICallback<ProfilePhoto>() {
+                                    @Override
+                                    public void success(ProfilePhoto profilePhoto) {
+                                        callback.success(profilePhoto.getRawObject());
+                                    }
 
-                                try {
-                                    result = SnippetApp.getApp().getGraphServiceClient().getMe().getPhoto().buildRequest().get().getRawObject();
-                                    callback.success(result);
-                                } catch (ClientException clientException) {
-                                    callback.failure(clientException);
-                                }
-                            }
-                        }).start();
+                                    @Override
+                                    public void failure(ClientException ex) {
+                                        callback.failure(ex);
+                                    }
+                                });
                     }
                 }
         };

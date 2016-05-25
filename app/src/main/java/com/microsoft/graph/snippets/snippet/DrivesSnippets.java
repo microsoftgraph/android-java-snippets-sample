@@ -167,26 +167,34 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                                     public void success(DriveItem driveItem) {
                                         // Get the guid that the service assigned to my file
                                         String guid = driveItem.id;
-                                        InputStream inputStream = mGraphServiceClient
+                                        mGraphServiceClient
                                                 .getMe()
                                                 .getDrive()
                                                 .getItems()
                                                 .byId(guid)
                                                 .getContent()
                                                 .buildRequest()
-                                                .get();
+                                                .get(new ICallback<InputStream>() {
+                                                    @Override
+                                                    public void success(InputStream inputStream) {
+                                                        final InputStreamReader inr = new InputStreamReader(inputStream);
+                                                        String text;
+                                                        try {
+                                                            text = CharStreams.toString(inr);
+                                                            JsonObject result = new JsonObject();
+                                                            result.addProperty("value", text);
 
-                                        final InputStreamReader inr = new InputStreamReader(inputStream);
-                                        String text;
-                                        try {
-                                            text = CharStreams.toString(inr);
-                                            JsonObject result = new JsonObject();
-                                            result.addProperty("value", text);
+                                                            callback.success(result);
+                                                        } catch (IOException ex) {
+                                                            ex.printStackTrace();
+                                                        }
+                                                    }
 
-                                            callback.success(result);
-                                        } catch (IOException ex) {
-                                            ex.printStackTrace();
-                                        }
+                                                    @Override
+                                                    public void failure(ClientException ex) {
+                                                        callback.failure(ex);
+                                                    }
+                                                });
                                     }
 
                                     @Override
@@ -231,16 +239,24 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                                         try {
                                             byteArray = "A plain text file".getBytes("UTF-8");
 
-                                            DriveItem updatedItem = mGraphServiceClient
+                                            mGraphServiceClient
                                                     .getMe()
                                                     .getDrive()
                                                     .getItems()
                                                     .byId(driveItem.id)
                                                     .getContent()
                                                     .buildRequest()
-                                                    .put(byteArray);
+                                                    .put(byteArray, new ICallback<DriveItem>() {
+                                                        @Override
+                                                        public void success(DriveItem driveItem) {
+                                                            callback.success(driveItem.getRawObject());
+                                                        }
 
-                                            callback.success(updatedItem.getRawObject());
+                                                        @Override
+                                                        public void failure(ClientException ex) {
+                                                            callback.failure(ex);
+                                                        }
+                                                    });
                                         } catch (IOException ex) {
                                             ex.printStackTrace();
                                         }
@@ -288,9 +304,17 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                                                 .getItems()
                                                 .byId(driveItem.id)
                                                 .buildRequest()
-                                                .delete();
+                                                .delete(new ICallback<Void>() {
+                                                    @Override
+                                                    public void success(Void aVoid) {
+                                                        callback.success(null);
+                                                    }
 
-                                        callback.success(null);
+                                                    @Override
+                                                    public void failure(ClientException ex) {
+                                                        callback.failure(ex);
+                                                    }
+                                                });
                                     }
 
                                     @Override
@@ -331,15 +355,23 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                                     public void success(DriveItem driveItem) {
                                         driveItem = new DriveItem();
                                         driveItem.name = "Updated name";
-                                        DriveItem renamedItem = mGraphServiceClient
+                                        mGraphServiceClient
                                                 .getMe()
                                                 .getDrive()
                                                 .getItems()
                                                 .byId(driveItem.id)
                                                 .buildRequest()
-                                                .patch(driveItem);
+                                                .patch(driveItem, new ICallback<DriveItem>() {
+                                                    @Override
+                                                    public void success(DriveItem driveItem) {
+                                                        callback.success(driveItem.getRawObject());
+                                                    }
 
-                                        callback.success(renamedItem.getRawObject());
+                                                    @Override
+                                                    public void failure(ClientException ex) {
+                                                        callback.failure(ex);
+                                                    }
+                                                });
                                     }
 
                                     @Override
