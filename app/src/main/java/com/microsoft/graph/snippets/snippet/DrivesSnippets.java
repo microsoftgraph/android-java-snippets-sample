@@ -8,9 +8,10 @@ import com.google.common.io.CharStreams;
 import com.google.gson.JsonObject;
 import com.microsoft.graph.concurrency.ICallback;
 import com.microsoft.graph.core.ClientException;
+import com.microsoft.graph.extensions.Drive;
 import com.microsoft.graph.extensions.DriveItem;
 import com.microsoft.graph.extensions.Folder;
-import com.microsoft.graph.snippets.application.SnippetApp;
+import com.microsoft.graph.extensions.IDriveItemCollectionPage;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -51,27 +52,22 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                 new DrivesSnippets<JsonObject>(get_me_drive) {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                JsonObject result = null;
+                        mGraphServiceClient
+                                .getMe()
+                                .getDrive()
+                                .buildRequest()
+                                .get(new ICallback<Drive>() {
+                                    @Override
+                                    public void success(Drive drive) {
+                                        callback.success(drive.getRawObject());
+                                    }
 
-                                try {
-                                    result =
-                                            SnippetApp
-                                                    .getApp()
-                                                    .getGraphServiceClient()
-                                                    .getMe()
-                                                    .getDrive()
-                                                    .buildRequest()
-                                                    .get()
-                                                    .getRawObject();
-                                    callback.success(result);
-                                } catch (ClientException clientException) {
-                                    callback.failure(clientException);
-                                }
-                            }
-                        }).start();
+                                    @Override
+                                    public void failure(ClientException ex) {
+                                        callback.failure(ex);
+                                    }
+                        });
+
                     }
                 },
 
@@ -84,29 +80,23 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
                         //Get files in root folder
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                JsonObject result = null;
+                        mGraphServiceClient
+                                .getMe()
+                                .getDrive()
+                                .getRoot()
+                                .getChildren()
+                                .buildRequest()
+                                .get(new ICallback<IDriveItemCollectionPage>() {
+                                    @Override
+                                    public void success(IDriveItemCollectionPage iDriveItemCollectionPage) {
+                                        callback.success(iDriveItemCollectionPage.getRawObject());
+                                    }
 
-                                try {
-                                    result =
-                                            SnippetApp
-                                                    .getApp()
-                                                    .getGraphServiceClient()
-                                                    .getMe()
-                                                    .getDrive()
-                                                    .getRoot()
-                                                    .getChildren()
-                                                    .buildRequest()
-                                                    .get()
-                                                    .getRawObject();
-                                    callback.success(result);
-                                } catch (ClientException clientException) {
-                                    callback.failure(clientException);
-                                }
-                            }
-                        }).start();
+                                    @Override
+                                    public void failure(ClientException ex) {
+                                        callback.failure(ex);
+                                    }
+                                });
                     }
                 },
 
@@ -119,36 +109,31 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
                         // create a new file
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                JsonObject result = null;
+                        try {
+                            String guid = UUID.randomUUID().toString();
+                            byte[] byteArray = guid.getBytes("UTF-8");
 
-                                try {
-                                    String guid = UUID.randomUUID().toString();
-                                    byte[] byteArray = guid.getBytes("UTF-8");
+                            mGraphServiceClient
+                                    .getMe()
+                                    .getDrive()
+                                    .getRoot()
+                                    .getChildren(guid)
+                                    .getContent()
+                                    .buildRequest()
+                                    .put(byteArray, new ICallback<DriveItem>() {
+                                        @Override
+                                        public void success(DriveItem driveItem) {
+                                            callback.success(driveItem.getRawObject());
+                                        }
 
-                                    result =
-                                            SnippetApp
-                                                .getApp()
-                                                .getGraphServiceClient()
-                                                .getMe()
-                                                .getDrive()
-                                                .getRoot()
-                                                .getChildren(guid)
-                                                .getContent()
-                                                .buildRequest()
-                                                .put(byteArray)
-                                                .getRawObject();
-
-                                    callback.success(result);
-                                } catch (ClientException clientException) {
-                                    callback.failure(clientException);
-                                } catch (UnsupportedEncodingException uee) {
-                                    uee.printStackTrace();
-                                }
-                            }
-                        }).start();
+                                        @Override
+                                        public void failure(ClientException ex) {
+                                            callback.failure(ex);
+                                        }
+                                    });
+                        } catch (UnsupportedEncodingException uee) {
+                            uee.printStackTrace();
+                        }
                     }
                 },
 
@@ -160,58 +145,63 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                 new DrivesSnippets<JsonObject>(download_me_file) {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                JsonObject result = null;
+                        //create a new file to download
+                        String guid = UUID.randomUUID().toString();
+                        byte[] byteArray = null;
 
-                                try {
-                                    //create a new file to download
-                                    String guid = UUID.randomUUID().toString();
-                                    byte[] byteArray = guid.getBytes("UTF-8");
+                        try {
+                            byteArray = guid.getBytes("UTF-8");
+                        } catch (UnsupportedEncodingException ex) {
+                            ex.printStackTrace();
+                        }
 
-                                    result =
-                                            SnippetApp
-                                                .getApp()
-                                                .getGraphServiceClient()
+                        mGraphServiceClient
+                                .getMe()
+                                .getDrive()
+                                .getRoot()
+                                .getChildren(guid)
+                                .getContent()
+                                .buildRequest()
+                                .put(byteArray, new ICallback<DriveItem>() {
+                                    @Override
+                                    public void success(DriveItem driveItem) {
+                                        // Get the guid that the service assigned to my file
+                                        String guid = driveItem.id;
+                                        mGraphServiceClient
                                                 .getMe()
                                                 .getDrive()
-                                                .getRoot()
-                                                .getChildren(guid)
+                                                .getItems()
+                                                .byId(guid)
                                                 .getContent()
                                                 .buildRequest()
-                                                .put(byteArray)
-                                                .getRawObject();
+                                                .get(new ICallback<InputStream>() {
+                                                    @Override
+                                                    public void success(InputStream inputStream) {
+                                                        final InputStreamReader inr = new InputStreamReader(inputStream);
+                                                        String text;
+                                                        try {
+                                                            text = CharStreams.toString(inr);
+                                                            JsonObject result = new JsonObject();
+                                                            result.addProperty("value", text);
 
-                                    // Get the guid that the service assigned to my file
-                                    guid = result.get("id").getAsString();
+                                                            callback.success(result);
+                                                        } catch (IOException ex) {
+                                                            ex.printStackTrace();
+                                                        }
+                                                    }
 
-                                    InputStream inputStream =
-                                            SnippetApp
-                                                    .getApp()
-                                                    .getGraphServiceClient()
-                                                    .getMe()
-                                                    .getDrive()
-                                                    .getItems()
-                                                    .byId(guid)
-                                                    .getContent()
-                                                    .buildRequest()
-                                                    .get();
+                                                    @Override
+                                                    public void failure(ClientException ex) {
+                                                        callback.failure(ex);
+                                                    }
+                                                });
+                                    }
 
-                                    final InputStreamReader inr = new InputStreamReader(inputStream);
-                                    String text = CharStreams.toString(inr);
-
-                                    result = new JsonObject();
-                                    result.addProperty("value", text);
-
-                                    callback.success(result);
-                                } catch (ClientException clientException) {
-                                    callback.failure(clientException);
-                                } catch (IOException exception) {
-                                    exception.printStackTrace();
-                                }
-                            }
-                        }).start();
+                                    @Override
+                                    public void failure(ClientException ex) {
+                                        callback.failure(ex);
+                                    }
+                                });
                     }
                 },
 
@@ -223,56 +213,60 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                 new DrivesSnippets<JsonObject>(update_me_file) {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                JsonObject result = null;
+                        //create a new file to update
+                        String guid = UUID.randomUUID().toString();
+                        byte[] byteArray = null;
 
-                                try {
-                                    //create a new file to download
-                                    String guid = UUID.randomUUID().toString();
-                                    // This is the original content
-                                    byte[] byteArray = guid.getBytes("UTF-8");
+                        try {
+                            byteArray = guid.getBytes("UTF-8");
+                        } catch (UnsupportedEncodingException ex) {
+                            ex.printStackTrace();
+                        }
 
-                                    result =
-                                            SnippetApp
-                                                    .getApp()
-                                                    .getGraphServiceClient()
-                                                    .getMe()
-                                                    .getDrive()
-                                                    .getRoot()
-                                                    .getChildren(guid)
-                                                    .getContent()
-                                                    .buildRequest()
-                                                    .put(byteArray)
-                                                    .getRawObject();
+                        mGraphServiceClient
+                                .getMe()
+                                .getDrive()
+                                .getRoot()
+                                .getChildren(guid)
+                                .getContent()
+                                .buildRequest()
+                                .put(byteArray, new ICallback<DriveItem>() {
+                                    @Override
+                                    public void success(DriveItem driveItem) {
+                                        // This is the new content that we use to update the file
+                                        byte[] byteArray = null;
 
-                                    // Get the guid that the service assigned to my file
-                                    guid = result.get("id").getAsString();
+                                        try {
+                                            byteArray = "A plain text file".getBytes("UTF-8");
 
-                                    // This is the new content that we use to update the file
-                                    byteArray = "A plain text file".getBytes("UTF-8");
-                                    result =
-                                            SnippetApp
-                                                    .getApp()
-                                                    .getGraphServiceClient()
+                                            mGraphServiceClient
                                                     .getMe()
                                                     .getDrive()
                                                     .getItems()
-                                                    .byId(guid)
+                                                    .byId(driveItem.id)
                                                     .getContent()
                                                     .buildRequest()
-                                                    .put(byteArray)
-                                                    .getRawObject();
+                                                    .put(byteArray, new ICallback<DriveItem>() {
+                                                        @Override
+                                                        public void success(DriveItem driveItem) {
+                                                            callback.success(driveItem.getRawObject());
+                                                        }
 
-                                    callback.success(result);
-                                } catch (ClientException clientException) {
-                                    callback.failure(clientException);
-                                } catch (UnsupportedEncodingException uee) {
-                                    uee.printStackTrace();
-                                }
-                            }
-                        }).start();
+                                                        @Override
+                                                        public void failure(ClientException ex) {
+                                                            callback.failure(ex);
+                                                        }
+                                                    });
+                                        } catch (IOException ex) {
+                                            ex.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void failure(ClientException ex) {
+                                        callback.failure(ex);
+                                    }
+                                });
                     }
                 },
 
@@ -284,48 +278,50 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                 new DrivesSnippets<JsonObject>(delete_me_file) {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    //create a new file to download
-                                    String guid = UUID.randomUUID().toString();
-                                    // This is the original content
-                                    byte[] byteArray = guid.getBytes("UTF-8");
+                        //create a new file to delete
+                        String guid = UUID.randomUUID().toString();
+                        byte[] byteArray = null;
 
-                                    JsonObject result =
-                                            SnippetApp
-                                                    .getApp()
-                                                    .getGraphServiceClient()
-                                                    .getMe()
-                                                    .getDrive()
-                                                    .getRoot()
-                                                    .getChildren(guid)
-                                                    .getContent()
-                                                    .buildRequest()
-                                                    .put(byteArray)
-                                                    .getRawObject();
+                        try {
+                            byteArray = guid.getBytes("UTF-8");
+                        } catch (UnsupportedEncodingException ex) {
+                            ex.printStackTrace();
+                        }
 
-                                    // Get the guid that the service assigned to my file
-                                    guid = result.get("id").getAsString();
-                                    SnippetApp
-                                            .getApp()
-                                            .getGraphServiceClient()
-                                            .getMe()
-                                            .getDrive()
-                                            .getItems()
-                                            .byId(guid)
-                                            .buildRequest()
-                                            .delete();
+                        mGraphServiceClient
+                                .getMe()
+                                .getDrive()
+                                .getRoot()
+                                .getChildren(guid)
+                                .getContent()
+                                .buildRequest()
+                                .put(byteArray, new ICallback<DriveItem>() {
+                                    @Override
+                                    public void success(DriveItem driveItem) {
+                                        mGraphServiceClient
+                                                .getMe()
+                                                .getDrive()
+                                                .getItems()
+                                                .byId(driveItem.id)
+                                                .buildRequest()
+                                                .delete(new ICallback<Void>() {
+                                                    @Override
+                                                    public void success(Void aVoid) {
+                                                        callback.success(null);
+                                                    }
 
-                                    callback.success(null);
-                                } catch (ClientException clientException) {
-                                    callback.failure(clientException);
-                                } catch (UnsupportedEncodingException uee) {
-                                    uee.printStackTrace();
-                                }
-                            }
-                        }).start();
+                                                    @Override
+                                                    public void failure(ClientException ex) {
+                                                        callback.failure(ex);
+                                                    }
+                                                });
+                                    }
+
+                                    @Override
+                                    public void failure(ClientException ex) {
+                                        callback.failure(ex);
+                                    }
+                                });
                     }
                 },
                 
@@ -337,53 +333,52 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                 new DrivesSnippets<JsonObject>(rename_me_file) {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    //create a new file to download
-                                    String guid = UUID.randomUUID().toString();
-                                    // This is the original content
-                                    byte[] byteArray = guid.getBytes("UTF-8");
+                        //create a new file to rename
+                        String guid = UUID.randomUUID().toString();
+                        byte[] byteArray = null;
 
-                                    JsonObject result =
-                                            SnippetApp
-                                                    .getApp()
-                                                    .getGraphServiceClient()
-                                                    .getMe()
-                                                    .getDrive()
-                                                    .getRoot()
-                                                    .getChildren(guid)
-                                                    .getContent()
-                                                    .buildRequest()
-                                                    .put(byteArray)
-                                                    .getRawObject();
+                        try {
+                            byteArray = guid.getBytes("UTF-8");
+                        } catch (UnsupportedEncodingException ex) {
+                            ex.printStackTrace();
+                        }
 
-                                    // Get the guid that the service assigned to my file
-                                    guid = result.get("id").getAsString();
-                                    DriveItem driveItem = new DriveItem();
-                                    driveItem.name = "Updated name";
+                        mGraphServiceClient
+                                .getMe()
+                                .getDrive()
+                                .getRoot()
+                                .getChildren(guid)
+                                .getContent()
+                                .buildRequest()
+                                .put(byteArray, new ICallback<DriveItem>() {
+                                    @Override
+                                    public void success(DriveItem driveItem) {
+                                        driveItem = new DriveItem();
+                                        driveItem.name = "Updated name";
+                                        mGraphServiceClient
+                                                .getMe()
+                                                .getDrive()
+                                                .getItems()
+                                                .byId(driveItem.id)
+                                                .buildRequest()
+                                                .patch(driveItem, new ICallback<DriveItem>() {
+                                                    @Override
+                                                    public void success(DriveItem driveItem) {
+                                                        callback.success(driveItem.getRawObject());
+                                                    }
 
-                                    result =
-                                            SnippetApp
-                                                    .getApp()
-                                                    .getGraphServiceClient()
-                                                    .getMe()
-                                                    .getDrive()
-                                                    .getItems()
-                                                    .byId(guid)
-                                                    .buildRequest()
-                                                    .patch(driveItem)
-                                                    .getRawObject();
+                                                    @Override
+                                                    public void failure(ClientException ex) {
+                                                        callback.failure(ex);
+                                                    }
+                                                });
+                                    }
 
-                                    callback.success(result);
-                                } catch (ClientException clientException) {
-                                    callback.failure(clientException);
-                                } catch (UnsupportedEncodingException uee) {
-                                    uee.printStackTrace();
-                                }
-                            }
-                        }).start();
+                                    @Override
+                                    public void failure(ClientException ex) {
+                                        callback.failure(ex);
+                                    }
+                                });
                     }
                 },
 
@@ -393,38 +388,31 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/item_post_children
                  */
                 new DrivesSnippets<JsonObject>(create_me_folder) {
-
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    //create a new file to download
-                                    String guid = UUID.randomUUID().toString();
+                        String guid = UUID.randomUUID().toString();
 
-                                    DriveItem driveItem = new DriveItem();
-                                    driveItem.name = guid;
-                                    driveItem.folder = new Folder();
+                        DriveItem driveItem = new DriveItem();
+                        driveItem.name = guid;
+                        driveItem.folder = new Folder();
 
-                                    JsonObject result =
-                                            SnippetApp
-                                                    .getApp()
-                                                    .getGraphServiceClient()
-                                                    .getMe()
-                                                    .getDrive()
-                                                    .getRoot()
-                                                    .getChildren()
-                                                    .buildRequest()
-                                                    .post(driveItem)
-                                                    .getRawObject();
+                        mGraphServiceClient
+                                .getMe()
+                                .getDrive()
+                                .getRoot()
+                                .getChildren()
+                                .buildRequest()
+                                .post(driveItem, new ICallback<DriveItem>() {
+                                    @Override
+                                    public void success(DriveItem driveItem) {
+                                        callback.success(driveItem.getRawObject());
+                                    }
 
-                                    callback.success(result);
-                                } catch (ClientException clientException) {
-                                    callback.failure(clientException);
-                                }
-                            }
-                        }).start();
+                                    @Override
+                                    public void failure(ClientException ex) {
+                                        callback.failure(ex);
+                                    }
+                                });
                     }
                 }
         };

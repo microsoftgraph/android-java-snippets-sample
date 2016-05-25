@@ -11,13 +11,11 @@ import com.microsoft.graph.core.DefaultClientConfig;
 import com.microsoft.graph.core.IClientConfig;
 import com.microsoft.graph.extensions.GraphServiceClient;
 import com.microsoft.graph.extensions.IGraphServiceClient;
-import com.microsoft.graph.snippets.BuildConfig;
 import com.microsoft.graph.snippets.inject.AppModule;
 
 import javax.inject.Inject;
 
 import dagger.ObjectGraph;
-import timber.log.Timber;
 
 public class SnippetApp extends Application {
     private static SnippetApp sSnippetApp;
@@ -43,9 +41,6 @@ public class SnippetApp extends Application {
         sSnippetApp = this;
         mObjectGraph = ObjectGraph.create(new AppModule());
         mObjectGraph.inject(this);
-        if (BuildConfig.DEBUG) {
-            Timber.plant(new Timber.DebugTree());
-        }
     }
 
     public IGraphServiceClient getGraphServiceClient() {

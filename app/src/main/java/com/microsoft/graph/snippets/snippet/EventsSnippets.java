@@ -13,9 +13,9 @@ import com.microsoft.graph.extensions.BodyType;
 import com.microsoft.graph.extensions.DateTimeTimeZone;
 import com.microsoft.graph.extensions.EmailAddress;
 import com.microsoft.graph.extensions.Event;
+import com.microsoft.graph.extensions.IEventCollectionPage;
 import com.microsoft.graph.extensions.ItemBody;
 import com.microsoft.graph.extensions.Location;
-import com.microsoft.graph.snippets.application.SnippetApp;
 
 import org.joda.time.DateTime;
 
@@ -51,27 +51,21 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
                 new EventsSnippets<JsonObject>(get_user_events) {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                JsonObject result = null;
+                        mGraphServiceClient
+                                .getMe()
+                                .getEvents()
+                                .buildRequest()
+                                .get(new ICallback<IEventCollectionPage>() {
+                                    @Override
+                                    public void success(IEventCollectionPage iEventCollectionPage) {
+                                        callback.success(iEventCollectionPage.getRawObject());
+                                    }
 
-                                try {
-                                    result =
-                                            SnippetApp
-                                                    .getApp()
-                                                    .getGraphServiceClient()
-                                                    .getMe()
-                                                    .getEvents()
-                                                    .buildRequest()
-                                                    .get()
-                                                    .getRawObject();
-                                    callback.success(result);
-                                } catch (ClientException clientException) {
-                                    callback.failure(clientException);
-                                }
-                            }
-                        }).start();
+                                    @Override
+                                    public void failure(ClientException ex) {
+                                        callback.failure(ex);
+                                    }
+                                });
                     }
                 },
 
@@ -83,31 +77,24 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
                 new EventsSnippets<JsonObject>(create_event) {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                JsonObject result = null;
+                        Event event = createEventObject();
 
-                                try {
-                                    Event event = createEventObject();
+                        mGraphServiceClient
+                                .getMe()
+                                .getEvents()
+                                .buildRequest()
+                                .post(event, new ICallback<Event>() {
+                                    @Override
+                                    public void success(Event event) {
+                                        callback.success(event.getRawObject());
+                                    }
 
-                                    result =
-                                            SnippetApp
-                                                    .getApp()
-                                                    .getGraphServiceClient()
-                                                    .getMe()
-                                                    .getEvents()
-                                                    .buildRequest()
-                                                    .post(event)
-                                                    .getRawObject();
-                                    callback.success(result);
-                                } catch (ClientException clientException) {
-                                    callback.failure(clientException);
-                                }
-                            }
-                        }).start();
+                                    @Override
+                                    public void failure(ClientException ex) {
+                                        callback.failure(ex);
+                                    }
+                                });
                     }
-
                 },
 
                  /*
@@ -118,50 +105,45 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
                 new EventsSnippets<JsonObject>(update_event) {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                JsonObject result = null;
+                        Event event = createEventObject();
 
-                                try {
-                                    // create a new event to update
-                                    Event event = createEventObject();
+                        mGraphServiceClient
+                                .getMe()
+                                .getEvents()
+                                .buildRequest()
+                                .post(event, new ICallback<Event>() {
+                                    @Override
+                                    public void success(Event event) {
+                                        // Update the event object
+                                        event.subject = "Updated event";
 
-                                    result =
-                                            SnippetApp
-                                                    .getApp()
-                                                    .getGraphServiceClient()
-                                                    .getMe()
-                                                    .getEvents()
-                                                    .buildRequest()
-                                                    .post(event)
-                                                    .getRawObject();
+                                        mGraphServiceClient
+                                                .getMe()
+                                                .getEvents()
+                                                .byId(event.id)
+                                                .buildRequest()
+                                                .patch(event, new ICallback<Event>() {
+                                                    @Override
+                                                    public void success(Event event) {
+                                                        callback.success(event.getRawObject());
+                                                    }
 
-                                    String eventId = result.get("id").getAsString();
+                                                    @Override
+                                                    public void failure(ClientException ex) {
+                                                        callback.failure(ex);
+                                                    }
+                                                });
+                                    }
 
-                                    // Update the event object
-                                    event.subject = "Updated event";
-
-                                    result =
-                                            SnippetApp
-                                                    .getApp()
-                                                    .getGraphServiceClient()
-                                                    .getMe()
-                                                    .getEvents()
-                                                    .byId(eventId)
-                                                    .buildRequest()
-                                                    .patch(event)
-                                                    .getRawObject();
-
-                                    callback.success(result);
-                                } catch (ClientException clientException) {
-                                    callback.failure(clientException);
-                                }
-                            }
-                        }).start();
+                                    @Override
+                                    public void failure(ClientException ex) {
+                                        callback.failure(ex);
+                                    }
+                                });
                     }
 
                 },
+
                  /*
                  * Delete an event
                  * DELETE https://graph.microsoft.com/{version}/me/events/{Event.Id}
@@ -170,42 +152,41 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
                 new EventsSnippets<JsonObject>(delete_event) {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                JsonObject result = null;
+                        Event event = createEventObject();
 
-                                try {
-                                    // create a new event to delete
-                                    Event event = createEventObject();
+                        mGraphServiceClient
+                                .getMe()
+                                .getEvents()
+                                .buildRequest()
+                                .post(event, new ICallback<Event>() {
+                                    @Override
+                                    public void success(Event event) {
+                                        // Update the event object
+                                        event.subject = "Updated event";
 
-                                    result =
-                                            SnippetApp
-                                                    .getApp()
-                                                    .getGraphServiceClient()
-                                                    .getMe()
-                                                    .getEvents()
-                                                    .buildRequest()
-                                                    .post(event)
-                                                    .getRawObject();
+                                        mGraphServiceClient
+                                                .getMe()
+                                                .getEvents()
+                                                .byId(event.id)
+                                                .buildRequest()
+                                                .delete(new ICallback<Void>() {
+                                                    @Override
+                                                    public void success(Void aVoid) {
+                                                        callback.success(null);
+                                                    }
 
-                                    String eventId = result.get("id").getAsString();
+                                                    @Override
+                                                    public void failure(ClientException ex) {
+                                                        callback.failure(ex);
+                                                    }
+                                                });
+                                    }
 
-                                    SnippetApp
-                                            .getApp()
-                                            .getGraphServiceClient()
-                                            .getMe()
-                                            .getEvents()
-                                            .byId(eventId)
-                                            .buildRequest()
-                                            .delete();
-
-                                    callback.success(null);
-                                } catch (ClientException clientException) {
-                                    callback.failure(clientException);
-                                }
-                            }
-                        }).start();
+                                    @Override
+                                    public void failure(ClientException ex) {
+                                        callback.failure(ex);
+                                    }
+                                });
                     }
                 }
         };

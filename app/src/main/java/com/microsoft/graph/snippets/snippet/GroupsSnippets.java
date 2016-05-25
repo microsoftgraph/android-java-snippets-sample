@@ -8,7 +8,8 @@ import com.google.gson.JsonObject;
 import com.microsoft.graph.concurrency.ICallback;
 import com.microsoft.graph.core.ClientException;
 import com.microsoft.graph.extensions.Group;
-import com.microsoft.graph.snippets.application.SnippetApp;
+import com.microsoft.graph.extensions.IDirectoryObjectCollectionWithReferencesPage;
+import com.microsoft.graph.extensions.IGroupCollectionPage;
 
 import java.util.Collections;
 import java.util.UUID;
@@ -46,41 +47,37 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
                         // create a group then query it
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                JsonObject result = null;
+                        Group group = createGroupObject();
 
-                                try {
-                                    Group group = createGroupObject();
+                        mGraphServiceClient
+                                .getGroups()
+                                .buildRequest()
+                                .post(group, new ICallback<Group>() {
+                                    @Override
+                                    public void success(Group group) {
+                                        mGraphServiceClient
+                                                .getGroups()
+                                                .byId(group.id)
+                                                .buildRequest()
+                                                .get(new ICallback<Group>() {
+                                                    @Override
+                                                    public void success(Group group) {
+                                                        callback.success(group.getRawObject());
+                                                    }
 
-                                    result =
-                                            SnippetApp
-                                                    .getApp()
-                                                    .getGraphServiceClient()
-                                                    .getGroups()
-                                                    .buildRequest()
-                                                    .post(group)
-                                                    .getRawObject();
+                                                    @Override
+                                                    public void failure(ClientException ex) {
+                                                        callback.failure(ex);
+                                                    }
+                                                });
 
-                                    String guid = result.get("id").getAsString();
+                                    }
 
-                                    result =
-                                            SnippetApp
-                                                    .getApp()
-                                                    .getGraphServiceClient()
-                                                    .getGroups()
-                                                    .byId(guid)
-                                                    .buildRequest()
-                                                    .get()
-                                                    .getRawObject();
-
-                                    callback.success(result);
-                                } catch (ClientException clientException) {
-                                    callback.failure(clientException);
-                                }
-                            }
-                        }).start();
+                                    @Override
+                                    public void failure(ClientException ex) {
+                                        callback.failure(ex);
+                                    }
+                                });
                     }
                 },
                 /* Get all of the members of a newly created organization group
@@ -91,42 +88,37 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
                         // create a group then ask for its members
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                JsonObject result = null;
+                        Group group = createGroupObject();
 
-                                try {
-                                    Group group = createGroupObject();
+                        mGraphServiceClient
+                                .getGroups()
+                                .buildRequest()
+                                .post(group, new ICallback<Group>() {
+                                    @Override
+                                    public void success(Group group) {
+                                        mGraphServiceClient
+                                                .getGroups()
+                                                .byId(group.id)
+                                                .getMembers()
+                                                .buildRequest()
+                                                .get(new ICallback<IDirectoryObjectCollectionWithReferencesPage>() {
+                                                    @Override
+                                                    public void success(IDirectoryObjectCollectionWithReferencesPage iDirectoryObjectCollectionWithReferencesPage) {
+                                                        callback.success(iDirectoryObjectCollectionWithReferencesPage.getRawObject());
+                                                    }
 
-                                    result =
-                                            SnippetApp
-                                                    .getApp()
-                                                    .getGraphServiceClient()
-                                                    .getGroups()
-                                                    .buildRequest()
-                                                    .post(group)
-                                                    .getRawObject();
+                                                    @Override
+                                                    public void failure(ClientException ex) {
+                                                        callback.failure(ex);
+                                                    }
+                                                });
+                                    }
 
-                                    String guid = result.get("id").getAsString();
-
-                                    result =
-                                            SnippetApp
-                                                    .getApp()
-                                                    .getGraphServiceClient()
-                                                    .getGroups()
-                                                    .byId(guid)
-                                                    .getMembers()
-                                                    .buildRequest()
-                                                    .get()
-                                                    .getRawObject();
-
-                                    callback.success(result);
-                                } catch (ClientException clientException) {
-                                    callback.failure(clientException);
-                                }
-                            }
-                        }).start();
+                                    @Override
+                                    public void failure(ClientException ex) {
+                                        callback.failure(ex);
+                                    }
+                                });
                     }
                 },
 
@@ -138,42 +130,37 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
                         // create a group and then request its owner
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                JsonObject result = null;
+                        Group group = createGroupObject();
 
-                                try {
-                                    Group group = createGroupObject();
+                        mGraphServiceClient
+                                .getGroups()
+                                .buildRequest()
+                                .post(group, new ICallback<Group>() {
+                                    @Override
+                                    public void success(Group group) {
+                                        mGraphServiceClient
+                                                .getGroups()
+                                                .byId(group.id)
+                                                .getOwners()
+                                                .buildRequest()
+                                                .get(new ICallback<IDirectoryObjectCollectionWithReferencesPage>() {
+                                                    @Override
+                                                    public void success(IDirectoryObjectCollectionWithReferencesPage iDirectoryObjectCollectionWithReferencesPage) {
+                                                        callback.success(iDirectoryObjectCollectionWithReferencesPage.getRawObject());
+                                                    }
 
-                                    result =
-                                            SnippetApp
-                                                    .getApp()
-                                                    .getGraphServiceClient()
-                                                    .getGroups()
-                                                    .buildRequest()
-                                                    .post(group)
-                                                    .getRawObject();
+                                                    @Override
+                                                    public void failure(ClientException ex) {
+                                                        callback.failure(ex);
+                                                    }
+                                                });
+                                    }
 
-                                    String guid = result.get("id").getAsString();
-
-                                    result =
-                                            SnippetApp
-                                                    .getApp()
-                                                    .getGraphServiceClient()
-                                                    .getGroups()
-                                                    .byId(guid)
-                                                    .getOwners()
-                                                    .buildRequest()
-                                                    .get()
-                                                    .getRawObject();
-
-                                    callback.success(result);
-                                } catch (ClientException clientException) {
-                                    callback.failure(clientException);
-                                }
-                            }
-                        }).start();
+                                    @Override
+                                    public void failure(ClientException ex) {
+                                        callback.failure(ex);
+                                    }
+                                });
                     }
                 },
 
@@ -184,26 +171,20 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                 new GroupsSnippets<JsonObject>(get_all_groups) {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                JsonObject result = null;
+                        mGraphServiceClient
+                                .getGroups()
+                                .buildRequest()
+                                .get(new ICallback<IGroupCollectionPage>() {
+                                    @Override
+                                    public void success(IGroupCollectionPage iGroupCollectionPage) {
+                                        callback.success(iGroupCollectionPage.getRawObject());
+                                    }
 
-                                try {
-                                    result =
-                                            SnippetApp
-                                                    .getApp()
-                                                    .getGraphServiceClient()
-                                                    .getGroups()
-                                                    .buildRequest()
-                                                    .get()
-                                                    .getRawObject();
-                                    callback.success(result);
-                                } catch (ClientException clientException) {
-                                    callback.failure(clientException);
-                                }
-                            }
-                        }).start();
+                                    @Override
+                                    public void failure(ClientException ex) {
+                                        callback.failure(ex);
+                                    }
+                                });
                     }
                 },
 
@@ -215,29 +196,22 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
                         // create a new group
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                JsonObject result = null;
+                        Group group = createGroupObject();
 
-                                try {
-                                    Group group = createGroupObject();
+                        mGraphServiceClient
+                                .getGroups()
+                                .buildRequest()
+                                .post(group, new ICallback<Group>() {
+                                    @Override
+                                    public void success(Group group) {
+                                        callback.success(group.getRawObject());
+                                    }
 
-                                    result =
-                                            SnippetApp
-                                                    .getApp()
-                                                    .getGraphServiceClient()
-                                                    .getGroups()
-                                                    .buildRequest()
-                                                    .post(group)
-                                                    .getRawObject();
-
-                                    callback.success(result);
-                                } catch (ClientException clientException) {
-                                    callback.failure(clientException);
-                                }
-                            }
-                        }).start();
+                                    @Override
+                                    public void failure(ClientException ex) {
+                                        callback.failure(ex);
+                                    }
+                                });
                     }
                 },
 
@@ -249,39 +223,37 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
                         //Create a group that we will delete
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                JsonObject result = null;
+                        // create a group and then request its owner
+                        Group group = createGroupObject();
 
-                                try {
-                                    Group group = createGroupObject();
+                        mGraphServiceClient
+                                .getGroups()
+                                .buildRequest()
+                                .post(group, new ICallback<Group>() {
+                                    @Override
+                                    public void success(Group group) {
+                                        mGraphServiceClient
+                                                .getGroups()
+                                                .byId(group.id)
+                                                .buildRequest()
+                                                .delete(new ICallback<Void>() {
+                                                    @Override
+                                                    public void success(Void aVoid) {
+                                                        callback.success(null);
+                                                    }
 
-                                    result =
-                                            SnippetApp
-                                                    .getApp()
-                                                    .getGraphServiceClient()
-                                                    .getGroups()
-                                                    .buildRequest()
-                                                    .post(group)
-                                                    .getRawObject();
+                                                    @Override
+                                                    public void failure(ClientException ex) {
+                                                        callback.failure(ex);
+                                                    }
+                                                });
+                                    }
 
-                                    String guid = result.get("id").getAsString();
-
-                                    SnippetApp
-                                            .getApp()
-                                            .getGraphServiceClient()
-                                            .getGroups()
-                                            .byId(guid)
-                                            .buildRequest()
-                                            .delete();
-
-                                    callback.success(null);
-                                } catch (ClientException clientException) {
-                                    callback.failure(clientException);
-                                }
-                            }
-                        }).start();
+                                    @Override
+                                    public void failure(ClientException ex) {
+                                        callback.failure(ex);
+                                    }
+                                });
                     }
                 }
         };

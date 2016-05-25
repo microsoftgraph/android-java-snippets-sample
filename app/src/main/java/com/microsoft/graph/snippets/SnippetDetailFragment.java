@@ -35,7 +35,6 @@ import java.io.StringWriter;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import timber.log.Timber;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -224,8 +223,6 @@ public class SnippetDetailFragment<T, Result>
 
     @Override
     public void failure(final ClientException error) {
-        Timber.e(error, "");
-
         getActivity().runOnUiThread(
                 new Runnable() {
                     @Override

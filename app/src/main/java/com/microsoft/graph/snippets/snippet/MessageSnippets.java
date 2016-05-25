@@ -11,6 +11,7 @@ import com.microsoft.graph.concurrency.ICallback;
 import com.microsoft.graph.core.ClientException;
 import com.microsoft.graph.extensions.BodyType;
 import com.microsoft.graph.extensions.EmailAddress;
+import com.microsoft.graph.extensions.IMessageCollectionPage;
 import com.microsoft.graph.extensions.ItemBody;
 import com.microsoft.graph.extensions.Message;
 import com.microsoft.graph.extensions.Recipient;
@@ -51,27 +52,21 @@ public abstract class MessageSnippets<Result> extends AbstractSnippet<Result> {
                 new MessageSnippets<JsonObject>(get_user_messages) {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                JsonObject result = null;
+                        mGraphServiceClient
+                                .getMe()
+                                .getMessages()
+                                .buildRequest()
+                                .get(new ICallback<IMessageCollectionPage>() {
+                                    @Override
+                                    public void success(IMessageCollectionPage iMessageCollectionPage) {
+                                        callback.success(iMessageCollectionPage.getRawObject());
+                                    }
 
-                                try {
-                                    result =
-                                            SnippetApp
-                                                    .getApp()
-                                                    .getGraphServiceClient()
-                                                    .getMe()
-                                                    .getMessages()
-                                                    .buildRequest()
-                                                    .get()
-                                                    .getRawObject();
-                                    callback.success(result);
-                                } catch (ClientException clientException) {
-                                    callback.failure(clientException);
-                                }
-                            }
-                        }).start();
+                                    @Override
+                                    public void failure(ClientException ex) {
+                                        callback.failure(ex);
+                                    }
+                                });
                     }
                 },
 
@@ -82,30 +77,23 @@ public abstract class MessageSnippets<Result> extends AbstractSnippet<Result> {
                 new MessageSnippets<JsonObject>(send_an_email_message) {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
-                        // Get a context so we can interrogate Resources & SharedPreferences
-                      new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            JsonObject result = null;
+                        Message message = createMessageObject();
 
-                            try {
-                                // create a new event to delete
-                                Message message = createMessageObject();
+                        mGraphServiceClient
+                                .getMe()
+                                .getSendMail(message, true)
+                                .buildRequest()
+                                .post(new ICallback<Void>() {
+                                    @Override
+                                    public void success(Void aVoid) {
+                                        callback.success(null);
+                                    }
 
-                                SnippetApp
-                                        .getApp()
-                                        .getGraphServiceClient()
-                                        .getMe()
-                                        .getSendMail(message, true)
-                                        .buildRequest()
-                                        .post();
-
-                                callback.success(result);
-                            } catch (ClientException clientException) {
-                                callback.failure(clientException);
-                            }
-                        }
-                    }).start();
+                                    @Override
+                                    public void failure(ClientException ex) {
+                                        callback.failure(ex);
+                                    }
+                                });
                     }
                 }
         };
