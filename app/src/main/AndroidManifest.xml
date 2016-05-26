@@ -21,6 +21,8 @@
         <activity
             android:name="com.microsoft.graph.snippets.SnippetDetailActivity"
             android:label="@string/title_activity_snippet_detail" />
+        <activity
+            android:name="com.microsoft.aad.adal.AuthenticationActivity" />
     </application>
 
 </manifest>
