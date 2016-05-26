@@ -1,5 +1,7 @@
 # Snippets Sample for Android Using the Microsoft Graph SDK
 
+[![Build Status](https://travis-ci.org/microsoftgraph/android-java-snippets-sample.svg?branch=master)](https://travis-ci.org/microsoftgraph/android-java-snippets-sample)
+
 **Table of contents**
 
 * [Device requirement](#device-requirement)
