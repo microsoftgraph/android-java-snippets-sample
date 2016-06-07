@@ -108,7 +108,7 @@ public class AuthenticationManager {
 
     private void authenticateSilent(
             final AuthenticationCallback<AuthenticationResult> authenticationCallback) {
-        mAuthenticationContext.acquireTokenSilent(
+        mAuthenticationContext.acquireTokenSilentAsync(
                 mAuthenticationResourceId,
                 mClientId,
                 getUserId(),
@@ -128,7 +128,6 @@ public class AuthenticationManager {
     private boolean isConnected() {
         return getSharedPreferences().contains(USER_ID_VAR_NAME);
     }
-
 
     private String getUserId() {
         return getSharedPreferences().getString(USER_ID_VAR_NAME, "");
