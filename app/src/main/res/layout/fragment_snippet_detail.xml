@@ -20,6 +20,7 @@
                 android:id="@+id/txt_hyperlink"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:minHeight="@dimen/edit_text_min_height"
                 android:layout_weight="0.5"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
@@ -77,7 +78,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:freezesText="true"
-            android:text="@string/code_snippet" />
+            android:text="@string/code_snippet"
+            android:labelFor="@+id/txt_request_url" />
 
         <TextView
             android:id="@+id/txt_request_url"
@@ -110,7 +112,8 @@
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 android:text="@string/status"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:labelFor="@+id/txt_status_color" />
 
             <!-- The status color -->
             <ImageView
@@ -130,13 +133,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:freezesText="true"
-            android:text="@string/raw_object" />
+            android:text="@string/raw_object"
+            android:labelFor="@+id/txt_response_body" />
 
         <TextView
             android:id="@+id/txt_response_body"
             style="@style/detail_rect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="@dimen/edit_text_min_height"
             android:freezesText="true"
             android:focusable="true"
             android:nextFocusForward="@+id/txt_hyperlink"

@@ -44,6 +44,7 @@ public class SignInActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(activity_signin);
+        setTitle(R.string.app_name);
 
         ButterKnife.inject(this);
     }
