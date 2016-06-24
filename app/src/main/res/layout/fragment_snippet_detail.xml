@@ -24,14 +24,25 @@
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:text="@string/docs"
-                android:textColor="#FF0000FF" />
+                android:textColor="#FF0000FF"
+                android:focusable="true"
+                android:nextFocusForward="@+id/btn_run"
+                android:nextFocusRight="@+id/btn_run"
+                android:nextFocusDown="@+id/txt_request_url" />
 
             <Button
                 android:id="@+id/btn_run"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="@string/run" />
+                android:text="@string/run"
+                android:focusable="true"
+                android:nextFocusForward="@+id/txt_request_url"
+                android:nextFocusLeft="@+id/txt_hyperlink"
+                android:nextFocusDown="@+id/txt_request_url" >
+                <requestFocus />
+            </Button>
+
         </LinearLayout>
 
         <ProgressBar
@@ -73,7 +84,11 @@
             style="@style/detail_rect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:freezesText="true" />
+            android:freezesText="true"
+            android:focusable="true"
+            android:nextFocusForward="@+id/txt_response_body"
+            android:nextFocusUp="@+id/btn_run"
+            android:nextFocusDown="@+id/txt_response_body" />
 
         <TextView
             android:layout_width="match_parent"
@@ -122,7 +137,10 @@
             style="@style/detail_rect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:freezesText="true" />
+            android:freezesText="true"
+            android:focusable="true"
+            android:nextFocusForward="@+id/txt_hyperlink"
+            android:nextFocusUp="@+id/txt_request_url" />
 
     </LinearLayout>
 </ScrollView>
