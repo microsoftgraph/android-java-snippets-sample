@@ -28,4 +28,7 @@
     <string name="sign_in_button">Connect to Microsoft Graph</string>
     <string name="sign_in_description">Welcome to the Microsoft Graph SDK Snippets sample for Android. Let\'s sign in and get started…</string>
     <string name="diagnostics">Diagnostics</string>
+    <string name="stoplight_in_progress">In progress</string>
+    <string name="stoplight_success">Success</string>
+    <string name="stoplight_failure">Failure</string>
 </resources>

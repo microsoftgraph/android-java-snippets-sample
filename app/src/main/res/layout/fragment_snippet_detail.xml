@@ -98,7 +98,7 @@
                 android:textStyle="bold" />
 
             <!-- The status color -->
-            <TextView
+            <ImageView
                 android:id="@+id/txt_status_color"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
