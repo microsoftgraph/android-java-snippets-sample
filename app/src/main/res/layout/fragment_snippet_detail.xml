@@ -78,7 +78,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:freezesText="true"
-            android:text="@string/code_snippet" />
+            android:text="@string/code_snippet"
+            android:labelFor="@+id/txt_request_url" />
 
         <TextView
             android:id="@+id/txt_request_url"
@@ -111,7 +112,8 @@
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 android:text="@string/status"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:labelFor="@+id/txt_status_color" />
 
             <!-- The status color -->
             <ImageView
@@ -131,7 +133,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:freezesText="true"
-            android:text="@string/raw_object" />
+            android:text="@string/raw_object"
+            android:labelFor="@+id/txt_response_body" />
 
         <TextView
             android:id="@+id/txt_response_body"
