@@ -12,12 +12,14 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.ClipboardManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,6 +61,7 @@ public class SnippetDetailFragment<T, Result>
 
     private static final int UNSET = -1;
     private static final String STATUS_COLOR = "STATUS_COLOR";
+    private static final String CONTENT_DESCRIPTION = "CONTENT_DESCRIPTION";
 
     private AbstractSnippet<Result> mItem;
 
@@ -70,7 +73,7 @@ public class SnippetDetailFragment<T, Result>
      * Displays the status code as color 'stoplight'
      */
     @InjectView(txt_status_color)
-    protected View mStatusColor;
+    protected ImageView mStatusColor;
 
     /**
      * On-screen description of the current snippet
@@ -133,7 +136,7 @@ public class SnippetDetailFragment<T, Result>
         mResponseBody.setText("");
 
         // reset the status 'stoplight'
-        displayStatus(getResources().getColor(code_3xx));
+        displayStatus(ContextCompat.getColor(getActivity(), code_3xx), getString(R.string.stoplight_in_progress));
 
         // show the indeterminate spinner
         mProgressbar.setVisibility(VISIBLE);
@@ -175,6 +178,9 @@ public class SnippetDetailFragment<T, Result>
         if (null != mStatusColor.getTag()) {
             outState.putInt(STATUS_COLOR, (Integer) mStatusColor.getTag());
         }
+        if (null != mStatusColor.getContentDescription()) {
+            outState.putString(CONTENT_DESCRIPTION, (String)mStatusColor.getContentDescription());
+        }
     }
 
     @Override
@@ -186,11 +192,11 @@ public class SnippetDetailFragment<T, Result>
                 activity.getSupportActionBar().setTitle(mItem.getName());
             }
         }
-        if (null != savedInstanceState && savedInstanceState.containsKey(STATUS_COLOR)) {
+        if (null != savedInstanceState && savedInstanceState.containsKey(STATUS_COLOR) && savedInstanceState.containsKey(CONTENT_DESCRIPTION)) {
             int statusColor = savedInstanceState.getInt(STATUS_COLOR, UNSET);
+            String contentDescription = savedInstanceState.getString(CONTENT_DESCRIPTION, "");
             if (UNSET != statusColor) {
-                mStatusColor.setBackgroundColor(statusColor);
-                mStatusColor.setTag(statusColor);
+                displayStatus(statusColor, contentDescription);
             }
         }
     }
@@ -211,9 +217,7 @@ public class SnippetDetailFragment<T, Result>
                     public void run() {
                         mRunButton.setEnabled(true);
                         mProgressbar.setVisibility(GONE);
-                        int color = code_1xx;
-                        mStatusColor.setBackgroundColor(getResources().getColor(color));
-                        mStatusColor.setTag(getResources().getColor(color));
+                        displayStatus(ContextCompat.getColor(getActivity(), code_1xx), getString(R.string.stoplight_success));
                         Gson gson = new GsonBuilder().setPrettyPrinting().create();
                         mResponseBody.setText(gson.toJson(result));
                     }
@@ -229,9 +233,7 @@ public class SnippetDetailFragment<T, Result>
                     public void run() {
                         mRunButton.setEnabled(true);
                         mProgressbar.setVisibility(GONE);
-                        int color = code_4xx;
-                        mStatusColor.setBackgroundColor(getResources().getColor(color));
-                        mStatusColor.setTag(getResources().getColor(color));
+                        displayStatus(ContextCompat.getColor(getActivity(), code_4xx), getString(R.string.stoplight_failure));
                         mResponseBody.setText(error.getLocalizedMessage());
                     }
                 }
@@ -296,9 +298,10 @@ public class SnippetDetailFragment<T, Result>
         startActivity(viewDocs);
     }
 
-    private void displayStatus(int color) {
+    private void displayStatus(int color, String contentDescription) {
         mStatusColor.setBackgroundColor(color);
         mStatusColor.setTag(color);
+        mStatusColor.setContentDescription(contentDescription);
     }
 
     private void displayThrowable(Throwable t) {

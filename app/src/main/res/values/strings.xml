@@ -7,7 +7,7 @@
     <string name="o365_hint">Sign in with the account provided by your work or school to use with Office 365 or other Microsoft services</string>
     <string name="warning_client_id_redirect_uri_incorrect">The client ID or redirect URI is not valid. Enter a valid client ID and redirect URI in the ServiceConstants.java file and run again</string>
     <string name="title_activity_snippet_detail">SnippetDetailActivity</string>
-    <string name="docs"><u>Documentation</u></string>
+    <string name="docs"><u>API documentation</u></string>
     <string name="run">Run</string>
     <string name="code_snippet">Code Snippet</string>
     <string name="result">Result</string>
@@ -28,4 +28,7 @@
     <string name="sign_in_button">Connect to Microsoft Graph</string>
     <string name="sign_in_description">Welcome to the Microsoft Graph SDK Snippets sample for Android. Let\'s sign in and get started…</string>
     <string name="diagnostics">Diagnostics</string>
+    <string name="stoplight_in_progress">In progress</string>
+    <string name="stoplight_success">Success</string>
+    <string name="stoplight_failure">Failure</string>
 </resources>
