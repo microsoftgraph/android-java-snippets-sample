@@ -90,7 +90,7 @@ To use the Microsoft Graph SDK snippets project, you need the following:
 10. In the permissions to other applications section, add the Microsoft Graph application.
 11. For the Microsoft Graph application, add the following permissions:
    * Sign in and read user profile
-   * Have full access to user files and files shared with user
+   * Have full access to all files user can access
    * Have full access to user calendars
    * Read and write access to user mail 
    * Send mail as a user
