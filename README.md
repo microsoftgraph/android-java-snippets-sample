@@ -90,7 +90,7 @@ To use the Microsoft Graph SDK snippets project, you need the following:
 10. In the permissions to other applications section, add the Microsoft Graph application.
 11. For the Microsoft Graph application, add the following permissions:
    * Sign in and read user profile
-   * Have full access to user files and files shared with user
+   * Have full access to all files user can access
    * Have full access to user calendars
    * Read and write access to user mail 
    * Send mail as a user
@@ -106,8 +106,7 @@ To use the Microsoft Graph SDK snippets project, you need the following:
 1. Download or clone the [snippets sample](../../).
 2. Start Android Studio.
 3. From the **Welcome to Android Studio** dialog box, choose **Import project (Eclipse ADT, Gradle, etc)**.
-4. Select the **settings.gradle** file in the **
-O365-Android-Unified-API-Snippets** folder, and then click **OK**.
+4. Select the **settings.gradle** file in the **android-java-snippets-sample** folder, and then click **OK**.
 5. Respond to the dialog box ("Gradle Sync: Gradle settings for this project are not configured yet. Would you like the project to use the Gradle wrapper? ") by clicking the **OK** button to use the Gradle wrapper. 
 6. Open the ServiceConstants.java file in the com.microsoft.graph.snippets package.
 7. Find the [`CLIENT_ID`](app/src/main/java/com/microsoft/graph/snippets/ServiceConstants.java#L11) string and set its value to the client id you registered in Azure.
