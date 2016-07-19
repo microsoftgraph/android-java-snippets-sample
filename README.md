@@ -154,6 +154,13 @@ The authentication classes are found in the [o365-Auth](/o365-auth) module. Thes
 * [`AuthenticationManager`](/o365-auth/src/main/java/com/microsoft/graph/auth/AuthenticationManager.java). Encapsulates user connect and disconnect logic in addition to Azure app authorization.
 * [`AzureADModule`](/o365-auth/src/main/java/com/microsoft/graph/auth/AzureADModule.java). Authentication helper class. 
 * [`AzureAppCompatActivity`](/o365-auth/src/main/java/com/microsoft/graph/auth/AzureAppCompatActivity.java). Dependency injection helper.
+ 
+<a name="contributing"></a>
+## Contributing ##
+
+If you'd like to contribute to this sample, see [CONTRIBUTING.MD](/CONTRIBUTING.md).
+
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
 ## Questions and comments
 We'd love to get your feedback about the Microsoft Graph SDK Snippets sample for Android. You can send your feedback to us in the [Issues](../../issues) section of this repository. <br/>
@@ -167,4 +174,3 @@ General questions about Microsoft Graph development should be posted to [Stack O
 * [Connect Sample for Android Using the Microsoft Graph SDK](../../../android-java-connect-sample)
 
 Copyright (c) 2015 Microsoft. All rights reserved.
-
