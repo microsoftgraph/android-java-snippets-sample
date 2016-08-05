@@ -20,3 +20,4 @@ bin/
 build/
 gen/
 out/
+testConfig.json
