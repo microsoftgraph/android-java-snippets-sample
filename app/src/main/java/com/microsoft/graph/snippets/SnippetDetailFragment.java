@@ -63,6 +63,8 @@ public class SnippetDetailFragment<T, Result>
     private static final String STATUS_COLOR = "STATUS_COLOR";
     private static final String CONTENT_DESCRIPTION = "CONTENT_DESCRIPTION";
 
+    private boolean mIsExecutingRequest = false;
+
     private AbstractSnippet<Result> mItem;
 
     //
@@ -129,6 +131,8 @@ public class SnippetDetailFragment<T, Result>
 
     @OnClick(btn_run)
     public void onRunClicked(Button btn) {
+        mIsExecutingRequest = true;
+
         // disable the button while the snippet is running
         mRunButton.setEnabled(false);
 
@@ -220,6 +224,7 @@ public class SnippetDetailFragment<T, Result>
                         displayStatus(ContextCompat.getColor(getActivity(), code_1xx), getString(R.string.stoplight_success));
                         Gson gson = new GsonBuilder().setPrettyPrinting().create();
                         mResponseBody.setText(gson.toJson(result));
+                        mIsExecutingRequest = false;
                     }
                 }
         );
@@ -235,9 +240,14 @@ public class SnippetDetailFragment<T, Result>
                         mProgressbar.setVisibility(GONE);
                         displayStatus(ContextCompat.getColor(getActivity(), code_4xx), getString(R.string.stoplight_failure));
                         mResponseBody.setText(error.getLocalizedMessage());
+                        mIsExecutingRequest = false;
                     }
                 }
         );
+    }
+
+    public boolean isExecutingRequest() {
+        return mIsExecutingRequest;
     }
 
     //

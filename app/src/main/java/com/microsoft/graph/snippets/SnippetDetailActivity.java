@@ -10,6 +10,7 @@ import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
 public class SnippetDetailActivity extends BaseActivity {
+    private SnippetDetailFragment mSnippetDetailFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,10 +23,10 @@ public class SnippetDetailActivity extends BaseActivity {
             Bundle arguments = new Bundle();
             arguments.putInt(SnippetDetailFragment.ARG_ITEM_ID,
                     getIntent().getIntExtra(SnippetDetailFragment.ARG_ITEM_ID, 0));
-            SnippetDetailFragment fragment = new SnippetDetailFragment();
-            fragment.setArguments(arguments);
+            mSnippetDetailFragment = new SnippetDetailFragment();
+            mSnippetDetailFragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.snippet_detail_container, fragment)
+                    .add(R.id.snippet_detail_container, mSnippetDetailFragment)
                     .commit();
         }
     }
@@ -38,5 +39,9 @@ public class SnippetDetailActivity extends BaseActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public boolean isExecutingRequest(){
+        return mSnippetDetailFragment.isExecutingRequest();
     }
 }
