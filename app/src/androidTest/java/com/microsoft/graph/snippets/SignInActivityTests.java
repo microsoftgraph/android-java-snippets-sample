@@ -4,25 +4,17 @@
  */
 package com.microsoft.graph.snippets;
 
-import android.app.Activity;
 import android.os.Environment;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.Espresso;
-import android.support.test.espresso.IdlingResource;
 import android.support.test.espresso.NoMatchingViewException;
-import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.espresso.web.webdriver.DriverAtoms;
 import android.support.test.espresso.web.webdriver.Locator;
 import android.support.test.runner.AndroidJUnit4;
-import android.widget.ListView;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.microsoft.graph.auth.AuthenticationManager;
-import com.microsoft.graph.snippets.application.SnippetApp;
 
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -36,39 +28,24 @@ import javax.inject.Inject;
 
 import dagger.ObjectGraph;
 
-import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
-import static android.support.test.espresso.Espresso.registerIdlingResources;
-import static android.support.test.espresso.Espresso.unregisterIdlingResources;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.pressBack;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.ComponentNameMatchers.hasShortClassName;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-import static android.support.test.espresso.intent.matcher.IntentMatchers.hasExtra;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.toPackage;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.web.sugar.Web.onWebView;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.clearElement;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.findElement;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.webClick;
 import static org.hamcrest.core.AllOf.allOf;
-import static org.hamcrest.core.IsAnything.anything;
 
 @RunWith(AndroidJUnit4.class)
 public class SignInActivityTests {
     private static String testClientId;
     private static String testUsername;
     private static String testPassword;
-
-    protected ObjectGraph mObjectGraph;
-
-    @Inject
-    protected AuthenticationManager mAuthenticationManager;
 
     @Rule
     public IntentsTestRule<SignInActivity> mSignInActivityRule = new IntentsTestRule<>(SignInActivity.class);
@@ -119,34 +96,5 @@ public class SignInActivityTests {
                 hasComponent(hasShortClassName(".SnippetListActivity")),
                 toPackage("com.microsoft.graph.snippets")
         ));
-
-        int numItems = ((ListView) mSnippetListActivityRule.getActivity().getSupportFragmentManager().findFragmentById(R.id.snippet_list).getView().findViewById(android.R.id.list)).getAdapter().getCount();
-
-        for (int i = 0; true; i++){
-//            try{
-//                onData(anything()).atPosition(0).check(matches(withId(R.id.admin_indicator)));
-//            } catch (NoMatchingViewException e){
-//                continue;
-//            }
-            onData(withId(R.id.admin_indicator))
-                    .inAdapterView(withId(R.id.snippet_list))
-                    .atPosition(i)
-                    .check(matches(withText("Groups")));
-
-            onData(anything())
-                    .atPosition(i)
-                    .perform(click());
-
-            Thread.sleep(2000, 0);
-
-            onView(withId(R.id.btn_run)).perform(click());
-
-            Thread.sleep(2000, 0);
-
-            onView(withId(R.id.txt_status_color)).check(matches(withContentDescription(R.string.stoplight_success)));
-
-            Espresso.pressBack();
-
-        }
     }
 }
