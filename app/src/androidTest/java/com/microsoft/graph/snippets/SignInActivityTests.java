@@ -13,7 +13,6 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.microsoft.graph.auth.AuthenticationManager;
 
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -23,10 +22,6 @@ import org.junit.runner.RunWith;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-
-import javax.inject.Inject;
-
-import dagger.ObjectGraph;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -62,7 +57,6 @@ public class SignInActivityTests {
 
     @Test
     public void AzureADSignIn() throws InterruptedException{
-        Thread.sleep(2000,0);
         onView(withId(R.id.o365_signin)).perform(click());
 
         try {
@@ -75,12 +69,12 @@ public class SignInActivityTests {
                     // The form validates the username when this field loses focus
                     .perform(webClick())
                     .withElement(findElement(Locator.ID, "cred_password_inputtext"))
-                    .perform(clearElement())
-                    // Enter text into the input element
-                    .perform(DriverAtoms.webKeys(testPassword))
                     // Now we force focus on this element to make
                     // the username element to lose focus and validate
-                    .perform(webClick());
+                    .perform(webClick())
+                    .perform(clearElement())
+                    // Enter text into the input element
+                    .perform(DriverAtoms.webKeys(testPassword));
 
             Thread.sleep(2000, 0);
 
