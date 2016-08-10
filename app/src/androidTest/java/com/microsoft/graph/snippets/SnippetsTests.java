@@ -13,10 +13,12 @@ import android.widget.ListView;
 
 import junit.framework.AssertionFailedError;
 
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,14 +39,26 @@ import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.IsAnything.anything;
 
 @RunWith(AndroidJUnit4.class)
-public class SnippetTests {
+public class SnippetsTests {
+    private static TestCredentials testCredentials;
+
+    @Rule
+    public IntentsTestRule<SignInActivity> mSignInActivityRule = new IntentsTestRule<>(SignInActivity.class, false, false);
     @Rule
     public IntentsTestRule<SnippetListActivity> mSnippetListActivityRule = new IntentsTestRule<>(SnippetListActivity.class);
     @Rule
     public ActivityTestRule<SnippetDetailActivity> mSnippetDetailActivityRule = new ActivityTestRule<>(SnippetDetailActivity.class, false, false);
 
+    @BeforeClass
+    public static void setupEnvironment() throws FileNotFoundException {
+        testCredentials = TestCredentials.getTestCredentials();
+        ServiceConstants.CLIENT_ID = testCredentials.clientId;
+    }
+
     @Test
     public void RunSnippets() throws InterruptedException{
+        SignInActivityTests.AzureADSignIn(testCredentials.username, testCredentials.password, mSignInActivityRule);
+
         int numItems = ((ListView) mSnippetListActivityRule.getActivity()
                 .getSupportFragmentManager()
                 .findFragmentById(R.id.snippet_list)

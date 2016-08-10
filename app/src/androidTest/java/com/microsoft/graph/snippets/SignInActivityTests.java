@@ -68,7 +68,7 @@ public class SignInActivityTests {
         Disconnect(mSnippetListActivityRule);
     }
 
-    public static void AzureADSignIn(String username, String password, IntentsTestRule<SignInActivity> signInActivityTestRule) throws InterruptedException {
+    private void AzureADSignIn(String username, String password, IntentsTestRule<SignInActivity> signInActivityTestRule) throws InterruptedException {
         SignInActivity signInActivity = signInActivityTestRule.launchActivity(null);
 
         onView(withId(R.id.o365_signin)).perform(click());
@@ -110,7 +110,7 @@ public class SignInActivityTests {
         signInActivity.finish();
     }
 
-    public static void Disconnect(IntentsTestRule<SnippetListActivity> snippetListActivityTestRule) {
+    private void Disconnect(IntentsTestRule<SnippetListActivity> snippetListActivityTestRule) {
         SnippetListActivity snippetListActivity = snippetListActivityTestRule.launchActivity(null);
 
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
