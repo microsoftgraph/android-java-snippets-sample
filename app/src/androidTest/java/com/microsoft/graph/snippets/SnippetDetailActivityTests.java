@@ -85,35 +85,11 @@ public class SnippetDetailActivityTests {
     public void RunSnippets() throws InterruptedException{
         SignInActivityTests.AzureADSignIn(testCredentials.username, testCredentials.password, mSignInActivityRule);
 
-        List<Integer> snippetIndexes = getSnippetsIndexes(mSnippetListActivityRule);
+        List<Integer> snippetIndexes = SnippetListActivityTests.getSnippetsIndexes(mSnippetListActivityRule);
 
         for(int index : snippetIndexes) {
             runSnippet(index);
         }
-    }
-
-    private List<Integer> getSnippetsIndexes(ActivityTestRule<SnippetListActivity> snippetListActivityRule) {
-        SnippetListActivity snippetListActivity = snippetListActivityRule.launchActivity(null);
-
-        ListAdapter listAdapter = ((ListView) snippetListActivity
-                .getSupportFragmentManager()
-                .findFragmentById(R.id.snippet_list)
-                .getView()
-                .findViewById(android.R.id.list))
-                .getAdapter();
-        int numItems = listAdapter.getCount();
-
-        List<Integer> snippetIndexes = new ArrayList<>();
-
-        // Get the index of items in the adapter that
-        // are actual snippets and not headers
-        for (int i = 0; i < numItems; i++) {
-            if(((AbstractSnippet)listAdapter.getItem(i)).getUrl() != null) {
-                snippetIndexes.add(i);
-            }
-        }
-
-        return snippetIndexes;
     }
 
     private void runSnippet(int index) {

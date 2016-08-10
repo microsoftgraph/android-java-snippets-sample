@@ -99,7 +99,7 @@ public class SnippetListActivityTests {
         return actualSnippetsIndexes.size();
     }
 
-    private List<Integer> getSnippetsIndexes(ActivityTestRule<SnippetListActivity> snippetListActivityRule) {
+    public static List<Integer> getSnippetsIndexes(ActivityTestRule<SnippetListActivity> snippetListActivityRule) {
         SnippetListActivity snippetListActivity = snippetListActivityRule.launchActivity(null);
 
         ListAdapter listAdapter = getListAdapter(snippetListActivity);
@@ -120,7 +120,7 @@ public class SnippetListActivityTests {
         return snippetIndexes;
     }
 
-    private ListAdapter getListAdapter (SnippetListActivity snippetListActivity) {
+    private static ListAdapter getListAdapter (SnippetListActivity snippetListActivity) {
         return ((ListView) snippetListActivity
                 .getSupportFragmentManager()
                 .findFragmentById(R.id.snippet_list)
