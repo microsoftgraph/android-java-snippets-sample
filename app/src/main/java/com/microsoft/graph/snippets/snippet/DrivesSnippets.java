@@ -353,15 +353,15 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                                 .put(byteArray, new ICallback<DriveItem>() {
                                     @Override
                                     public void success(DriveItem driveItem) {
-                                        driveItem = new DriveItem();
-                                        driveItem.name = "Updated name";
+                                        DriveItem renamedDriveItem = new DriveItem();
+                                        renamedDriveItem.name = "Updated name";
                                         mGraphServiceClient
                                                 .getMe()
                                                 .getDrive()
                                                 .getItems()
                                                 .byId(driveItem.id)
                                                 .buildRequest()
-                                                .patch(driveItem, new ICallback<DriveItem>() {
+                                                .patch(renamedDriveItem, new ICallback<DriveItem>() {
                                                     @Override
                                                     public void success(DriveItem driveItem) {
                                                         callback.success(driveItem.getRawObject());
