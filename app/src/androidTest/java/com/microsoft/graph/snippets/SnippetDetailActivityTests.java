@@ -55,7 +55,7 @@ import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.IsAnything.anything;
 
 @RunWith(AndroidJUnit4.class)
-public class SnippetsTests {
+public class SnippetDetailActivityTests {
     private static TestCredentials testCredentials;
 
     @Rule
