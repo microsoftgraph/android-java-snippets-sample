@@ -66,7 +66,7 @@ public class SnippetListActivityTests {
         Disconnect(mSnippetListActivityRule);
     }
 
-    private void Disconnect(ActivityTestRule<SnippetListActivity> snippetListActivityTestRule) {
+    public static void Disconnect(ActivityTestRule<SnippetListActivity> snippetListActivityTestRule) {
         SnippetListActivity snippetListActivity = snippetListActivityTestRule.launchActivity(null);
 
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
