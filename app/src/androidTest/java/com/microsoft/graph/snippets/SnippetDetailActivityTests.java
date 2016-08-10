@@ -82,17 +82,28 @@ public class SnippetDetailActivityTests {
     }
 
     @Test
-    public void RunSnippets() throws InterruptedException{
+    public void RunSnippets_Success() throws InterruptedException{
         SignInActivityTests.AzureADSignIn(testCredentials.username, testCredentials.password, mSignInActivityRule);
 
         List<Integer> snippetIndexes = SnippetListActivityTests.getSnippetsIndexes(mSnippetListActivityRule);
 
         for(int index : snippetIndexes) {
-            runSnippet(index);
+            runSnippet(index, R.string.stoplight_success);
         }
     }
 
-    private void runSnippet(int index) {
+    @Test
+    public void RunSnippets_NoToken() throws InterruptedException{
+        SnippetListActivityTests.Disconnect(mSnippetListActivityRule);
+
+        List<Integer> snippetIndexes = SnippetListActivityTests.getSnippetsIndexes(mSnippetListActivityRule);
+
+        for(int index : snippetIndexes) {
+            runSnippet(index, R.string.stoplight_failure);
+        }
+    }
+
+    private void runSnippet(int index, int expectedStatusColor) {
         Intent itemIdIntent = new Intent();
         itemIdIntent.putExtra("item_id", index);
         SnippetDetailActivity snippetDetailActivity = mSnippetDetailActivityRule.launchActivity(itemIdIntent);
@@ -102,7 +113,7 @@ public class SnippetDetailActivityTests {
 
         onView(withId(R.id.btn_run)).perform(click());
 
-        onView(withId(R.id.txt_status_color)).check(matches(withContentDescription(R.string.stoplight_success)));
+        onView(withId(R.id.txt_status_color)).check(matches(withContentDescription(expectedStatusColor)));
         unregisterIdlingResources(idlingResource);
         snippetDetailActivity.finish();
     }
