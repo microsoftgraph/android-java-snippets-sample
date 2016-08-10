@@ -4,16 +4,12 @@
  */
 package com.microsoft.graph.snippets;
 
-import android.os.Environment;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.espresso.web.webdriver.DriverAtoms;
 import android.support.test.espresso.web.webdriver.Locator;
 import android.support.test.runner.AndroidJUnit4;
-
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import junit.framework.AssertionFailedError;
 
@@ -22,9 +18,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
@@ -46,10 +40,6 @@ public class SignInActivityTests {
     private static final String USER_ID_TEXT_ELEMENT = "cred_userid_inputtext";
     private static final String PASSWORD_TEXT_ELEMENT = "cred_password_inputtext";
     private static final String SIGN_IN_BUTTON_ELEMENT = "cred_sign_in_button";
-    private static final String TEST_ARTIFACT_LOCATION = "local/testConfig.json";
-    private static final String CLIENT_ID_TEST_ARTIFACT = "test_client_id";
-    private static final String USERNAME_TEST_ARTIFACT = "test_username";
-    private static final String PASSWORD_TEST_ARTIFACT = "test_password";
     private static TestCredentials testCredentials;
 
     @Rule
@@ -59,17 +49,17 @@ public class SignInActivityTests {
 
     @BeforeClass
     public static void setupEnvironment() throws FileNotFoundException {
-        testCredentials = getTestCredentials();
-        ServiceConstants.CLIENT_ID = testCredentials.testClientId;
+        testCredentials = TestCredentials.getTestCredentials();
+        ServiceConstants.CLIENT_ID = testCredentials.clientId;
     }
 
     @Test
     public void AzureADSignIn_Success() throws InterruptedException{
-        AzureADSignIn(testCredentials.testUsername, testCredentials.testPassword, mSignInActivityRule);
+        AzureADSignIn(testCredentials.username, testCredentials.password, mSignInActivityRule);
     }
 
     @Test(expected = AssertionFailedError.class)
-            public void AzureADSignIn_Fail() throws InterruptedException{
+    public void AzureADSignIn_Fail() throws InterruptedException{
         AzureADSignIn("fake@fake.onmicrosoft.com", "fake_password", mSignInActivityRule);
     }
 
@@ -135,17 +125,5 @@ public class SignInActivityTests {
         ));
 
         snippetListActivity.finish();
-    }
-
-    public static TestCredentials getTestCredentials() throws FileNotFoundException {
-        TestCredentials testCredentials = new TestCredentials();
-        File testConfigFile = new File(Environment.getDataDirectory(), TEST_ARTIFACT_LOCATION);
-        JsonObject testConfig = new JsonParser().parse(new FileReader(testConfigFile)).getAsJsonObject();
-
-        testCredentials.testClientId = testConfig.get(CLIENT_ID_TEST_ARTIFACT).getAsString();
-        testCredentials.testUsername = testConfig.get(USERNAME_TEST_ARTIFACT).getAsString();
-        testCredentials.testPassword = testConfig.get(PASSWORD_TEST_ARTIFACT).getAsString();
-
-        return testCredentials;
     }
 }
