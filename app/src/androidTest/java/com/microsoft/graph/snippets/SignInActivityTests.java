@@ -15,6 +15,8 @@ import android.support.test.runner.AndroidJUnit4;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import junit.framework.AssertionFailedError;
+
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -66,8 +68,13 @@ public class SignInActivityTests {
     }
 
     @Test
-    public void AzureADSignIn() throws InterruptedException{
+    public void AzureADSignIn_Success() throws InterruptedException{
         AzureADSignIn(testUsername, testPassword, mSignInActivityRule);
+    }
+
+    @Test(expected = AssertionFailedError.class)
+            public void AzureADSignIn_Fail() throws InterruptedException{
+        AzureADSignIn("fake@fake.onmicrosoft.com", "fake_password", mSignInActivityRule);
     }
 
     @Test
