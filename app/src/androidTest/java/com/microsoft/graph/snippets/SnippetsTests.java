@@ -56,9 +56,6 @@ import static org.hamcrest.core.IsAnything.anything;
 
 @RunWith(AndroidJUnit4.class)
 public class SnippetsTests {
-    private static final String USER_ID_TEXT_ELEMENT = "cred_userid_inputtext";
-    private static final String PASSWORD_TEXT_ELEMENT = "cred_password_inputtext";
-    private static final String SIGN_IN_BUTTON_ELEMENT = "cred_sign_in_button";
     private static TestCredentials testCredentials;
 
     @Rule
@@ -86,55 +83,13 @@ public class SnippetsTests {
 
     @Test
     public void RunSnippets() throws InterruptedException{
-        AzureADSignIn(testCredentials.username, testCredentials.password, mSignInActivityRule);
+        SignInActivityTests.AzureADSignIn(testCredentials.username, testCredentials.password, mSignInActivityRule);
 
         List<Integer> snippetIndexes = getSnippetsIndexes(mSnippetListActivityRule);
 
         for(int index : snippetIndexes) {
             runSnippet(index);
         }
-    }
-
-    private void AzureADSignIn(String username, String password, ActivityTestRule<SignInActivity> signInActivityTestRule) throws InterruptedException {
-        SignInActivity signInActivity = signInActivityTestRule.launchActivity(null);
-
-        onView(withId(R.id.o365_signin)).perform(click());
-
-        try {
-            onWebView()
-                    .withElement(findElement(Locator.ID, USER_ID_TEXT_ELEMENT))
-                    .perform(clearElement())
-                    // Enter text into the input element
-                    .perform(DriverAtoms.webKeys(username))
-                    // Set focus on the username input text
-                    // The form validates the username when this field loses focus
-                    .perform(webClick())
-                    .withElement(findElement(Locator.ID, PASSWORD_TEXT_ELEMENT))
-                    // Now we force focus on this element to make
-                    // the username element to lose focus and validate
-                    .perform(webClick())
-                    .perform(clearElement())
-                    // Enter text into the input element
-                    .perform(DriverAtoms.webKeys(password));
-
-            Thread.sleep(2000, 0);
-
-            onWebView()
-                    .withElement(findElement(Locator.ID, SIGN_IN_BUTTON_ELEMENT))
-                    .perform(webClick());
-        } catch (NoMatchingViewException ex) {
-            // If user is already logged in, the flow will go directly to SnippetListActivity
-        } finally {
-            Thread.sleep(2000, 0);
-        }
-
-        // Finally, verify that SnippetListActivity is on top
-        intended(allOf(
-                hasComponent(hasShortClassName(".SnippetListActivity")),
-                toPackage("com.microsoft.graph.snippets")
-        ));
-
-        signInActivity.finish();
     }
 
     private List<Integer> getSnippetsIndexes(ActivityTestRule<SnippetListActivity> snippetListActivityRule) {

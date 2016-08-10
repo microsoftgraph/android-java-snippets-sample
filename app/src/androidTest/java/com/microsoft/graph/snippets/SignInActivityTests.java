@@ -6,13 +6,17 @@ package com.microsoft.graph.snippets;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.NoMatchingViewException;
+import android.support.test.espresso.intent.Intents;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.espresso.web.webdriver.DriverAtoms;
 import android.support.test.espresso.web.webdriver.Locator;
+import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import junit.framework.AssertionFailedError;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -43,14 +47,24 @@ public class SignInActivityTests {
     private static TestCredentials testCredentials;
 
     @Rule
-    public IntentsTestRule<SignInActivity> mSignInActivityRule = new IntentsTestRule<>(SignInActivity.class, false, false);
+    public ActivityTestRule<SignInActivity> mSignInActivityRule = new ActivityTestRule<>(SignInActivity.class, false, false);
     @Rule
-    public IntentsTestRule<SnippetListActivity> mSnippetListActivityRule = new IntentsTestRule<>(SnippetListActivity.class, false, false);
+    public ActivityTestRule<SnippetListActivity> mSnippetListActivityRule = new ActivityTestRule<>(SnippetListActivity.class, false, false);
 
     @BeforeClass
     public static void setupEnvironment() throws FileNotFoundException {
         testCredentials = TestCredentials.getTestCredentials();
         ServiceConstants.CLIENT_ID = testCredentials.clientId;
+    }
+
+    @Before
+    public void initIntents(){
+        Intents.init();
+    }
+
+    @After
+    public void releaseIntents() {
+        Intents.release();
     }
 
     @Test
@@ -68,7 +82,7 @@ public class SignInActivityTests {
         Disconnect(mSnippetListActivityRule);
     }
 
-    private void AzureADSignIn(String username, String password, IntentsTestRule<SignInActivity> signInActivityTestRule) throws InterruptedException {
+    public static void AzureADSignIn(String username, String password, ActivityTestRule<SignInActivity> signInActivityTestRule) throws InterruptedException {
         SignInActivity signInActivity = signInActivityTestRule.launchActivity(null);
 
         onView(withId(R.id.o365_signin)).perform(click());
@@ -110,7 +124,7 @@ public class SignInActivityTests {
         signInActivity.finish();
     }
 
-    private void Disconnect(IntentsTestRule<SnippetListActivity> snippetListActivityTestRule) {
+    private void Disconnect(ActivityTestRule<SnippetListActivity> snippetListActivityTestRule) {
         SnippetListActivity snippetListActivity = snippetListActivityTestRule.launchActivity(null);
 
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
