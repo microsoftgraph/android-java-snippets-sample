@@ -50,8 +50,7 @@ public class SignInActivityTests {
     private static final String CLIENT_ID_TEST_ARTIFACT = "test_client_id";
     private static final String USERNAME_TEST_ARTIFACT = "test_username";
     private static final String PASSWORD_TEST_ARTIFACT = "test_password";
-    private static String testUsername;
-    private static String testPassword;
+    private static TestCredentials testCredentials;
 
     @Rule
     public IntentsTestRule<SignInActivity> mSignInActivityRule = new IntentsTestRule<>(SignInActivity.class, false, false);
@@ -59,17 +58,14 @@ public class SignInActivityTests {
     public IntentsTestRule<SnippetListActivity> mSnippetListActivityRule = new IntentsTestRule<>(SnippetListActivity.class, false, false);
 
     @BeforeClass
-    public static void getTestParameters() throws FileNotFoundException {
-        File testConfigFile = new File(Environment.getDataDirectory(), TEST_ARTIFACT_LOCATION);
-        JsonObject testConfig = new JsonParser().parse(new FileReader(testConfigFile)).getAsJsonObject();
-        testUsername = testConfig.get(USERNAME_TEST_ARTIFACT).getAsString();
-        testPassword = testConfig.get(PASSWORD_TEST_ARTIFACT).getAsString();
-        ServiceConstants.CLIENT_ID = testConfig.get(CLIENT_ID_TEST_ARTIFACT).getAsString();
+    public static void setupEnvironment() throws FileNotFoundException {
+        testCredentials = getTestCredentials();
+        ServiceConstants.CLIENT_ID = testCredentials.testClientId;
     }
 
     @Test
     public void AzureADSignIn_Success() throws InterruptedException{
-        AzureADSignIn(testUsername, testPassword, mSignInActivityRule);
+        AzureADSignIn(testCredentials.testUsername, testCredentials.testPassword, mSignInActivityRule);
     }
 
     @Test(expected = AssertionFailedError.class)
@@ -139,5 +135,17 @@ public class SignInActivityTests {
         ));
 
         snippetListActivity.finish();
+    }
+
+    public static TestCredentials getTestCredentials() throws FileNotFoundException {
+        TestCredentials testCredentials = new TestCredentials();
+        File testConfigFile = new File(Environment.getDataDirectory(), TEST_ARTIFACT_LOCATION);
+        JsonObject testConfig = new JsonParser().parse(new FileReader(testConfigFile)).getAsJsonObject();
+
+        testCredentials.testClientId = testConfig.get(CLIENT_ID_TEST_ARTIFACT).getAsString();
+        testCredentials.testUsername = testConfig.get(USERNAME_TEST_ARTIFACT).getAsString();
+        testCredentials.testPassword = testConfig.get(PASSWORD_TEST_ARTIFACT).getAsString();
+
+        return testCredentials;
     }
 }
