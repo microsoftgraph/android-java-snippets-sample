@@ -77,11 +77,6 @@ public class SignInActivityTests {
         AzureADSignIn("fake@fake.onmicrosoft.com", "fake_password", mSignInActivityRule);
     }
 
-    @Test
-    public void Disconnect() {
-        Disconnect(mSnippetListActivityRule);
-    }
-
     public static void AzureADSignIn(String username, String password, ActivityTestRule<SignInActivity> signInActivityTestRule) throws InterruptedException {
         SignInActivity signInActivity = signInActivityTestRule.launchActivity(null);
 
@@ -122,22 +117,5 @@ public class SignInActivityTests {
         ));
 
         signInActivity.finish();
-    }
-
-    private void Disconnect(ActivityTestRule<SnippetListActivity> snippetListActivityTestRule) {
-        SnippetListActivity snippetListActivity = snippetListActivityTestRule.launchActivity(null);
-
-        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-
-        // Espresso can't find menu items by id. We'll use the text property.
-        onView(withText(R.string.disconnect_menu_item))
-                .perform(click());
-
-        intended(allOf(
-                hasComponent(hasShortClassName(".SignInActivity")),
-                toPackage("com.microsoft.graph.snippets")
-        ));
-
-        snippetListActivity.finish();
     }
 }
