@@ -25,7 +25,7 @@ You can explore the following operations in Microsoft Graph:
 * [Get the user's manager.](app/src/main/java/com/microsoft/graph/snippets/snippet/MeSnippets.java#L94)
 * [Get the user's direct reports.](app/src/main/java/com/microsoft/graph/snippets/snippet/MeSnippets.java#L117)
 * [Get the user's group membership](app/src/main/java/com/microsoft/graph/snippets/snippet/MeSnippets.java#L140)
-* [Get the user's photo.](app/src/main/java/com/microsoft/graph/snippets/snippet/MeSnippets.java#L164)
+* [Get the user's photo.](app/src/main/java/com/microsoft/graph/snippets/snippet/MeSnippets.java#L177)
 
 **Users**
 
