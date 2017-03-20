@@ -48,7 +48,7 @@ You can explore the following operations in Microsoft Graph:
 **Groups**
 
 * [Get all groups in your tenant's directory.](app/src/main/java/com/microsoft/graph/snippets/snippet/GroupsSnippets.java#L184)
-* [Create a new group.](app/src/main/java/com/microsoft/graph/snippets/snippet/GroupsSnippets.java#L214)
+* [Create a new group.](app/src/main/java/com/microsoft/graph/snippets/snippet/GroupsSnippets.java#L191)
 * [Get information about a specific group in the tenant.](app/src/main/java/com/microsoft/graph/snippets/snippet/GroupsSnippets.java#L45)
 * [Delete a group.](app/src/main/java/com/microsoft/graph/snippets/snippet/GroupsSnippets.java#L248)
 * [Get a group's members.](app/src/main/java/com/microsoft/graph/snippets/snippet/GroupsSnippets.java#L90)
