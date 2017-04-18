@@ -1,18 +1,18 @@
-# Codeausschnittbeispiel für Android unter Verwendung des Microsoft Graph-SDKs
+# <a name="snippets-sample-for-android-using-the-microsoft-graph-sdk"></a>Codeausschnittbeispiel für Android unter Verwendung des Microsoft Graph-SDK
 
 [![Buildstatus](https://travis-ci.org/microsoftgraph/android-java-snippets-sample.svg?branch=master)](https://travis-ci.org/microsoftgraph/android-java-snippets-sample)
 
-**Inhalt**
+**Inhaltsverzeichnis**
 
-* [Gerätanforderung](#gerätanforderung)
-* [Anforderungen](#anforderungen)
-* [Registrierung der Azure-Clientanwendung](#registrierung-der-azure-clientanwendung)
-* [Konfigurieren des Projekts](#konfigurieren-des-projekts)
-* [Ausführen des Projekts](#ausführen-des-projekts)
-* [Wie sich das Beispiel auf Ihre Mandantendaten auswirkt](#wie-sich-das-beispiel-auf-ihre-mandantendaten-auswirkt)
-* [Grundlegendes zum Code](#grundlegendes-zum-code)
-* [Fragen und Kommentare](#fragen-und-kommentare)
-* [Weitere Ressourcen](#weitere-ressourcen)
+* [Geräteanforderung](#device-requirement)
+* [Voraussetzungen](#prerequisites)
+* [Registrierung der Azure-Clientanwendung](#azure-client-application-registration)
+* [Konfigurieren des Projekts](#configure-the-project)
+* [Ausführen des Projekts](#run-the-project)
+* [Wie sich das Beispiel auf Ihre Mandantendaten auswirkt](#how-the-sample-affects-your-tenant-data)
+* [Grundlegendes zum Code](#understand-the-code)
+* [Fragen und Kommentare](#questions-and-comments)
+* [Zusätzliche Ressourcen](#additional-resources)
 
 Sie möchten coole Apps entwickeln, die das Arbeiten mit Office 365-Daten erleichtern? Durchsuchen, erforschen und lernen Sie das Microsoft Graph-SDK mithilfe dieses Codeausschnittsbeispiels kennen. In diesem Beispiel wird gezeigt, wie Sie auf mehrere Ressourcen, einschließlich Microsoft Azure Active Directory (AD) und Office 365, zugreifen, indem Sie Aufrufe des Microsoft Graph-SDKs in einer Android-Anwendung ausführen.
 
@@ -23,32 +23,32 @@ Machen Sie sich mit den folgenden Vorgängen in Microsoft Graph vertraut:
 * [Informationen zum angemeldeten Benutzer abrufen.](app/src/main/java/com/microsoft/graph/snippets/snippet/MeSnippets.java#L44)
 * [Die Zuständigkeiten des Benutzers abrufen.](app/src/main/java/com/microsoft/graph/snippets/snippet/MeSnippets.java#L67)
 * [Den Vorgesetzten des Benutzers abrufen.](app/src/main/java/com/microsoft/graph/snippets/snippet/MeSnippets.java#L94)
-* [Den direkten Vorgesetzten des Benutzers abrufen.](app/src/main/java/com/microsoft/graph/snippets/snippet/MeSnippets.java#L117)
+* [Die direkt unterstellten Mitarbeiter des Benutzers abrufen.](app/src/main/java/com/microsoft/graph/snippets/snippet/MeSnippets.java#L117)
 * [Die Gruppenmitgliedschaft des Benutzers abrufen.](app/src/main/java/com/microsoft/graph/snippets/snippet/MeSnippets.java#L140)
 * [Das Foto des Benutzers abrufen.](app/src/main/java/com/microsoft/graph/snippets/snippet/MeSnippets.java#L164)
 
 **Benutzer**
 
-* [Benutzer aus dem Verzeichnis Ihres Mandanten abrufen.](app/src/main/java/com/microsoft/graph/snippets/snippet/UsersSnippets.java#L49)
+* [Benutzer aus dem Mandantenverzeichnis abrufen.](app/src/main/java/com/microsoft/graph/snippets/snippet/UsersSnippets.java#L49)
 * [Nach Kriterien gefilterte Benutzer aus dem Mandantenverzeichnis abrufen.](app/src/main/java/com/microsoft/graph/snippets/snippet/UsersSnippets.java#L80)
 * [Einen neuen Benutzer erstellen.](app/src/main/java/com/microsoft/graph/snippets/snippet/UsersSnippets.java#L113)
 
 **Ereignisse**
 
 * [Die Ereignisse des angemeldeten Benutzers abrufen.](app/src/main/java/com/microsoft/graph/snippets/snippet/EventsSnippets.java#L51)
-* [Ein neues Postfach für den Benutzer erstellen.](app/src/main/java/com/microsoft/graph/snippets/snippet/EventsSnippets.java#L83)
+* [Ein neues Ereignis für den Benutzer erstellen.](app/src/main/java/com/microsoft/graph/snippets/snippet/EventsSnippets.java#L83)
 * [Ein Ereignis eines Benutzers aktualisieren.](app/src/main/java/com/microsoft/graph/snippets/snippet/EventsSnippets.java#L118)
 * [Ein Ereignis eines Benutzers löschen.](app/src/main/java/com/microsoft/graph/snippets/snippet/EventsSnippets.java#L170)
 
 **Nachrichten**
 
 * [Nachrichten eines Benutzers abrufen.](app/src/main/java/com/microsoft/graph/snippets/snippet/MessageSnippets.java#L51)
-* [Senden einer Nachricht über das Benutzerpostfach.](app/src/main/java/com/microsoft/graph/snippets/snippet/MessageSnippets.java#L82)
+* [Eine Nachricht aus dem Benutzerpostfach senden.](app/src/main/java/com/microsoft/graph/snippets/snippet/MessageSnippets.java#L82)
 
 **Gruppen**
 
 * [Alle Gruppen im Mandantenverzeichnis abrufen.](app/src/main/java/com/microsoft/graph/snippets/snippet/GroupsSnippets.java#L184)
-* [Eine neue Gruppe erstellen.](app/src/main/java/com/microsoft/graph/snippets/snippet/GroupsSnippets.java#L214)
+* [Eine neue Gruppe erstellen.](app/src/main/java/com/microsoft/graph/snippets/snippet/GroupsSnippets.java#L191)
 * [Informationen zu einer bestimmten Gruppe im Mandanten abrufen.](app/src/main/java/com/microsoft/graph/snippets/snippet/GroupsSnippets.java#L45)
 * [Eine Gruppe löschen.](app/src/main/java/com/microsoft/graph/snippets/snippet/GroupsSnippets.java#L248)
 * [Die Mitglieder einer Gruppe abrufen.](app/src/main/java/com/microsoft/graph/snippets/snippet/GroupsSnippets.java#L90)
@@ -65,11 +65,11 @@ Machen Sie sich mit den folgenden Vorgängen in Microsoft Graph vertraut:
 * [Benennt eine Datei im Stammordner des Benutzers um.](/app/src/main/java/com/microsoft/graph/snippets/snippet/DrivesSnippets.java#L337)
 * [Erstellt einen Ordner unter dem Stammordner des Benutzers.](/app/src/main/java/com/microsoft/graph/snippets/snippet/DrivesSnippets.java#L395)
 
-##Gerätanforderung
+##<a name="device-requirement"></a>Geräteanforderung
 Um das Codeausschnittprojekt auszuführen, muss Ihr Gerät die folgende Anforderung erfüllen:
 * Android-API-Ebene 16 oder höher.
 
-###Anforderungen
+###<a name="prerequisites"></a>Anforderungen
 Sie benötigen Folgendes, um das Codeausschnittprojekt für das Microsoft Graph-SDK zu verwenden:
 * Die aktuelle Version von [Android Studio](http://developer.android.com/sdk/index.html).
 * Das Buildautomatisierungssystem [Gradle](http://www.gradle.org).
@@ -77,17 +77,17 @@ Sie benötigen Folgendes, um das Codeausschnittprojekt für das Microsoft Graph-
 * [Java Development Kit (JDK) 7](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html).
 * Eine in Azure registrierte Anwendung mit einem Wert für die Client-ID und den Umleitungs-URI. Unter [Gewähren von Berechtigungen für die Snippets-Anwendung in Azure](../../../android-java-snippets-rest-sample/wiki/Grant-permissions-for-the-Snippet-application-in-Azure) finden Sie ausführliche Informationen zum Erstellen der erforderlichen Berechtigungen.
 
-##Registrierung der Azure-Clientanwendung
+##<a name="azure-client-application-registration"></a>Registrierung der Azure-Clientanwendung
 1. Melden Sie sich mithilfe Ihrer Azure AD-Anmeldeinformationen beim [Azure-Verwaltungsportal](https://manage.windowsazure.com) an.
-2.  Klicken Sie im linken Menü auf **Active Directory**, und wählen Sie dann das Verzeichnis für Ihren Office 365-Mandanten aus.
-3.  Klicken Sie im oberen Menü auf **Anwendungen**.
-4.  Klicken Sie im Menü unten auf **Hinzufügen**.
-5.  Klicken Sie auf der Seite für die Auswahl der Aktionen auf **Eine von meinem Unternehmen entwickelte Anwendung hinzufügen**.
-6.  Geben Sie auf der Seite **Erzählen Sie uns von Ihrer Anwendung** die Option für das Android-Codeausschnittbeispiel für den Anwendungsnamen an, und wählen Sie **SYSTEMEIGENE CLIENTANWENDUNG** für den Typ aus.
-7.  Klicken Sie in der unteren rechten Ecke der Seite auf das Pfeilsymbol.
-8.  Geben Sie auf der Seite mit den **Anwendungsinformationen** einen **Umleitungs-URI** an, z. B. `http://localhost/androidsnippets`, und aktivieren Sie dann das Kontrollkästchen in der rechten unteren Ecke der Seite.
-9.  Nachdem die Anwendung erfolgreich hinzugefügt wurde, gelangen Sie zur Seite **Schnellstart** für die Anwendung. Klicken Sie dort im oberen Menü auf **Konfigurieren**. 
-10. Fügen Sie im Bereich der Berechtigungen für andere Anwendungen die Microsoft Graph-Anwendung hinzu.
+2.    Klicken Sie im linken Menü auf **Active Directory**, und wählen Sie dann das Verzeichnis für Ihren Office 365-Mandanten aus.
+3.    Klicken Sie im oberen Menü auf **Anwendungen**.
+4.    Klicken Sie im Menü unten auf **Hinzufügen**.
+5.    Klicken Sie auf der Seite für die Auswahl der Aktionen**** auf **Eine von meinem Unternehmen entwickelte Anwendung hinzufügen**.
+6.    Geben Sie auf der Seite **Erzählen Sie uns von Ihrer Anwendung** die Option für das Android-Codeausschnittbeispiel**** für den Anwendungsnamen an, und wählen Sie **SYSTEMEIGENE CLIENTANWENDUNG** für den Typ aus.
+7.    Klicken Sie in der unteren rechten Ecke der Seite auf das Pfeilsymbol.
+8.    Geben Sie auf der Seite mit den **Anwendungsinformationen** einen **Umleitungs-URI** an, z. B. `http://localhost/androidsnippets`, und aktivieren Sie dann das Kontrollkästchen in der rechten unteren Ecke der Seite.
+9.    Nachdem die Anwendung erfolgreich hinzugefügt wurde, gelangen Sie zur Seite **Schnellstart** für die Anwendung. Wählen Sie dort im oberen Menü **Konfigurieren** aus. 
+10. Fügen Sie im Bereich mit Berechtigungen für andere Anwendungen die Microsoft Graph-Anwendung hinzu.
 11. Fügen Sie für die Microsoft Graph-Anwendung die folgenden Berechtigungen hinzu:
    * Anmelden und Lesen von Benutzerprofilen
    * Vollzugriff auf alle Dateien, auf die Benutzer zugreifen können
@@ -101,18 +101,18 @@ Sie benötigen Folgendes, um das Codeausschnittprojekt für das Microsoft Graph-
 13. Klicken Sie im Menü unten auf **Speichern**.
 14. Notieren Sie die auf der Seite **Konfigurieren** angegebenen Werte für **Client-ID**. Diese benötigen Sie später beim Konfigurieren des Projekts.
 
-##Konfigurieren des Projekts
+##<a name="configure-the-project"></a>Konfigurieren des Projekts
 
 1. Laden Sie das [Codeausschnittbeispiel](../../) herunter, oder klonen Sie es.
 2. Starten Sie Android Studio.
 3. Wählen Sie im Dialogfeld **Willkommen bei Android Studio** die Option **Projekt importieren (Ellipse ADT, Gradle usw.)** aus.
 4. Wählen Sie die Datei **settings.gradle** im Ordner **android-java-snippets-sample** aus, und klicken Sie dann auf **OK**.
-5. Reagieren Sie auf das Dialogfeld („Gradle-Synchronisierung: Gradle-Einstellungen für dieses Projekt sind noch nicht konfiguriert. Soll das Projekt den Gradle-Wrapper verwenden?“), indem Sie auf die Schaltfläche **OK** klicken, um den Gradle-Wrapper zu verwenden. 
+5. Reagieren Sie auf das Dialogfeld („Gradle-Synchronisierung: Gradle-Einstellungen für dieses Projekt sind noch nicht konfiguriert. Soll das Projekt den Gradle-Wrapper verwenden?"), indem Sie auf die Schaltfläche **OK** klicken, um den Gradle-Wrapper zu verwenden. 
 6. Öffnen Sie die Datei „ServiceConstants.java“ im Paket „com.microsoft.graph.snippets“.
 7. Suchen Sie die [`CLIENT_ID`](app/src/main/java/com/microsoft/graph/snippets/ServiceConstants.java#L11)-Textzeichenfolge, und legen Sie ihren Wert auf die in Azure registrierte Client-ID fest.
 8. Suchen Sie die [`REDIRECT_URI`](app/src/main/java/com/microsoft/graph/snippets/ServiceConstants.java#L10)-Textzeichenfolge, und legen Sie ihren Wert auf den in Azure registrierten Umleitungs-URI fest.
 
-##Ausführen des Projekts
+##<a name="run-the-project"></a>Ausführen des Projekts
 Nach dem Erstellen des Projekts können Sie es auf einem Emulator oder Gerät ausführen.
 
 1. Führen Sie das Projekt aus.
@@ -121,24 +121,24 @@ Nach dem Erstellen des Projekts können Sie es auf einem Emulator oder Gerät au
 4. Überprüfen und akzeptieren Sie die von der App angeforderten Berechtigungsbereiche.
 4. Klicken Sie auf einen Vorgang in der Hauptaktivität, um Vorgangsdetails anzuzeigen.
 5. Klicken Sie auf die Schaltfläche **AUSFÜHREN**, um den Vorgang zu starten, und warten Sie, bis der Vorgang abgeschlossen ist.
-6. Klicken Sie in das Textfeld für das Rohobjekt, um den Inhalt des Felds in die Zwischenablage des Emulators/Geräts zu kopieren.
+6. Klicken Sie in das Textfeld für das Rohobjekt****, um den Inhalt des Felds in die Zwischenablage des Emulators/Geräts zu kopieren.
 7. Klicken Sie auf der Symbolleiste auf die Schaltfläche „Zurück“, um zur Vorgangsliste zurückzukehren.
 8. (Optional) Klicken Sie auf das Überlaufmenü, um die Menüoption zum Trennen aufzurufen.
 
-##Wie sich das Beispiel auf Ihre Mandantendaten auswirkt
+##<a name="how-the-sample-affects-your-tenant-data"></a>Wie sich das Beispiel auf Ihre Mandantendaten auswirkt
 In diesem Beispiel werden Befehle ausgeführt, mit denen Daten erstellt, aktualisiert oder gelöscht werden. Wenn Sie Befehle ausführen, die Daten löschen oder bearbeiten, erstellt das Beispiel gefälschte Entitäten. Die gefälschten Entitäten werden gelöscht oder bearbeitet, sodass Ihre tatsächlichen Mandantendaten nicht beeinträchtigt werden. In dem Beispiel werden einige dieser gefälschten Entitäten auf Ihrem Mandanten hinterlassen.
 
-##Grundlegendes zum Code
+##<a name="understand-the-code"></a>Grundlegendes zum Code
 Das Codeausschnittprojekt verwendet diese Klassen, um Interaktionen mit Microsoft Graph zu verwalten:
 
-###Organisation des Beispielprojekts
+###<a name="sample-project-organization"></a>Organisation des Beispielprojekts
 Das Codeausschnittprojekt besteht aus zwei Modulen. Dank des modularen Designs können Sie eine neue Anwendung auf Grundlage dieses Beispiels erstellen, indem Sie die Module in die App importieren. Nachdem Sie die Module importiert haben, verwenden Sie den Code im [App](/app)-Modul als ein Beispiel dafür, wie Methoden in den anderen Beispielmodulen aufgerufen werden.
 
-###Module im Codeausschnittprojekt
+###<a name="modules-in-the-snippets-project"></a>Module im Codeausschnittprojekt
 * [`o365-Auth`](/o365-auth). Dieses Modul enthält die Bibliotheksaufrufe zur Authentifizierung eines Benutzers bei Microsoft Graph.
 * [`app`](/app). Die Benutzeroberfläche und das Geschäftslogikmodul. SDK-Vorgänge werden in den Codeausschnittklassen in diesem Modul gestartet.
 
-###Codeausschnittklassen
+###<a name="snippet-classes"></a>Codeausschnittklassen
 Ein Codeausschnitt wird in einem einzelnen Vorgang ausgeführt und gibt die Ergebnisse zurück. Codeausschnitte befinden sich im [App](/app)-Modul. Codeausschnitte legen den erforderlichen Status fest, um die Aufrufe in den nachstehend beschriebenen Microsoft Graph-Dienstklassen auszuführen.
 * [`AbstractSnippet`](/app/src/main/java/com/microsoft/graph/snippets/snippet/AbstractSnippet.java)
 * [`DrivesSnippets`](/app/src/main/java/com/microsoft/graph/snippets/snippet/DrivesSnippets.java)
@@ -148,7 +148,7 @@ Ein Codeausschnitt wird in einem einzelnen Vorgang ausgeführt und gibt die Erge
 * [`MessageSnippets`](/app/src/main/java/com/microsoft/graph/snippets/snippet/MessageSnippets.java)
 * [`UsersSnippets`](/app/src/main/java/com/microsoft/graph/snippets/snippet/UsersSnippets.java)
 
-###Authentifizierungsklassen
+###<a name="authentication-classes"></a>Authentifizierungsklassen
 Die Authentifizierungsklassen befinden sich im [o365-Auth](/o365-auth)-Modul. Diese Klassen verwenden die [Microsoft Azure Active Directory Library (ADAL) für Android](https://github.com/AzureAD/azure-activedirectory-library-for-android), um eine Verbindung zu Microsoft Graph herzustellen. 
 
 * [`AuthenticationManager`](/o365-auth/src/main/java/com/microsoft/graph/auth/AuthenticationManager.java). Kapselt neben der Azure-App-Autorisierung die Logik für die Benutzerverbindung und -trennung.
@@ -156,21 +156,20 @@ Die Authentifizierungsklassen befinden sich im [o365-Auth](/o365-auth)-Modul. Di
 * [`AzureAppCompatActivity`](/o365-auth/src/main/java/com/microsoft/graph/auth/AzureAppCompatActivity.java). Hilfsprogramm für die Abhängigkeitsinjektion.
  
 <a name="contributing"></a>
-## Mitwirkung ##
+## <a name="contributing"></a>Mitwirkung ##
 
 Wenn Sie einen Beitrag zu diesem Beispiel leisten möchten, finden Sie unter [CONTRIBUTING.MD](/CONTRIBUTING.md) weitere Informationen.
 
 In diesem Projekt wurden die [Microsoft Open Source-Verhaltensregeln](https://opensource.microsoft.com/codeofconduct/) übernommen. Weitere Informationen finden Sie unter [Häufig gestellte Fragen zu Verhaltensregeln](https://opensource.microsoft.com/codeofconduct/faq/), oder richten Sie Ihre Fragen oder Kommentare an [opencode@microsoft.com](mailto:opencode@microsoft.com).
 
-## Fragen und Kommentare
-Wir schätzen Ihr Feedback hinsichtlich des Codeausschnittbeispiels für das Microsoft Graph-SDK für Android. Sie können uns Ihr Feedback über den Abschnitt [Probleme](../../issues) dieses Repositorys senden. <br/>
-Allgemeine Fragen zur Microsoft Graph-Entwicklung sollten in [Stack Overflow](http://stackoverflow.com/questions/tagged/microsoftgraph) gestellt werden. Stellen Sie sicher, dass Ihre Fragen mit [microsoftgraph] markiert sind.
+## <a name="questions-and-comments"></a>Fragen und Kommentare
+Wir schätzen Ihr Feedback hinsichtlich des Codeausschnittbeispiels für das Microsoft Graph-SDK für Android. Sie können uns Ihr Feedback über den Abschnitt [Probleme](../../issues) dieses Repositorys senden. <br/> Allgemeine Fragen zur Microsoft Graph-Entwicklung sollten in [Stack Overflow](http://stackoverflow.com/questions/tagged/microsoftgraph) gestellt werden. Stellen Sie sicher, dass Ihre Fragen mit [microsoftgraph] markiert sind.
 
-## Weitere Ressourcen
+## <a name="additional-resources"></a>Zusätzliche Ressourcen
 
 * [Erste Schritte mit Office 365-APIs, unterstützt von Microsoft Graph](http://dev.office.com/getting-started/office365apis)
 * [Microsoft Graph-Übersicht](http://graph.microsoft.io)
 * [Microsoft Graph-SDK für Android](../../../msgraph-sdk-android)
-* [Connect-Beispiel für Android unter Verwendung des Microsoft Graph-SDKs](../../../android-java-connect-sample)
+* [Connect-Beispiel für Android unter Verwendung des Microsoft Graph-SDK](../../../android-java-connect-sample)
 
 Copyright (c) 2015 Microsoft. Alle Rechte vorbehalten.
