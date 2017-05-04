@@ -65,11 +65,11 @@ You can explore the following operations in Microsoft Graph:
 * [Renames a file in the user's root folder.](/app/src/main/java/com/microsoft/graph/snippets/snippet/DrivesSnippets.java#L337)
 * [Creates a folder under the user's root folder.](/app/src/main/java/com/microsoft/graph/snippets/snippet/DrivesSnippets.java#L395)
 
-##Device requirement
+## Device requirements
 To run snippets project, your device must meet the following requirement:
 * Android API level 16 or newer
 
-###Prerequisites
+### Prerequisites
 To use the Microsoft Graph SDK snippets project, you need the following:
 * The latest version of [Android Studio](http://developer.android.com/sdk/index.html).
 * The [Gradle](http://www.gradle.org) build automation system.
@@ -77,7 +77,7 @@ To use the Microsoft Graph SDK snippets project, you need the following:
 * [Java Development Kit (JDK) 7](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html).
 * A registered Azure application with a client id and redirect URI value. See [Grant permissions to the Snippets application in Azure](../../../android-java-snippets-rest-sample/wiki/Grant-permissions-for-the-Snippet-application-in-Azure) for details about how to create the correct permissions.
 
-##Azure client application registration
+## Azure client application registration
 1. Sign in to the [Azure Management Portal](https://manage.windowsazure.com), using your Azure AD credentials.
 2.	Click **Active Directory** on the left menu, then select the directory for your Office 365 tenant.
 3.	On the top menu, click **Applications**.
@@ -101,7 +101,7 @@ To use the Microsoft Graph SDK snippets project, you need the following:
 13. Click **Save** in the bottom menu.
 14. Note the values specified for **Client ID** on the **Configure** page. You will need these later when you configure the project.
 
-##Configure the project
+## Configure the project
 
 1. Download or clone the [snippets sample](../../).
 2. Start Android Studio.
@@ -112,7 +112,7 @@ To use the Microsoft Graph SDK snippets project, you need the following:
 7. Find the [`CLIENT_ID`](app/src/main/java/com/microsoft/graph/snippets/ServiceConstants.java#L11) string and set its value to the client id you registered in Azure.
 8. Find the [`REDIRECT_URI`](app/src/main/java/com/microsoft/graph/snippets/ServiceConstants.java#L10) string and set its value to the redirect URI you registered in Azure.
 
-##Run the project
+## Run the project
 After you've built the project you can run it on an emulator or device.
 
 1. Run the project.
@@ -125,20 +125,20 @@ After you've built the project you can run it on an emulator or device.
 7. Click the back button on the toolbar to return to the operation list.
 8. (Optional) Click the overflow menu to get the Disconnect menu option.
 
-##How the sample affects your tenant data
+## How the sample affects your tenant data
 This sample runs commands that create, read, update, or delete data. When running commands that delete or edit data, the sample creates fake entities. The fake entities are deleted or edited so that your actual tenant data is unaffected. The sample will leave behind fake entities on your tenant.
 
-##Understand the code
+## Understand the code
 The snippets project uses these classes to manage interactions with Microsoft Graph:
 
-###Sample project organization
+### Sample project organization
 The snippets project is comprised of two modules. The modular design enables you to build a new app based on this sample by importing the modules into your app. After you've imported the modules, use the code in the snippets [app](/app) module as an example of how to call methods in the other sample modules.
 
-###Modules in the snippets project
+### Modules in the snippets project
 * [`o365-Auth`](/o365-auth). This module contains the library calls to authenticate a user with Microsoft Graph.
 * [`app`](/app). The UI and business logic module. SDK operations are started in the snippet classes in this module.
 
-###Snippet classes
+### Snippet classes
 A snippet runs a single operation and returns the results. Snippets are found in the [app](/app) module. Snippets set the state required to make the calls on the Microsoft Graph service classes described below.
 * [`AbstractSnippet`](/app/src/main/java/com/microsoft/graph/snippets/snippet/AbstractSnippet.java)
 * [`DrivesSnippets`](/app/src/main/java/com/microsoft/graph/snippets/snippet/DrivesSnippets.java)
@@ -148,7 +148,7 @@ A snippet runs a single operation and returns the results. Snippets are found in
 * [`MessageSnippets`](/app/src/main/java/com/microsoft/graph/snippets/snippet/MessageSnippets.java)
 * [`UsersSnippets`](/app/src/main/java/com/microsoft/graph/snippets/snippet/UsersSnippets.java)
 
-###Authentication classes
+### Authentication classes
 The authentication classes are found in the [o365-Auth](/o365-auth) module. These classes use the [Microsoft Azure Active Directory Library (ADAL) for Android](https://github.com/AzureAD/azure-activedirectory-library-for-android) to connect to Microsoft Graph. 
 
 * [`AuthenticationManager`](/o365-auth/src/main/java/com/microsoft/graph/auth/AuthenticationManager.java). Encapsulates user connect and disconnect logic in addition to Azure app authorization.
