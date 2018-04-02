@@ -10,6 +10,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
+import com.microsoft.graph.authentication.IAuthenticationProvider;
+import com.microsoft.graph.http.IHttpRequest;
 import com.microsoft.graph.snippets.application.SnippetApp;
 import com.microsoft.identity.client.AuthenticationCallback;
 import com.microsoft.identity.client.AuthenticationResult;
@@ -22,7 +24,7 @@ import java.io.IOException;
 /**
  * Handles setup of OAuth library in API clients.
  */
-public class AuthenticationManager {
+public class AuthenticationManager implements IAuthenticationProvider {
     private static final String TAG = "AuthenticationManager";
     private static AuthenticationManager INSTANCE;
     private static PublicClientApplication mPublicClientApplication;
@@ -165,5 +167,28 @@ public class AuthenticationManager {
                     mActivityCallback.onCancel();
             }
         };
+    }
+
+    @Override
+    public void authenticateRequest(IHttpRequest request) {
+        try {
+            request.addHeader("Authorization", "Bearer "
+                    + AuthenticationManager.getInstance()
+                    .getAccessToken());
+            // This header has been added to identify this sample in the Microsoft Graph service.
+            // If you're using this code for your project please remove the following line.
+            request.addHeader("SampleID", "android-java-connect-sample");
+
+            Log.i("Connect","Request: " + request.toString());
+        } catch (AuthenticatorException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }  catch (OperationCanceledException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
     }
 }
