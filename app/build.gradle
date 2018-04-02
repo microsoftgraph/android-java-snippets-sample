@@ -1,15 +1,22 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 25
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "com.microsoft.graph.snippets"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath false
+            }
+        }
+
     }
     buildTypes {
         release {
@@ -25,21 +32,23 @@ android {
     }
     configurations {
         all {
-            resolutionStrategy.force 'com.android.support:support-annotations:23.4.0'
+            resolutionStrategy.force 'com.android.support:support-annotations:25.1.0'
         }
     }
-    defaultConfig {
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }
+
 }
 
 dependencies {
     // Azure AD
-    compile(project(':o365-auth'))
 
-    // Dagger compiler for DI annotation support
-    provided('com.squareup.dagger:dagger-compiler:1.2.5')
 
+
+
+    compile ('com.microsoft.identity.client:msal:0.1.+') {
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+    }
+    compile 'com.android.volley:volley:1.0.0'
+    compile 'com.android.support:support-fragment:25.1.0'
     // Butterknife
     compile 'com.jakewharton:butterknife:6.1.0'
 
@@ -50,8 +59,9 @@ dependencies {
     compile 'com.google.guava:guava:19.0'
 
     // Test libraries
-    androidTestCompile 'com.android.support:support-annotations:23.4.0'
-    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support:support-annotations:25.1.0'
+    //noinspection GradleCompatible
+    androidTestCompile 'com.android.support.test:runner:1.0.1'
     androidTestCompile 'com.android.support.test:rules:0.5'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
     androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'

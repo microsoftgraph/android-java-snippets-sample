@@ -1,3 +1,6 @@
+<!DOCTYPE resources [
+    <!ENTITY clientId "ENTER_YOUR_CLIENT_ID">
+    ]>
 <resources>
     <string name="app_name">Snippets sample</string>
     <string name="app_name_short">Snippets</string>
@@ -33,4 +36,7 @@
     <string name="stoplight_success">Success</string>
     <string name="stoplight_failure">Failure</string>
     <string name="disconnect_menu_item">Disconnect</string>
+    <string name="client_Id">&clientId;</string>
+    <string name="msalprefix">msal&clientId;</string>
+
 </resources>

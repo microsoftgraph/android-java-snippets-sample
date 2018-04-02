@@ -6,15 +6,22 @@ package com.microsoft.graph.snippets;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.microsoft.aad.adal.AuthenticationCallback;
-import com.microsoft.aad.adal.AuthenticationResult;
 import com.microsoft.graph.snippets.util.SharedPrefsUtil;
+import com.microsoft.identity.client.AuthenticationResult;
+import com.microsoft.identity.client.Logger;
+import com.microsoft.identity.client.MsalClientException;
+import com.microsoft.identity.client.MsalException;
+import com.microsoft.identity.client.MsalServiceException;
+import com.microsoft.identity.client.MsalUiRequiredException;
+import com.microsoft.identity.client.User;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 import butterknife.ButterKnife;
@@ -32,7 +39,10 @@ import static com.microsoft.graph.snippets.R.string.warning_client_id_redirect_u
 
 public class SignInActivity
         extends BaseActivity
-        implements AuthenticationCallback<AuthenticationResult> {
+        implements MSALAuthenticationCallback {
+
+    private boolean mEnablePiiLogging = false;
+    private static final String TAG = "SignInActivity";
 
     @InjectView(layout_diagnostics)
     protected View mDiagnosticsLayout;
@@ -73,7 +83,7 @@ public class SignInActivity
         // get the user display name
         final String userDisplayableId =
                 authenticationResult
-                        .getUserInfo()
+                        .getUser()
                         .getDisplayableId();
 
         // get the index of their '@' in the name (to determine domain)
@@ -90,7 +100,7 @@ public class SignInActivity
     }
 
     @Override
-    public void onError(Exception e) {
+    public void onError(MsalException e) {
         e.printStackTrace();
 
         //Show the localized message supplied with the exception or
@@ -104,6 +114,25 @@ public class SignInActivity
             mDiagnosticsTxt.setText(msg);
             mDiagnosticsLayout.setVisibility(VISIBLE);
         }
+
+        if (e instanceof MsalClientException) {
+            // This means errors happened in the sdk itself, could be network, Json parse, etc. Check MsalError.java
+            // for detailed list of the errors.
+
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+        } else if (e instanceof MsalServiceException) {
+            // This means something is wrong when the sdk is communication to the service, mostly likely it's the client
+            // configuration.
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+        } else if (e instanceof MsalUiRequiredException) {
+            // This explicitly indicates that developer needs to prompt the user, it could be refresh token is expired, revoked
+            // or user changes the password; or it could be that no token was found in the token cache.
+            AuthenticationManager mgr = AuthenticationManager.getInstance();
+            mgr.callAcquireToken(SignInActivity.this, this);
+        }
+
     }
 
     private void warnBadClient() {
@@ -115,9 +144,64 @@ public class SignInActivity
 
     private void authenticate() throws IllegalArgumentException {
         validateOrganizationArgs();
-        mAuthenticationManager.connect(this);
+        connect();
+        //AuthenticationManager.getInstance().
     }
+    private void connect() {
 
+        // The sample app is having the PII enable setting on the MainActivity. Ideally, app should decide to enable Pii or not,
+        // if it's enabled, it should be  the setting when the application is onCreate.
+        if (mEnablePiiLogging) {
+            Logger.getInstance().setEnablePII(true);
+        } else {
+            Logger.getInstance().setEnablePII(false);
+        }
+
+        AuthenticationManager mgr = AuthenticationManager.getInstance();
+
+        /* Attempt to get a user and acquireTokenSilent
+         * If this fails we do an interactive request
+         */
+        List<User> users = null;
+
+        try {
+            users = mgr.getPublicClient().getUsers();
+
+            if (users != null && users.size() == 1) {
+                /* We have 1 user */
+                mUser = users.get(0);
+                mgr.callAcquireTokenSilent(
+                        mUser,
+                        true,
+                        this);
+            } else {
+                /* We have no user */
+
+                /* Let's do an interactive request */
+                mgr.callAcquireToken(
+                        this,
+                        this);
+            }
+        } catch (MsalClientException e) {
+            Log.d(TAG, "MSAL Exception Generated while getting users: " + e.toString());
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+
+
+        } catch (IndexOutOfBoundsException e) {
+            Log.d(TAG, "User at this position does not exist: " + e.toString());
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+
+        }catch (IllegalStateException e) {
+            Log.d(TAG, "MSAL Exception Generated: " + e.toString());
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+
+        } catch (Exception e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
     private void validateOrganizationArgs() throws IllegalArgumentException {
         UUID.fromString(ServiceConstants.CLIENT_ID);
         URI.create(ServiceConstants.REDIRECT_URI);
@@ -127,5 +211,15 @@ public class SignInActivity
         Intent appLaunch = new Intent(this, SnippetListActivity.class);
         startActivity(appLaunch);
     }
+    public User mUser;
 
+    @Override
+    public void onError(Exception exception) {
+        Toast.makeText(this, exception.getMessage(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onCancel() {
+        Toast.makeText(this, "User cancelled the flow.", Toast.LENGTH_SHORT).show();
+    }
 }

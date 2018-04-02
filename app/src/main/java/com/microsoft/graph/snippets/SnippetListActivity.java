@@ -4,6 +4,7 @@
  */
 package com.microsoft.graph.snippets;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,9 +28,10 @@ public class SnippetListActivity extends BaseActivity
             // activity should be in two-pane mode.
             mTwoPane = true;
 
+
             // In two-pane mode, list items should be given the
             // 'activated' state when touched.
-            ((SnippetListFragment) getSupportFragmentManager()
+            ((SnippetListFragment) getFragmentManager()
                     .findFragmentById(R.id.snippet_list))
                     .setActivateOnItemClick(true);
         }
@@ -45,7 +47,7 @@ public class SnippetListActivity extends BaseActivity
             arguments.putInt(SnippetDetailFragment.ARG_ITEM_ID, position);
             SnippetDetailFragment fragment = new SnippetDetailFragment();
             fragment.setArguments(arguments);
-            getSupportFragmentManager().beginTransaction()
+            getFragmentManager().beginTransaction()
                     .replace(R.id.snippet_detail_container, fragment)
                     .commit();
         } else {

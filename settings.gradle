@@ -1,1 +1,1 @@
-include ':app', ':o365-auth'
+include ':app'

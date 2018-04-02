@@ -7,9 +7,9 @@ package com.microsoft.graph.snippets.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.microsoft.aad.adal.AuthenticationResult;
 import com.microsoft.graph.snippets.application.SnippetApp;
 import com.microsoft.graph.snippets.inject.AppModule;
+import com.microsoft.identity.client.AuthenticationResult;
 
 public class SharedPrefsUtil {
 
@@ -22,7 +22,7 @@ public class SharedPrefsUtil {
     }
 
     public static void persistUserID(AuthenticationResult result) {
-        setPreference(PREF_USER_ID, result.getUserInfo().getDisplayableId());
+        setPreference(PREF_USER_ID, result.getUser().getDisplayableId());
     }
 
     public static void persistAuthToken(AuthenticationResult result) {

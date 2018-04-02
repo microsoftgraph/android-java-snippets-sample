@@ -13,23 +13,23 @@ import com.microsoft.graph.snippets.ServiceConstants;
 import com.microsoft.graph.snippets.application.SnippetApp;
 import com.microsoft.graph.snippets.util.SharedPrefsUtil;
 
-import dagger.Module;
-import dagger.Provides;
-
-@Module(library = true,
-        injects = {SnippetApp.class}
-)
+//import dagger.Module;
+//import dagger.Provides;
+//
+//@Module(library = true,
+//        injects = {SnippetApp.class}
+//)
 public class AppModule {
 
     public static final String PREFS = "com.microsoft.o365_android_unified_API_REST_snippets";
 
-    @Provides
+  //  @Provides
     @SuppressWarnings("unused") // not actually unused -- used by Dagger
     public String providesRestEndpoint() {
         return ServiceConstants.AUTHENTICATION_RESOURCE_ID;
     }
 
-    @Provides
+ //   @Provides
     @SuppressWarnings("unused") // not actually unused -- used by Dagger
     public IAuthenticationProvider providesAuthenticateProvider() {
         return new IAuthenticationProvider() {

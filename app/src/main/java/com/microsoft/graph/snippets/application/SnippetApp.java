@@ -5,6 +5,7 @@
 package com.microsoft.graph.snippets.application;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.microsoft.graph.authentication.IAuthenticationProvider;
 import com.microsoft.graph.core.DefaultClientConfig;
@@ -13,22 +14,22 @@ import com.microsoft.graph.extensions.GraphServiceClient;
 import com.microsoft.graph.extensions.IGraphServiceClient;
 import com.microsoft.graph.snippets.inject.AppModule;
 
-import javax.inject.Inject;
-
-import dagger.ObjectGraph;
+//import javax.inject.Inject;
+//
+//import dagger.ObjectGraph;
 
 public class SnippetApp extends Application {
     private static SnippetApp sSnippetApp;
-    /**
-     * The {@link dagger.ObjectGraph} used by Dagger to fulfill <code>@inject</code> annotations
-     *
-     * @see javax.inject.Inject
-     * @see dagger.Provides
-     * @see javax.inject.Singleton
-     */
-    public ObjectGraph mObjectGraph;
-
-    @Inject
+//    /**
+//     * The {@link dagger.ObjectGraph} used by Dagger to fulfill <code>@inject</code> annotations
+//     *
+//     * @see javax.inject.Inject
+//     * @see dagger.Provides
+//     * @see javax.inject.Singleton
+//     */
+//    public ObjectGraph mObjectGraph;
+//
+//    @Inject
     protected IAuthenticationProvider authenticationProvider;
 
     public static SnippetApp getApp() {
@@ -39,8 +40,8 @@ public class SnippetApp extends Application {
     public void onCreate() {
         super.onCreate();
         sSnippetApp = this;
-        mObjectGraph = ObjectGraph.create(new AppModule());
-        mObjectGraph.inject(this);
+//        mObjectGraph = ObjectGraph.create(new AppModule());
+//        mObjectGraph.inject(this);
     }
 
     public IGraphServiceClient getGraphServiceClient() {
@@ -48,5 +49,10 @@ public class SnippetApp extends Application {
             authenticationProvider
         );
         return new GraphServiceClient.Builder().fromConfig(clientConfig).buildClient();
+    }
+
+
+    public static Context getContext(){
+        return sSnippetApp;
     }
 }

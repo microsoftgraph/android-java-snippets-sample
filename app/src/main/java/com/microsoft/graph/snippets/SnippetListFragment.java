@@ -4,9 +4,9 @@
  */
 package com.microsoft.graph.snippets;
 
+import android.app.ListFragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;

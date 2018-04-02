@@ -16,8 +16,8 @@ public class SnippetDetailActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_snippet_detail);
-        if (null != getSupportActionBar()) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (null != getActionBar()) {
+            getActionBar().setDisplayHomeAsUpEnabled(true);
         }
         if (savedInstanceState == null) {
             Bundle arguments = new Bundle();
@@ -25,7 +25,7 @@ public class SnippetDetailActivity extends BaseActivity {
                     getIntent().getIntExtra(SnippetDetailFragment.ARG_ITEM_ID, 0));
             mSnippetDetailFragment = new SnippetDetailFragment();
             mSnippetDetailFragment.setArguments(arguments);
-            getSupportFragmentManager().beginTransaction()
+            getFragmentManager().beginTransaction()
                     .add(R.id.snippet_detail_container, mSnippetDetailFragment)
                     .commit();
         }
