@@ -67,7 +67,10 @@ You can explore the following operations in Microsoft Graph:
 
 ## Device requirements
 To run snippets project, your device must meet the following requirement:
-* Android API level 16 or newer
+* Android API level 21 or newer
+
+## Android Studio requirements
+* Android build tools for Gradle 3.1+
 
 ### Prerequisites
 To use the Microsoft Graph SDK snippets project, you need the following:
@@ -112,6 +115,9 @@ To use the Microsoft Graph SDK snippets project, you need the following:
 7. Find the [`CLIENT_ID`](app/src/main/java/com/microsoft/graph/snippets/ServiceConstants.java#L11) string and set its value to the client id you registered in Azure.
 8. Find the [`REDIRECT_URI`](app/src/main/java/com/microsoft/graph/snippets/ServiceConstants.java#L10) string and set its value to the redirect URI you registered in Azure.
 
+> **Note:**
+> Android Studio may prompt you to install the Android Support Repository 47.0.0+. The project's module build.gradle file logic uses the `implementation` method instead of the older `compile` method to build the module dependencies. These new build methods depend on the Android Support Repository 47.0.0 or newer.
+
 ## Run the project
 After you've built the project you can run it on an emulator or device.
 
@@ -149,11 +155,9 @@ A snippet runs a single operation and returns the results. Snippets are found in
 * [`UsersSnippets`](/app/src/main/java/com/microsoft/graph/snippets/snippet/UsersSnippets.java)
 
 ### Authentication classes
-The authentication classes are found in the [o365-Auth](/o365-auth) module. These classes use the [Microsoft Azure Active Directory Library (ADAL) for Android](https://github.com/AzureAD/azure-activedirectory-library-for-android) to connect to Microsoft Graph. 
+The authentication methods are found in the [`AuthenticationManager`](/app/src/main/java/com/microsoft/graph/snippets/AuthenticationManager.java) class. These methods use the [Microsoft Authentication Library (MSAL) for Android](https://github.com/AzureAD/microsoft-authentication-library-for-android) to connect to Microsoft Graph. 
 
-* [`AuthenticationManager`](/o365-auth/src/main/java/com/microsoft/graph/auth/AuthenticationManager.java). Encapsulates user connect and disconnect logic in addition to Azure app authorization.
-* [`AzureADModule`](/o365-auth/src/main/java/com/microsoft/graph/auth/AzureADModule.java). Authentication helper class. 
-* [`AzureAppCompatActivity`](/o365-auth/src/main/java/com/microsoft/graph/auth/AzureAppCompatActivity.java). Dependency injection helper.
+* [`AuthenticationManager`](/app/src/main/java/com/microsoft/graph/snippets/AuthenticationManager.java). Encapsulates user connect and disconnect logic in addition to app authorization.
  
 <a name="contributing"></a>
 ## Contributing ##
