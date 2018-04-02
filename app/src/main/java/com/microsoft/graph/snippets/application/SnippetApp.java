@@ -19,6 +19,7 @@ import com.microsoft.graph.snippets.AuthenticationManager;
 
 public class SnippetApp extends Application {
     private static SnippetApp sSnippetApp;
+    private AuthenticationManager mAuthenticationManager;
 
     public static SnippetApp getApp() {
         return sSnippetApp;
@@ -28,15 +29,20 @@ public class SnippetApp extends Application {
     public void onCreate() {
         super.onCreate();
         sSnippetApp = this;
+        mAuthenticationManager = AuthenticationManager.getInstance();
     }
 
     public IGraphServiceClient getGraphServiceClient() {
         IClientConfig clientConfig = DefaultClientConfig.createWithAuthenticationProvider(
-            AuthenticationManager.getInstance()
+            mAuthenticationManager
         );
         return new GraphServiceClient.Builder().fromConfig(clientConfig).buildClient();
     }
     public static Context getContext(){
         return sSnippetApp;
+    }
+
+    public void disconnect() {
+        mAuthenticationManager.disconnect();
     }
 }

@@ -4,14 +4,7 @@
  */
 package com.microsoft.graph.snippets.inject;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-
-import com.microsoft.graph.authentication.IAuthenticationProvider;
-import com.microsoft.graph.http.IHttpRequest;
 import com.microsoft.graph.snippets.ServiceConstants;
-import com.microsoft.graph.snippets.application.SnippetApp;
-import com.microsoft.graph.snippets.util.SharedPrefsUtil;
 
 //import dagger.Module;
 //import dagger.Provides;
@@ -30,23 +23,23 @@ public class AppModule {
     }
 
  //   @Provides
-    @SuppressWarnings("unused") // not actually unused -- used by Dagger
-    public IAuthenticationProvider providesAuthenticateProvider() {
-        return new IAuthenticationProvider() {
-            @Override
-            public void authenticateRequest(IHttpRequest request) {
-                // apply the Authorization header if we had a token...
-                final SharedPreferences preferences
-                        = SnippetApp.getApp().getSharedPreferences(PREFS, Context.MODE_PRIVATE);
-                final String token =
-                        preferences.getString(SharedPrefsUtil.PREF_AUTH_TOKEN, null);
-                if (null != token) {
-                    request.addHeader("Authorization", "Bearer " + token);
-                    // This header has been added to identify this sample in the Microsoft Graph service.
-                    // If you're using this code for your project please remove the following line.
-                    request.addHeader("SampleID", "android-java-snippets-sample");
-                }
-            }
-        };
-    }
+//    @SuppressWarnings("unused") // not actually unused -- used by Dagger
+//    public IAuthenticationProvider providesAuthenticateProvider() {
+//        return new IAuthenticationProvider() {
+//            @Override
+//            public void authenticateRequest(IHttpRequest request) {
+//                // apply the Authorization header if we had a token...
+//                final SharedPreferences preferences
+//                        = SnippetApp.getApp().getSharedPreferences(PREFS, Context.MODE_PRIVATE);
+//                final String token =
+//                        preferences.getString(SharedPrefsUtil.PREF_AUTH_TOKEN, null);
+//                if (null != token) {
+//                    request.addHeader("Authorization", "Bearer " + token);
+//                    // This header has been added to identify this sample in the Microsoft Graph service.
+//                    // If you're using this code for your project please remove the following line.
+//                    request.addHeader("SampleID", "android-java-snippets-sample");
+//                }
+//            }
+//        };
+//    }
 }

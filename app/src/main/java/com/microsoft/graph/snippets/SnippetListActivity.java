@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.microsoft.graph.snippets.application.SnippetApp;
 import com.microsoft.graph.snippets.inject.AppModule;
 
 public class SnippetListActivity extends BaseActivity
@@ -67,7 +68,7 @@ public class SnippetListActivity extends BaseActivity
                 .edit() // get the editor
                 .clear() // clear it
                 .apply(); // asynchronously apply
-        mAuthenticationManager.disconnect();
+        SnippetApp.getApp().disconnect();
         Intent login = new Intent(this, SignInActivity.class);
         login.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(login);
