@@ -72,6 +72,10 @@ To run snippets project, your device must meet the following requirement:
 ## Android Studio requirements
 * Android build tools for Gradle 3.1+
 
+> **Note:**
+> Android Studio may prompt you to install the Android Support Repository 47.0.0+. The project's module build.gradle file logic uses the `implementation` method instead of the older `compile` method to build the module dependencies. These new build methods depend on the Android Support Repository 47.0.0 or newer.
+
+
 ### Prerequisites
 To use the Microsoft Graph SDK snippets project, you need the following:
 * The latest version of [Android Studio](http://developer.android.com/sdk/index.html).
@@ -114,9 +118,6 @@ To use the Microsoft Graph SDK snippets project, you need the following:
 6. Open the ServiceConstants.java file in the com.microsoft.graph.snippets package.
 7. Find the [`CLIENT_ID`](app/src/main/java/com/microsoft/graph/snippets/ServiceConstants.java#L11) string and set its value to the client id you registered in Azure.
 8. Find the [`REDIRECT_URI`](app/src/main/java/com/microsoft/graph/snippets/ServiceConstants.java#L10) string and set its value to the redirect URI you registered in Azure.
-
-> **Note:**
-> Android Studio may prompt you to install the Android Support Repository 47.0.0+. The project's module build.gradle file logic uses the `implementation` method instead of the older `compile` method to build the module dependencies. These new build methods depend on the Android Support Repository 47.0.0 or newer.
 
 ## Run the project
 After you've built the project you can run it on an emulator or device.
