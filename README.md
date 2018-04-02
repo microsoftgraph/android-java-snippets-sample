@@ -142,7 +142,6 @@ The snippets project uses these classes to manage interactions with Microsoft Gr
 The snippets project is comprised of two modules. The modular design enables you to build a new app based on this sample by importing the modules into your app. After you've imported the modules, use the code in the snippets [app](/app) module as an example of how to call methods in the other sample modules.
 
 ### Modules in the snippets project
-* [`o365-Auth`](/o365-auth). This module contains the library calls to authenticate a user with Microsoft Graph.
 * [`app`](/app). The UI and business logic module. SDK operations are started in the snippet classes in this module.
 
 ### Snippet classes
