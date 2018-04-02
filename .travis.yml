@@ -6,7 +6,7 @@ android:
   - platform-tools
   - extra
   - android-23
-  - build-tools-23.0.3
+  - build-tools-27.0.3
 
 script:
 - ./gradlew clean build -x test
