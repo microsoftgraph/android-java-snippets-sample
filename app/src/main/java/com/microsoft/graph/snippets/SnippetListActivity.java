@@ -4,13 +4,12 @@
  */
 package com.microsoft.graph.snippets;
 
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.microsoft.graph.snippets.application.SnippetApp;
-import com.microsoft.graph.snippets.inject.AppModule;
+import com.microsoft.graph.snippets.application.AppModule;
 
 public class SnippetListActivity extends BaseActivity
         implements SnippetListFragment.Callbacks {

@@ -8,7 +8,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.microsoft.graph.snippets.application.SnippetApp;
-import com.microsoft.graph.snippets.inject.AppModule;
+import com.microsoft.graph.snippets.application.AppModule;
 import com.microsoft.identity.client.AuthenticationResult;
 
 public class SharedPrefsUtil {
