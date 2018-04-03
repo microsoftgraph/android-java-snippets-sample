@@ -80,11 +80,11 @@ public class AuthenticationManager implements IAuthenticationProvider {
     public void callAcquireToken(Activity activity, final MSALAuthenticationCallback authenticationCallback) {
         mActivityCallback = authenticationCallback;
         mPublicClientApplication.acquireToken(
-                activity, Constants.SCOPES, getAuthInteractiveCallback());
+                activity, ServiceConstants.SCOPES, getAuthInteractiveCallback());
     }
     public void callAcquireTokenSilent(User user, boolean forceRefresh, MSALAuthenticationCallback msalAuthenticationCallback) {
         mActivityCallback = msalAuthenticationCallback;
-        mPublicClientApplication.acquireTokenSilentAsync(Constants.SCOPES, user, null, forceRefresh, getAuthSilentCallback());
+        mPublicClientApplication.acquireTokenSilentAsync(ServiceConstants.SCOPES, user, null, forceRefresh, getAuthSilentCallback());
     }
 //
 // App callbacks for MSAL

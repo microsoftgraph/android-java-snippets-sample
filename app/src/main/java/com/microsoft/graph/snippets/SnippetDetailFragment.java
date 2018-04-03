@@ -34,8 +34,8 @@ import com.microsoft.graph.snippets.snippet.SnippetContent;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
 
 import static android.view.View.GONE;
@@ -74,37 +74,37 @@ public class SnippetDetailFragment<T, Result>
     /**
      * Displays the status code as color 'stoplight'
      */
-    @InjectView(txt_status_color)
+    @BindView(txt_status_color)
     protected ImageView mStatusColor;
 
     /**
      * On-screen description of the current snippet
      */
-    @InjectView(txt_desc)
+    @BindView(txt_desc)
     protected TextView mSnippetDescription;
 
     /**
      * The request url of the current snippet
      */
-    @InjectView(txt_request_url)
+    @BindView(txt_request_url)
     protected TextView mRequestUrl;
 
     /**
      * The response body of the snippet's request
      */
-    @InjectView(txt_response_body)
+    @BindView(txt_response_body)
     protected TextView mResponseBody;
 
     /**
      * Barber's pole progress bar (indeterminate)
      */
-    @InjectView(progressbar)
+    @BindView(progressbar)
     protected ProgressBar mProgressbar;
 
     /**
      * The 'run-snippet' button
      */
-    @InjectView(btn_run)
+    @BindView(btn_run)
     protected Button mRunButton;
 
     /**
@@ -170,7 +170,7 @@ public class SnippetDetailFragment<T, Result>
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_snippet_detail, container, false);
-        ButterKnife.inject(this, rootView);
+        ButterKnife.bind(this, rootView);
         mSnippetDescription.setText(mItem.getDescription());
         mRequestUrl.setText(mItem.getCodeSnippet());
         return rootView;

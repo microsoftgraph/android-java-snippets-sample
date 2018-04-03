@@ -6,7 +6,10 @@ package com.microsoft.graph.snippets;
 
 public class ServiceConstants {
     public static final String AUTHENTICATION_RESOURCE_ID = "https://graph.microsoft.com";
-    public static final String AUTHORITY_URL = "https://login.microsoftonline.com/common";
     public static final String REDIRECT_URI = "http://localhost/androidsnippets";
-    public static String CLIENT_ID = "ENTER_YOUR_CLIENT_ID";
+    // The Microsoft Graph delegated permissions that you set in the application
+    // registration portal must match these scope values.
+    // Update this constant with the scope (permission) values for your application:
+    public static final String[] SCOPES = {"openid", "Mail.ReadWrite","mail.send","Files.ReadWrite","User.ReadBasic.All"};
+
 }

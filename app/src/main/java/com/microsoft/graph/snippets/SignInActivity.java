@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.microsoft.graph.snippets.application.SnippetApp;
 import com.microsoft.graph.snippets.util.SharedPrefsUtil;
 import com.microsoft.identity.client.AuthenticationResult;
 import com.microsoft.identity.client.Logger;
@@ -24,8 +25,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
 
 import static android.view.View.INVISIBLE;
@@ -44,10 +45,10 @@ public class SignInActivity
     private boolean mEnablePiiLogging = false;
     private static final String TAG = "SignInActivity";
 
-    @InjectView(layout_diagnostics)
+    @BindView(layout_diagnostics)
     protected View mDiagnosticsLayout;
 
-    @InjectView(view_diagnosticsdata)
+    @BindView(view_diagnosticsdata)
     protected TextView mDiagnosticsTxt;
 
     @Override
@@ -56,7 +57,7 @@ public class SignInActivity
         setContentView(activity_signin);
         setTitle(R.string.app_name);
 
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
     }
 
     @OnClick(o365_signin)
@@ -203,7 +204,7 @@ public class SignInActivity
         }
     }
     private void validateOrganizationArgs() throws IllegalArgumentException {
-        UUID.fromString(ServiceConstants.CLIENT_ID);
+        UUID.fromString(SnippetApp.getContext().getString(R.string.client_Id));
         URI.create(ServiceConstants.REDIRECT_URI);
     }
 

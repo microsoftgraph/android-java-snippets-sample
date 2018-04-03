@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.microsoft.graph.snippets">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-sdk tools:overrideLibrary="com.microsoft.identity.msal" />
 
     <application
         android:name="com.microsoft.graph.snippets.application.SnippetApp"
@@ -32,16 +39,16 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="@string/msalprefix"
+                <data android:scheme="msalb5ff44cc-39e1-4120-881b-3516085ade9a"
                     android:host="auth" />
             </intent-filter>
         </activity>
         <meta-data
-            android:name="https://login.microsoftonline.com/common"
-            android:value="authority string"/>
+            android:name="authority string"
+            android:value="https://login.microsoftonline.com/common"/>
         <meta-data
             android:name="com.microsoft.identity.client.ClientId"
-            android:value="@string/client_Id"/>
+            android:value="b5ff44cc-39e1-4120-881b-3516085ade9a"/>
 
     </application>
 

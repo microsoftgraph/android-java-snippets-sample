@@ -1,7 +1,13 @@
+<!--
+   - Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
+   - See LICENSE in the project root for license information.
+  -->
+
 <!DOCTYPE resources [
-    <!ENTITY clientId "ENTER_YOUR_CLIENT_ID">
+    <!ENTITY clientId "b5ff44cc-39e1-4120-881b-3516085ade9a">
     ]>
 <resources>
+
     <string name="app_name">Snippets sample</string>
     <string name="app_name_short">Snippets</string>
 
@@ -36,7 +42,7 @@
     <string name="stoplight_success">Success</string>
     <string name="stoplight_failure">Failure</string>
     <string name="disconnect_menu_item">Disconnect</string>
-    <string name="client_Id">&clientId;</string>
-    <string name="msalprefix">msal&clientId;</string>
+    <string name="client_Id">b5ff44cc-39e1-4120-881b-3516085ade9a</string>
+    <string name="msalprefix">msalb5ff44cc-39e1-4120-881b-3516085ade9a</string>
 
 </resources>
