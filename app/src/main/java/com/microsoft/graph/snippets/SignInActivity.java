@@ -11,7 +11,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.microsoft.graph.snippets.application.SnippetApp;
+import com.microsoft.graph.snippets.util.IManifestReader;
+import com.microsoft.graph.snippets.util.ManifestReader;
 import com.microsoft.graph.snippets.util.SharedPrefsUtil;
 import com.microsoft.identity.client.AuthenticationResult;
 import com.microsoft.identity.client.Logger;
@@ -56,7 +57,6 @@ public class SignInActivity
         super.onCreate(savedInstanceState);
         setContentView(activity_signin);
         setTitle(R.string.app_name);
-
         ButterKnife.bind(this);
     }
 
@@ -148,6 +148,7 @@ public class SignInActivity
         connect();
         //AuthenticationManager.getInstance().
     }
+
     private void connect() {
 
         // The sample app is having the PII enable setting on the MainActivity. Ideally, app should decide to enable Pii or not,
@@ -188,13 +189,12 @@ public class SignInActivity
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
 
 
-
         } catch (IndexOutOfBoundsException e) {
             Log.d(TAG, "User at this position does not exist: " + e.toString());
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
 
 
-        }catch (IllegalStateException e) {
+        } catch (IllegalStateException e) {
             Log.d(TAG, "MSAL Exception Generated: " + e.toString());
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
 
@@ -203,8 +203,10 @@ public class SignInActivity
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
+
     private void validateOrganizationArgs() throws IllegalArgumentException {
-        UUID.fromString(SnippetApp.getContext().getString(R.string.client_Id));
+        IManifestReader metaDataReader = new ManifestReader();
+        UUID.fromString(metaDataReader.getApplicationMetadataValueString("com.microsoft.identity.client.ClientId"));
         URI.create(ServiceConstants.REDIRECT_URI);
     }
 
@@ -212,6 +214,7 @@ public class SignInActivity
         Intent appLaunch = new Intent(this, SnippetListActivity.class);
         startActivity(appLaunch);
     }
+
     public User mUser;
 
     @Override
@@ -223,4 +226,6 @@ public class SignInActivity
     public void onCancel() {
         Toast.makeText(this, "User cancelled the flow.", Toast.LENGTH_SHORT).show();
     }
+
+
 }

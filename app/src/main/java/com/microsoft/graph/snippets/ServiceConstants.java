@@ -11,5 +11,4 @@ public class ServiceConstants {
     // registration portal must match these scope values.
     // Update this constant with the scope (permission) values for your application:
     public static final String[] SCOPES = {"openid", "Mail.ReadWrite","mail.send","Files.ReadWrite","User.ReadBasic.All"};
-
 }

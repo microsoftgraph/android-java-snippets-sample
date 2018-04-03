@@ -78,5 +78,4 @@ public class SnippetListAdapter extends BaseAdapter {
         View v = convertView.findViewById(R.id.admin_indicator);
         return !isSegment && null == v || (isSegment && null != v);
     }
-
 }

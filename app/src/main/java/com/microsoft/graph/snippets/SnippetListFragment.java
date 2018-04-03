@@ -119,7 +119,6 @@ public class SnippetListFragment extends ListFragment {
 
     public interface Callbacks {
         void onItemSelected(int position);
-
         void onDisconnectClicked();
     }
 }

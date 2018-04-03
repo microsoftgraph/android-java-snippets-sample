@@ -13,9 +13,6 @@ import com.microsoft.graph.extensions.GraphServiceClient;
 import com.microsoft.graph.extensions.IGraphServiceClient;
 import com.microsoft.graph.snippets.AuthenticationManager;
 
-//import javax.inject.Inject;
-//
-//import dagger.ObjectGraph;
 
 public class SnippetApp extends Application {
     private static SnippetApp sSnippetApp;
@@ -34,15 +31,18 @@ public class SnippetApp extends Application {
 
     public IGraphServiceClient getGraphServiceClient() {
         IClientConfig clientConfig = DefaultClientConfig.createWithAuthenticationProvider(
-            mAuthenticationManager
+                mAuthenticationManager
         );
         return new GraphServiceClient.Builder().fromConfig(clientConfig).buildClient();
     }
-    public static Context getContext(){
+
+    public static Context getContext() {
         return sSnippetApp;
     }
 
     public void disconnect() {
         mAuthenticationManager.disconnect();
     }
+
+
 }
