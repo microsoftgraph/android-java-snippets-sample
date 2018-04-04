@@ -1,3 +1,5 @@
+
+
 sudo: false
 language: android
 android:
@@ -10,3 +12,7 @@ android:
 
 script:
 - ./gradlew clean build -x test
+
+notifications:
+
+webhooks: https://outlook.office365.com/webhook/009493ac-1ad9-4214-94da-de30e74cbdbc@72f988bf-86f1-41af-91ab-2d7cd011db47/TravisCI/342f18d1cfe34985beb25ef2fe8316fc/8c14ebe1-e4ba-424c-8a32-9fde9ddd85fc
