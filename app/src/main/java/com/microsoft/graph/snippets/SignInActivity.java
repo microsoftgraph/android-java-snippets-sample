@@ -226,6 +226,25 @@ public class SignInActivity
     public void onCancel() {
         Toast.makeText(this, "User cancelled the flow.", Toast.LENGTH_SHORT).show();
     }
-
+    /**
+     * Handles redirect response from https://login.microsoftonline.com/common and
+     * notifies the MSAL library that the user has completed the authentication
+     * dialog
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (AuthenticationManager
+                .getInstance()
+                .getPublicClient() != null) {
+            AuthenticationManager
+                    .getInstance()
+                    .getPublicClient()
+                    .handleInteractiveRequestRedirect(requestCode, resultCode, data);
+        }
+    }
 
 }
