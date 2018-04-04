@@ -1,4 +1,5 @@
 # Snippets Sample for Android Using the Microsoft Graph SDK
+**Version 1.5**
 
 [![Build Status](https://travis-ci.org/microsoftgraph/android-java-snippets-sample.svg?branch=master)](https://travis-ci.org/microsoftgraph/android-java-snippets-sample)
 
@@ -13,6 +14,7 @@
 * [Understand the code](#understand-the-code)
 * [Questions and comments](#questions-and-comments)
 * [Additional resources](#additional-resources)
+* [Version history](#version-history)
 
 Looking to build cool apps that help people work with their Office 365 data? Explore, learn, and understand the Microsoft Graph SDK by using this Snippets sample. This sample shows you how to access multiple resources, including Microsoft Azure Active Directory and Office 365, by making calls to the Microsoft Graph SDK in an Android application.
 
@@ -178,5 +180,12 @@ General questions about Microsoft Graph development should be posted to [Stack O
 * [Microsoft Graph overview](http://graph.microsoft.io)
 * [Microsoft Graph SDK for Android](../../../msgraph-sdk-android)
 * [Connect Sample for Android Using the Microsoft Graph SDK](../../../android-java-connect-sample)
+
+## Version history
+
+|Version|Changes|
+|:---|:----|
+|1.0|Initial release|
+|1.5|- MSAL authentication library replaced ADAL authentication library <br/> - Microsoft Graph SDK version 1.5|
 
 Copyright (c) 2015 Microsoft. All rights reserved.
