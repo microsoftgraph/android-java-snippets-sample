@@ -1,4 +1,5 @@
 # <a name="snippets-sample-for-android-using-the-microsoft-graph-sdk"></a>Пример фрагментов кода для Android, использующих пакет SDK Microsoft Graph
+**Версия 1.5**
 
 [![Состояние сборки](https://travis-ci.org/microsoftgraph/android-java-snippets-sample.svg?branch=master)](https://travis-ci.org/microsoftgraph/android-java-snippets-sample)
 
@@ -13,6 +14,7 @@
 * [Разбор кода](#understand-the-code)
 * [Вопросы и комментарии](#questions-and-comments)
 * [Дополнительные ресурсы](#additional-resources)
+* [Журнал версий](#version-history)
 
 Хотите создавать классные приложения, облегчающие пользователям работу с данными Office 365? Подробно изучите пакет SDK Microsoft Graph с помощью этого примера фрагментов кода. В этом примере показано, как получить доступ к нескольким ресурсам, в том числе Microsoft Azure Active Directory и Office 365, совершая вызовы в пакет SDK Microsoft Graph в приложении Android.
 
@@ -65,11 +67,17 @@
 * [Переименование файла в корневой папке пользователя.](/app/src/main/java/com/microsoft/graph/snippets/snippet/DrivesSnippets.java#L337)
 * [Создание папки в корневой папке пользователя.](/app/src/main/java/com/microsoft/graph/snippets/snippet/DrivesSnippets.java#L395)
 
-##<a name="device-requirement"></a>Требование к устройству
+## <a name="device-requirements"></a>Требования к устройству
 Для выполнения проекта фрагментов кода устройство должно соответствовать следующему требованию:
-* API Android уровня 16 или более высокого
+* API Android уровня 21 или более высокого
 
-###<a name="prerequisites"></a>Необходимые компоненты
+## <a name="android-studio-requirements"></a>Требования к Android Studio
+* Инструменты сборки Android для Gradle 3.1 или более поздней версии
+
+> **Примечание.** Android Studio может предложить установить репозиторий поддержки Android 47.0.0 или более поздней версии. Для создания зависимостей модуля в логике файла build.gradle модуля проекта вместо более раннего метода `compile` используется метод `implementation`. Эти новые методы сборки зависят от репозитория поддержки Android версии 47.0.0 или более поздней.
+
+
+### <a name="prerequisites"></a>Необходимые компоненты
 Чтобы использовать проект фрагментов кода для пакета SDK Microsoft Graph, вам потребуются перечисленные ниже компоненты.
 * Последняя версия [Android Studio](http://developer.android.com/sdk/index.html).
 * Система автоматизации сборки [Gradle](http://www.gradle.org).
@@ -77,18 +85,17 @@
 * [Java Development Kit (JDK) 7](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html).
 * Зарегистрированное приложение Azure с идентификатором клиента и значением универсального кода ресурса (URI) перенаправления. Чтобы узнать, как создать правильные разрешения, см. статью [Предоставление разрешений приложению Snippets в Azure](../../../android-java-snippets-rest-sample/wiki/Grant-permissions-for-the-Snippet-application-in-Azure).
 
-##<a name="azure-client-application-registration"></a>Регистрация приложения в клиенте Azure
-1. Войдите на [портал управления Azure](https://manage.windowsazure.com) с помощью учетных данных Azure AD.
-2.    Щелкните **Active Directory** в левом меню, а затем выберите каталог для клиента Office 365.
-3.    В верхнем меню щелкните **Приложения**.
-4.    Нажмите кнопку **Добавить** в нижнем меню.
-5.    На странице **Что вы хотите сделать?** щелкните **Добавить приложение, разрабатываемое моей организацией**.
-6.    На странице **Расскажите о своем приложении** укажите имя приложения **Android Snippet Sample** и выберите тип **СОБСТВЕННОЕ КЛИЕНТСКОЕ ПРИЛОЖЕНИЕ**.
-7.    Щелкните кнопку со стрелкой в правом нижнем углу страницы.
-8.    На странице **Сведения о приложении** укажите **универсальный код ресурса (URI) перенаправления** (например, `http://localhost/androidsnippets`), а затем установите флажок в правом нижнем углу страницы.
-9.    После успешного добавления приложения откроется страница **Быстрый запуск**. Здесь выберите пункт **Настройка** в верхнем меню.
-10. В разделе разрешений для других приложений добавьте приложение Microsoft Graph.
-11. Добавьте перечисленные ниже разрешения для приложения Microsoft Graph.
+## <a name="azure-client-application-registration"></a>Регистрация приложения в клиенте Azure
+
+
+1. Войдите на [портал регистрации приложений](https://apps.dev.microsoft.com).
+3. Нажмите синюю кнопку **Добавить приложение** в правой части страницы.
+4. Укажите имя приложения.
+4. _Снимите _флажок **Мы поможем вам начать работу** в разделе **Пошаговая установка**.
+4. Чтобы зарегистрироваться, нажмите синюю кнопку **Создать**.
+5. Нажмите кнопку **Добавление платформы** в разделе **Платформы** и выберите элемент **Собственное приложение**.
+8. Настройте разрешения для своего приложения. В разделе **Разрешения Microsoft Graph** нажмите синюю кнопку **Добавить** рядом с элементом **Делегированные разрешения**.
+9. Добавьте следующие делегированные разрешения:
    * Вход и чтение профиля пользователя
    * Полный доступ ко всем файлам, к которым может получать доступ пользователь
    * Полный доступ к календарям пользователя
@@ -99,20 +106,22 @@
    * Чтение базовых профилей всех пользователей
    * Чтение и запись всех групп
 13. В нижнем меню нажмите кнопку **Сохранить**.
-14. Обратите внимание на значения, указанные для **идентификатора клиента** на странице **Настройка**. Они потребуются позже для настройки проекта.
 
-##<a name="configure-the-project"></a>Настройка проекта
+> **Примечание.** В разделе [Настройка проекта](#configure-the-project) вам потребуется скопировать отдельные строки, созданные порталом регистрации приложений. Не покидайте страницу регистрации приложения, пока настраиваете проект. Скопированные при регистрации приложения строки будут добавлены в исходный код проекта.
+
+## <a name="configure-the-project"></a>Настройка проекта
 
 1. Скачайте или клонируйте [пример фрагментов кода](../../).
 2. Запустите Android Studio.
 3. В диалоговом окне **Добро пожаловать в Android Studio** выберите пункт **Импорт проекта (Eclipse ADT, Gradle и т. д.)**.
 4. Выберите файл **settings.gradle** в папке **android-java-snippets-sample**, а затем нажмите кнопку **OK**.
 5. Ответьте на запрос в диалоговом окне ("Синхронизация Gradle: параметры Gradle для этого проекта еще не настроены. Использовать в проекте программу оболочку Gradle?"), нажав кнопку **ОК**, чтобы использовать программу-оболочку Gradle. 
-6. Откройте файл ServiceConstants.java в пакете com.microsoft.graph.snippets.
-7. Найдите строку [`CLIENT_ID`](app/src/main/java/com/microsoft/graph/snippets/ServiceConstants.java#L11), а затем в качестве ее значения задайте идентификатор клиента, зарегистрированный в Azure.
-8. Найдите строку [`REDIRECT_URI`](app/src/main/java/com/microsoft/graph/snippets/ServiceConstants.java#L10), а затем в качестве ее значения задайте универсальный код ресурса (URI) перенаправления, зарегистрированный в Azure.
+4. На странице регистрации приложений, на которой вы только что побывали, скопируйте пользовательский URI перенаправления (`msal{application id as GUID}`) в буфер обмена. **Не копируйте `://auth`**
+   <br/>Например, следует копировать `msal0575d7fe-8ec7-4925-9ce2-87074778a039` и игнорировать `://auth`.
+4. Вставьте скопированные данные из буфера обмена в строку 42 файла **app/src/main/AndroidManifest.xml**, заменив `ENTER_YOUR_CLIENT_ID`.
+4. Скопируйте часть пользовательского URI перенаправления с **кодом GUID** и вставьте в строку 51 файла **app/src/main/AndroidManifest.xml**, чтобы заменить `ENTER_YOUR_CLIENT_ID` этими данными.
 
-##<a name="run-the-project"></a>Запуск проекта
+## <a name="run-the-project"></a>Запуск проекта
 После сборки проект можно запустить в эмуляторе или на устройстве.
 
 1. Запустите проект.
@@ -125,20 +134,19 @@
 7. Нажмите кнопку "Назад" на панели инструментов, чтобы вернуться к списку операций.
 8. (Необязательно.) Выберите меню переполнения, чтобы открыть параметр меню "Отключить".
 
-##<a name="how-the-sample-affects-your-tenant-data"></a>Влияние примера на данные клиента
+## <a name="how-the-sample-affects-your-tenant-data"></a>Влияние примера на данные клиента
 В этом примере выполняются команды по созданию, чтению, обновлению и удалению данных. При выполнении команд по удалению или изменению данных пример создает фиктивные сущности. Фиктивные сущности удаляются или изменяются, не затрагивая фактические данные клиента. Пример проигнорирует фиктивные сущности в клиенте.
 
-##<a name="understand-the-code"></a>Разбор кода
+## <a name="understand-the-code"></a>Разбор кода
 В проекте фрагментов кода для управления взаимодействием с Microsoft Graph используются приведенные ниже классы.
 
-###<a name="sample-project-organization"></a>Пример организации проекта
+### <a name="sample-project-organization"></a>Пример организации проекта
 Проект приложения фрагментов кода состоит из двух модулей. Модульная структура позволяет создать приложение на основе этого примера путем импорта модулей в приложение. После импорта модулей используйте код в модуле [app](/app) фрагментов кода в качестве примера того, как вызывать методы в другие примеры модулей.
 
-###<a name="modules-in-the-snippets-project"></a>Модули в проекте приложения фрагментов кода
-* [`o365-Auth`](/o365-auth). Этот модуль содержит вызовы библиотеки для проверки подлинности пользователя с помощью Microsoft Graph.
+### <a name="modules-in-the-snippets-project"></a>Модули в проекте приложения фрагментов кода
 * [`app`](/app). Пользовательский интерфейс и модуль бизнес-логики. Операции пакета SDK запускаются в классах фрагментов кода в этом модуле.
 
-###<a name="snippet-classes"></a>Классы фрагментов кода
+### <a name="snippet-classes"></a>Классы фрагментов кода
 Фрагмент кода выполняет одну операцию и возвращает результаты. Фрагменты кода находятся в модуле [app](/app). Фрагменты кода задают состояние, необходимое для вызова описанных ниже классов службы Microsoft Graph.
 * [`AbstractSnippet`](/app/src/main/java/com/microsoft/graph/snippets/snippet/AbstractSnippet.java)
 * [`DrivesSnippets`](/app/src/main/java/com/microsoft/graph/snippets/snippet/DrivesSnippets.java)
@@ -148,12 +156,10 @@
 * [`MessageSnippets`](/app/src/main/java/com/microsoft/graph/snippets/snippet/MessageSnippets.java)
 * [`UsersSnippets`](/app/src/main/java/com/microsoft/graph/snippets/snippet/UsersSnippets.java)
 
-###<a name="authentication-classes"></a>Классы проверки подлинности
-Классы проверки подлинности находятся в модуле [o365-Auth](/o365-auth). В этих классах для подключения к Microsoft Graph используется [библиотека Microsoft Azure Active Directory Library (ADAL) для Android](https://github.com/AzureAD/azure-activedirectory-library-for-android). 
+### <a name="authentication-classes"></a>Классы проверки подлинности
+Способы проверки подлинности можно найти в классе [`AuthenticationManager`](/app/src/main/java/com/microsoft/graph/snippets/AuthenticationManager.java). Эти способы используют библиотеку [Microsoft Authentication Library (MSAL) для Android](https://github.com/AzureAD/microsoft-authentication-library-for-android) для подключения к Microsoft Graph. 
 
-* [`AuthenticationManager`](/o365-auth/src/main/java/com/microsoft/graph/auth/AuthenticationManager.java). Содержит логику подключения и отключения пользователей в дополнение к авторизации приложения Azure.
-* [`AzureADModule`](/o365-auth/src/main/java/com/microsoft/graph/auth/AzureADModule.java). Вспомогательный класс проверки подлинности. 
-* [`AzureAppCompatActivity`](/o365-auth/src/main/java/com/microsoft/graph/auth/AzureAppCompatActivity.java). Вспомогательное приложения для внедрения зависимостей.
+* [`AuthenticationManager`](/app/src/main/java/com/microsoft/graph/snippets/AuthenticationManager.java). Содержит логику подключения и отключения пользователей в дополнение к авторизации приложения.
  
 <a name="contributing"></a>
 ## <a name="contributing"></a>Участие ##
@@ -163,13 +169,20 @@
 Этот проект соответствует [правилам поведения Майкрософт, касающимся обращения с открытым кодом](https://opensource.microsoft.com/codeofconduct/). Читайте дополнительные сведения в [разделе вопросов и ответов по правилам поведения](https://opensource.microsoft.com/codeofconduct/faq/) или отправляйте новые вопросы и замечания по адресу [opencode@microsoft.com](mailto:opencode@microsoft.com).
 
 ## <a name="questions-and-comments"></a>Вопросы и комментарии
-Мы будем рады получить ваши отзывы о примере фрагментов кода для пакета SDK Microsoft Graph для Android. Своими мыслями можете поделиться на вкладке [Issues](../../issues) (Проблемы) этого репозитория. <br/> Общие вопросы относительно разработки решений для Microsoft Graph следует задавать на сайте [Stack Overflow](http://stackoverflow.com/questions/tagged/microsoftgraph). Помечайте свои вопросы тегами [microsoftgraph].
+Мы будем рады получить ваши отзывы о примере фрагментов кода для пакета SDK Microsoft Graph для Android. Своими мыслями можете поделиться на вкладке [Issues](../../issues) (Проблемы) этого репозитория. <br/>Общие вопросы, касающиеся разработки решений для Microsoft Graph, следует задавать на сайте [Stack Overflow](http://stackoverflow.com/questions/tagged/microsoftgraph). Обязательно помечайте свои вопросы тегом [microsoftgraph].
 
 ## <a name="additional-resources"></a>Дополнительные ресурсы
 
 * [Начало работы с интерфейсами API Office 365 на платформе Microsoft Graph](http://dev.office.com/getting-started/office365apis)
 * [Общие сведения о Microsoft Graph](http://graph.microsoft.io)
 * [Пакет SDK Microsoft Graph для Android](../../../msgraph-sdk-android)
-* [Приложение Connect для Android, использующее Microsoft Graph SDK](../../../android-java-connect-sample)
+* [Приложение Connect для Android, использующее пакет SDK Microsoft Graph](../../../android-java-connect-sample)
+
+## <a name="version-history"></a>Журнал версий
+
+|Версия|Изменения|
+|:---|:----|
+|1.0|Исходный выпуск|
+|1.5|- Библиотека проверки подлинности MSAL заменяет библиотеку проверки подлинности ADAL <br/> - Пакет SDK Microsoft Graph версии 1.5|
 
 (c) Корпорация Майкрософт (Microsoft Corporation), 2015. Все права защищены.
