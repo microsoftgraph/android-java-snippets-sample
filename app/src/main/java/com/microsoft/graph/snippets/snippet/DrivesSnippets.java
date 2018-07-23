@@ -8,10 +8,10 @@ import com.google.common.io.CharStreams;
 import com.google.gson.JsonObject;
 import com.microsoft.graph.concurrency.ICallback;
 import com.microsoft.graph.core.ClientException;
-import com.microsoft.graph.extensions.Drive;
-import com.microsoft.graph.extensions.DriveItem;
-import com.microsoft.graph.extensions.Folder;
-import com.microsoft.graph.extensions.IDriveItemCollectionPage;
+import com.microsoft.graph.models.extensions.Drive;
+import com.microsoft.graph.models.extensions.DriveItem;
+import com.microsoft.graph.models.extensions.Folder;
+import com.microsoft.graph.requests.extensions.IDriveItemCollectionPage;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,8 +53,8 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
                         mGraphServiceClient
-                                .getMe()
-                                .getDrive()
+                                .me()
+                                .drive()
                                 .buildRequest()
                                 .get(new ICallback<Drive>() {
                                     @Override
@@ -81,10 +81,10 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                     public void request(final ICallback<JsonObject> callback) {
                         //Get files in root folder
                         mGraphServiceClient
-                                .getMe()
-                                .getDrive()
-                                .getRoot()
-                                .getChildren()
+                                .me()
+                                .drive()
+                                .root()
+                                .children()
                                 .buildRequest()
                                 .get(new ICallback<IDriveItemCollectionPage>() {
                                     @Override
@@ -114,11 +114,11 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                             byte[] byteArray = guid.getBytes("UTF-8");
 
                             mGraphServiceClient
-                                    .getMe()
-                                    .getDrive()
-                                    .getRoot()
-                                    .getChildren(guid)
-                                    .getContent()
+                                    .me()
+                                    .drive()
+                                    .root()
+                                    .children(guid)
+                                    .content()
                                     .buildRequest()
                                     .put(byteArray, new ICallback<DriveItem>() {
                                         @Override
@@ -156,11 +156,11 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                         }
 
                         mGraphServiceClient
-                                .getMe()
-                                .getDrive()
-                                .getRoot()
-                                .getChildren(guid)
-                                .getContent()
+                                .me()
+                                .drive()
+                                .root()
+                                .children(guid)
+                                .content()
                                 .buildRequest()
                                 .put(byteArray, new ICallback<DriveItem>() {
                                     @Override
@@ -168,11 +168,11 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                                         // Get the guid that the service assigned to my file
                                         String guid = driveItem.id;
                                         mGraphServiceClient
-                                                .getMe()
-                                                .getDrive()
-                                                .getItems()
+                                                .me()
+                                                .drive()
+                                                .items()
                                                 .byId(guid)
-                                                .getContent()
+                                                .content()
                                                 .buildRequest()
                                                 .get(new ICallback<InputStream>() {
                                                     @Override
@@ -224,11 +224,11 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                         }
 
                         mGraphServiceClient
-                                .getMe()
-                                .getDrive()
-                                .getRoot()
-                                .getChildren(guid)
-                                .getContent()
+                                .me()
+                                .drive()
+                                .root()
+                                .children(guid)
+                                .content()
                                 .buildRequest()
                                 .put(byteArray, new ICallback<DriveItem>() {
                                     @Override
@@ -240,11 +240,11 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                                             byteArray = "A plain text file".getBytes("UTF-8");
 
                                             mGraphServiceClient
-                                                    .getMe()
-                                                    .getDrive()
-                                                    .getItems()
+                                                    .me()
+                                                    .drive()
+                                                    .items()
                                                     .byId(driveItem.id)
-                                                    .getContent()
+                                                    .content()
                                                     .buildRequest()
                                                     .put(byteArray, new ICallback<DriveItem>() {
                                                         @Override
@@ -289,19 +289,19 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                         }
 
                         mGraphServiceClient
-                                .getMe()
-                                .getDrive()
-                                .getRoot()
-                                .getChildren(guid)
-                                .getContent()
+                                .me()
+                                .drive()
+                                .root()
+                                .children(guid)
+                                .content()
                                 .buildRequest()
                                 .put(byteArray, new ICallback<DriveItem>() {
                                     @Override
                                     public void success(DriveItem driveItem) {
                                         mGraphServiceClient
-                                                .getMe()
-                                                .getDrive()
-                                                .getItems()
+                                                .me()
+                                                .drive()
+                                                .items()
                                                 .byId(driveItem.id)
                                                 .buildRequest()
                                                 .delete(new ICallback<Void>() {
@@ -344,11 +344,11 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                         }
 
                         mGraphServiceClient
-                                .getMe()
-                                .getDrive()
-                                .getRoot()
-                                .getChildren(guid)
-                                .getContent()
+                                .me()
+                                .drive()
+                                .root()
+                                .children(guid)
+                                .content()
                                 .buildRequest()
                                 .put(byteArray, new ICallback<DriveItem>() {
                                     @Override
@@ -356,9 +356,9 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                                         DriveItem renamedDriveItem = new DriveItem();
                                         renamedDriveItem.name = "Updated name";
                                         mGraphServiceClient
-                                                .getMe()
-                                                .getDrive()
-                                                .getItems()
+                                                .me()
+                                                .drive()
+                                                .items()
                                                 .byId(driveItem.id)
                                                 .buildRequest()
                                                 .patch(renamedDriveItem, new ICallback<DriveItem>() {
@@ -397,10 +397,10 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                         driveItem.folder = new Folder();
 
                         mGraphServiceClient
-                                .getMe()
-                                .getDrive()
-                                .getRoot()
-                                .getChildren()
+                                .me()
+                                .drive()
+                                .root()
+                                .children(guid)
                                 .buildRequest()
                                 .post(driveItem, new ICallback<DriveItem>() {
                                     @Override

@@ -7,10 +7,10 @@ package com.microsoft.graph.snippets.snippet;
 import com.google.gson.JsonObject;
 import com.microsoft.graph.concurrency.ICallback;
 import com.microsoft.graph.core.ClientException;
-import com.microsoft.graph.extensions.DirectoryObject;
-import com.microsoft.graph.extensions.IDirectoryObjectCollectionWithReferencesPage;
-import com.microsoft.graph.extensions.ProfilePhoto;
-import com.microsoft.graph.extensions.User;
+import com.microsoft.graph.models.extensions.DirectoryObject;
+import com.microsoft.graph.requests.extensions.IDirectoryObjectCollectionWithReferencesPage;
+import com.microsoft.graph.models.extensions.ProfilePhoto;
+import com.microsoft.graph.models.extensions.User;
 import com.microsoft.graph.options.Option;
 import com.microsoft.graph.options.QueryOption;
 
@@ -53,7 +53,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<Result> {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
                         mGraphServiceClient
-                                .getMe()
+                                .me()
                                 .buildRequest()
                                 .get(new ICallback<User>() {
                                     @Override
@@ -79,7 +79,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<Result> {
                         final List<Option> options = new LinkedList<>();
                         options.add(new QueryOption("$select", "AboutMe,Responsibilities,Tags"));
                         mGraphServiceClient
-                                .getMe()
+                                .me()
                                 .buildRequest(options)
                                 .get(new ICallback<User>() {
                                     @Override
@@ -103,8 +103,8 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<Result> {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
                         mGraphServiceClient
-                                .getMe()
-                                .getManager()
+                                .me()
+                                .manager()
                                 .buildRequest()
                                 .get(new ICallback<DirectoryObject>() {
                                     @Override
@@ -128,8 +128,8 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<Result> {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
                         mGraphServiceClient
-                                .getMe()
-                                .getDirectReports()
+                                .me()
+                                .directReports()
                                 .buildRequest()
                                 .get(new ICallback<IDirectoryObjectCollectionWithReferencesPage>() {
                                     @Override
@@ -153,8 +153,8 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<Result> {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
                         mGraphServiceClient
-                                .getMe()
-                                .getMemberOf()
+                                .me()
+                                .memberOf()
                                 .buildRequest()
                                 .get(new ICallback<IDirectoryObjectCollectionWithReferencesPage>() {
                                     @Override
@@ -178,8 +178,8 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<Result> {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
                         mGraphServiceClient
-                                .getMe()
-                                .getPhoto()
+                                .me()
+                                .photo()
                                 .buildRequest()
                                 .get(new ICallback<ProfilePhoto>() {
                                     @Override
