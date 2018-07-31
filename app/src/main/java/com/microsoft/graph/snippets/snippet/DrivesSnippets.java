@@ -298,6 +298,7 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                                 .put(byteArray, new ICallback<DriveItem>() {
                                     @Override
                                     public void success(DriveItem driveItem) {
+
                                         mGraphServiceClient
                                                 .me()
                                                 .drive()
@@ -306,7 +307,7 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                                                 .buildRequest()
                                                 .delete(new ICallback<Void>() {
                                                     @Override
-                                                    public void success(Void aVoid) {
+                                                    public void success(Void avoid) {
                                                         callback.success(null);
                                                     }
 
@@ -354,14 +355,16 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                                     @Override
                                     public void success(DriveItem driveItem) {
                                         DriveItem renamedDriveItem = new DriveItem();
-                                        renamedDriveItem.name = "Updated name";
+                                        renamedDriveItem.name = "Updated name for File";
+
                                         mGraphServiceClient
                                                 .me()
                                                 .drive()
                                                 .items()
                                                 .byId(driveItem.id)
                                                 .buildRequest()
-                                                .patch(renamedDriveItem, new ICallback<DriveItem>() {
+                                                .patch(renamedDriveItem
+                                                        , new ICallback<DriveItem>() {
                                                     @Override
                                                     public void success(DriveItem driveItem) {
                                                         callback.success(driveItem.getRawObject());
@@ -400,7 +403,7 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                                 .me()
                                 .drive()
                                 .root()
-                                .children(guid)
+                                .children()
                                 .buildRequest()
                                 .post(driveItem, new ICallback<DriveItem>() {
                                     @Override

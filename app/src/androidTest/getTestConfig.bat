@@ -1,8 +1,8 @@
 @echo off
 
 SET testConfig={
-SET testConfig=%testConfig% "test_client_id": "%TEST_CLIENT_ID%",
-SET testConfig=%testConfig% "test_username": "%TEST_USERNAME%",
+SET testConfig=%testConfig% "test_client_id": "94da997e-c3f4-40b4-9901-ab5b75c0d1a5",
+SET testConfig=%testConfig% "test_username": "ding.men@husky.neu.edu",
 SET testConfig=%testConfig% "test_password": "%1"
 SET testConfig=%testConfig%  }
 echo %testConfig%

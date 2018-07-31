@@ -33,13 +33,13 @@ public class SnippetApp extends Application {
      * GraphServiceClient to com.microsoft.graph.requests.extensions.GraphServiceClient;
      */
     public IGraphServiceClient getGraphServiceClient() {
-        /*IClientConfig clientConfig = DefaultClientConfig.createWithAuthenticationProvider(
+        IClientConfig clientConfig = DefaultClientConfig.createWithAuthenticationProvider(
                 mAuthenticationManager
         );
-        return new GraphServiceClient.Builder().fromConfig(clientConfig).buildClient();*/
+        //return new GraphServiceClient.Builder().fromConfig(clientConfig).buildClient();*/
         IGraphServiceClient graphClient = GraphServiceClient
                                             .builder()
-                                            .authenticationProvider(mAuthenticationManager)
+                                            .fromConfig(clientConfig)
                                             .buildClient();
         return graphClient;
     }

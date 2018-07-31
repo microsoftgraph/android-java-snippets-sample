@@ -116,7 +116,6 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
                                     public void success(Event event) {
                                         // Update the event object
                                         event.subject = "Updated event";
-
                                         mGraphServiceClient
                                                 .me()
                                                 .events()
@@ -140,7 +139,9 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
                                         callback.failure(ex);
                                     }
                                 });
-                    }
+
+
+                }
 
                 },
 
@@ -180,6 +181,7 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
                                                         callback.failure(ex);
                                                     }
                                                 });
+
                                     }
 
                                     @Override

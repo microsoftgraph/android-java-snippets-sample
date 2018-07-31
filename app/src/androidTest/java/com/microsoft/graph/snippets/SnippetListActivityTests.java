@@ -122,7 +122,8 @@ public class SnippetListActivityTests {
 
     private static ListAdapter getListAdapter (SnippetListActivity snippetListActivity) {
         return ((ListView) snippetListActivity
-                .getSupportFragmentManager()
+                //.getSupportFragmentManager()
+                .getFragmentManager()
                 .findFragmentById(R.id.snippet_list)
                 .getView()
                 .findViewById(android.R.id.list))
