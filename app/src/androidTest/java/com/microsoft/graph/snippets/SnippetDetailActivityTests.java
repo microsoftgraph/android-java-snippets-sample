@@ -42,7 +42,7 @@ public class SnippetDetailActivityTests {
     @BeforeClass
     public static void setupEnvironment() throws FileNotFoundException {
         testCredentials = TestCredentials.getTestCredentials();
-       // ServiceConstants.CLIENT_ID = testCredentials.clientId;
+
     }
 
     @Before

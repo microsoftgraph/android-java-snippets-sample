@@ -77,7 +77,7 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<Result> {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
                         final List<Option> options = new LinkedList<>();
-                        options.add(new QueryOption("$select", "AboutMe,Responsibilities,Tags"));
+                        options.add(new QueryOption("$select", "AboutMe,Responsibilities"));
                         mGraphServiceClient
                                 .me()
                                 .buildRequest(options)

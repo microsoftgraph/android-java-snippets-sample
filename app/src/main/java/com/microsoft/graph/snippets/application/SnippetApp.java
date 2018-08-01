@@ -36,7 +36,7 @@ public class SnippetApp extends Application {
         IClientConfig clientConfig = DefaultClientConfig.createWithAuthenticationProvider(
                 mAuthenticationManager
         );
-        //return new GraphServiceClient.Builder().fromConfig(clientConfig).buildClient();*/
+
         IGraphServiceClient graphClient = GraphServiceClient
                                             .builder()
                                             .fromConfig(clientConfig)

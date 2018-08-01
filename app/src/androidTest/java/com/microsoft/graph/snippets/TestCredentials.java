@@ -25,15 +25,12 @@ public class TestCredentials {
 
     public static TestCredentials getTestCredentials() throws FileNotFoundException {
         TestCredentials testCredentials = new TestCredentials();
-//        File testConfigFile = new File(Environment.getDataDirectory(), TEST_ARTIFACT_LOCATION);
-//        JsonObject testConfig = new JsonParser().parse(new FileReader(testConfigFile)).getAsJsonObject();
+        File testConfigFile = new File(Environment.getDataDirectory(), TEST_ARTIFACT_LOCATION);
+        JsonObject testConfig = new JsonParser().parse(new FileReader(testConfigFile)).getAsJsonObject();
 
-//        testCredentials.clientId = testConfig.get(CLIENT_ID_TEST_ARTIFACT).getAsString();
-//        testCredentials.username = testConfig.get(USERNAME_TEST_ARTIFACT).getAsString();
-//        testCredentials.password = testConfig.get(PASSWORD_TEST_ARTIFACT).getAsString();
-          testCredentials.clientId = "94da997e-c3f4-40b4-9901-ab5b75c0d1a5";
-          testCredentials.username = "ding.men@husky.neu.edu";
-          testCredentials.password = "Dingmc610@ms";
+        testCredentials.clientId = testConfig.get(CLIENT_ID_TEST_ARTIFACT).getAsString();
+        testCredentials.username = testConfig.get(USERNAME_TEST_ARTIFACT).getAsString();
+        testCredentials.password = testConfig.get(PASSWORD_TEST_ARTIFACT).getAsString();
 
         return testCredentials;
     }

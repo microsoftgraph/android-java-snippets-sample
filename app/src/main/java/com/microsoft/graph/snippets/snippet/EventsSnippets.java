@@ -115,13 +115,14 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
                                     @Override
                                     public void success(Event event) {
                                         // Update the event object
-                                        event.subject = "Updated event";
+                                        Event updateEvent = new Event();
+                                        updateEvent.subject = "Updated event";
                                         mGraphServiceClient
                                                 .me()
                                                 .events()
                                                 .byId(event.id)
                                                 .buildRequest()
-                                                .patch(event, new ICallback<Event>() {
+                                                .patch(updateEvent, new ICallback<Event>() {
                                                     @Override
                                                     public void success(Event event) {
                                                         callback.success(event.getRawObject());
