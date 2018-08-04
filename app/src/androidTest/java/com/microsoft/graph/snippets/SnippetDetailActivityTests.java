@@ -41,7 +41,7 @@ public class SnippetDetailActivityTests {
 
     @BeforeClass
     public static void setupEnvironment() throws FileNotFoundException {
-        testCredentials = TestCredentials.getTestCredentials();
+
 
     }
 
@@ -57,7 +57,7 @@ public class SnippetDetailActivityTests {
 
     @Test
     public void RunSnippets_Success() throws InterruptedException{
-        SignInActivityTests.AzureADSignIn(testCredentials.username, testCredentials.password, mSignInActivityRule);
+        SignInActivityTests.AzureADSignIn(TestCredentials.USERNAME_TEST_ARTIFACT, TestCredentials.PASSWORD_TEST_ARTIFACT, mSignInActivityRule);
 
         List<Integer> snippetIndexes = SnippetListActivityTests.getSnippetsIndexes(mSnippetListActivityRule);
 

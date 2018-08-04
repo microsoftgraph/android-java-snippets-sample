@@ -14,7 +14,7 @@ item 4: is admin account required to run snippet (true/false)
         <item>Gets the signed-in user\'s emails.</item>
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/api/message_get</item>
         <item>false</item>
-        <item>graphServiceClient()\n    .getMe()\n    .getMessages()\n    .buildRequest()\n    .get();</item>
+        <item>graphServiceClient()\n    .me()\n    .messages()\n    .buildRequest()\n    .get();</item>
     </string-array>
     <string-array name="send_an_email_message">
         <item>Send an email</item>
@@ -37,7 +37,7 @@ itemBody.contentType = BodyType.text;\n
 itemBody.content = \"Email body\";\n
 message.body = itemBody;\n\n
 
-graphServiceClient()\n    .getMe()\n    .getMessages()\n    .getSendMail(message, true)\n    .buildRequest()\n    .post();
+graphServiceClient()\n    .me()\n    .messages()\n    .sendMail(message, true)\n    .buildRequest()\n    .post();
         </item>
     </string-array>
 </resources>

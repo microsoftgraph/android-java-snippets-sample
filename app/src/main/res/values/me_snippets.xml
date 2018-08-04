@@ -14,7 +14,7 @@ item 5: Code snippet
         <item>Gets information about the signed-in user.</item>
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/api/user_get</item>
         <item>false</item>
-        <item>graphServiceClient()\n    .getMe()\n    .buildRequest()\n    .get();</item>
+        <item>graphServiceClient()\n    .me()\n    .buildRequest()\n    .get();</item>
     </string-array>
     <string-array name="get_me_responsibilities">
         <item>Get user\'s responsibilities.</item>
@@ -23,34 +23,34 @@ item 5: Code snippet
         <item>false</item>
         <item>final List&lt;Option&gt; options = new LinkedList&lt;&gt;();\n
 options.add(new QueryOption(\"$select\", \"AboutMe,Responsibilities,Tags\"));\n\n
-graphServiceClient()\n    .getMe()\n    .buildRequest(options)\n    .get();</item>
+graphServiceClient()\n    .me()\n    .buildRequest(options)\n    .get();</item>
     </string-array>
     <string-array name="get_me_manager">
         <item>Get user\'s manager</item>
         <item>Gets the signed-in user\'s manager.</item>
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/api/user_list_manager</item>
         <item>false</item>
-        <item>graphServiceClient()\n    .getMe()\n    .getManager()\n    .buildRequest()\n    .get();</item>
+        <item>graphServiceClient()\n    .me()\n    .manager()\n    .buildRequest()\n    .get();</item>
     </string-array>
     <string-array name="get_me_direct_reports">
         <item>Get user\'s direct reports</item>
         <item>Gets the signed-in user\'s direct reports.</item>
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/api/user_list_directreports</item>
         <item>false</item>
-        <item>graphServiceClient()\n    .getMe()\n    .getDirectReports()\n    .buildRequest()\n    .get();</item>
+        <item>graphServiceClient()\n    .me()\n    .directReports()\n    .buildRequest()\n    .get();</item>
     </string-array>
     <string-array name="get_me_photo">
         <item>Get user\'s photo</item>
         <item>Gets the signed-in user\'s photo.</item>
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/resources/user</item>
         <item>false</item>
-        <item>graphServiceClient()\n    .getMe()\n    .getPhoto()\n    .buildRequest()\n    .get();</item>
+        <item>graphServiceClient()\n    .me()\n    .photo()\n    .buildRequest()\n    .get();</item>
     </string-array>
     <string-array name="get_me_group_membership">
         <item>Get groups user is member of</item>
         <item>Gets the groups that the signed-in user is a member of.</item>
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/api/user_getmembergroups</item>
         <item>false</item>
-        <item>graphServiceClient()\n    .getMe()\n    .getMemberOf()\n    .buildRequest()\n    .get();</item>
+        <item>graphServiceClient()\n    .me()\n    .memberOf()\n    .buildRequest()\n    .get();</item>
     </string-array>
 </resources>

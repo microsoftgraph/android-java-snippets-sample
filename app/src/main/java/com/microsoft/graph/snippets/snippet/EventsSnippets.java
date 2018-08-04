@@ -32,6 +32,8 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
         super(SnippetCategory.eventsSnippetCategory, descriptionArray);
     }
 
+    static String eventId;
+
     static EventsSnippets[] getEventsSnippets() {
         return new EventsSnippets[]{
                 // Marker element
@@ -86,7 +88,10 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
                                 .post(event, new ICallback<Event>() {
                                     @Override
                                     public void success(Event event) {
+
+                                        eventId = event.id;
                                         callback.success(event.getRawObject());
+                                        System.out.println("get Id " + eventId);
                                     }
 
                                     @Override
@@ -152,37 +157,19 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
                  * @see https://graph.microsoft.io/docs/api-reference/v1.0/api/event_delete
                  */
                 new EventsSnippets<JsonObject>(delete_event) {
+
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
-                        Event event = createEventObject();
 
                         mGraphServiceClient
                                 .me()
                                 .events()
+                                .byId(eventId)
                                 .buildRequest()
-                                .post(event, new ICallback<Event>() {
+                                .delete(new ICallback<Void>() {
                                     @Override
-                                    public void success(Event event) {
-                                        // Update the event object
-                                        event.subject = "Updated event";
-
-                                        mGraphServiceClient
-                                                .me()
-                                                .events()
-                                                .byId(event.id)
-                                                .buildRequest()
-                                                .delete(new ICallback<Void>() {
-                                                    @Override
-                                                    public void success(Void aVoid) {
-                                                        callback.success(null);
-                                                    }
-
-                                                    @Override
-                                                    public void failure(ClientException ex) {
-                                                        callback.failure(ex);
-                                                    }
-                                                });
-
+                                    public void success(Void aVoid) {
+                                        callback.success(null);
                                     }
 
                                     @Override

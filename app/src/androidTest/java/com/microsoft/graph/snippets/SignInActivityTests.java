@@ -49,7 +49,7 @@ public class SignInActivityTests {
 
     @BeforeClass
     public static void setupEnvironment() throws FileNotFoundException {
-        testCredentials = TestCredentials.getTestCredentials();
+
 
     }
 
@@ -65,7 +65,7 @@ public class SignInActivityTests {
 
     @Test
     public void AzureADSignIn_Success() throws InterruptedException{
-        AzureADSignIn(testCredentials.username, testCredentials.password, mSignInActivityRule);
+        AzureADSignIn(TestCredentials.USERNAME_TEST_ARTIFACT, TestCredentials.PASSWORD_TEST_ARTIFACT, mSignInActivityRule);
     }
 
     @Test(expected = AssertionFailedError.class)
