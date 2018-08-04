@@ -16,7 +16,7 @@
 * [Additional resources](#additional-resources)
 * [Version history](#version-history)
 
-Looking to build cool apps that help people work with their Office 365 data? Explore, learn, and understand the Microsoft Graph SDK by using this Snippets sample. This sample shows you how to access multiple resources, including Microsoft Azure Active Directory and Office 365, by making calls to the Microsoft Graph SDK in an Android application.
+Looking to build cool apps that help people work with their Office 365 data? Explore, learn, and understand the Microsoft Graph Java SDK by using this Snippets sample. This sample shows you how to access multiple resources, including Microsoft Azure Active Directory and Office 365, by making calls to the Microsoft Graph Java SDK in an Android application.
 
 You can explore the following operations in Microsoft Graph:
 
@@ -79,7 +79,7 @@ To run snippets project, your device must meet the following requirement:
 
 
 ### Prerequisites
-To use the Microsoft Graph SDK snippets project, you need the following:
+To use the Microsoft Graph Java SDK snippets project, you need the following:
 * The latest version of [Android Studio](http://developer.android.com/sdk/index.html).
 * The [Gradle](http://www.gradle.org) build automation system.
 * An Office 365 account. You can sign up for [an Office 365 Developer subscription](https://portal.office.com/Signup/Signup.aspx?OfferId=C69E7747-2566-4897-8CBA-B998ED3BAB88&DL=DEVELOPERPACK&ali=1#0) that includes the resources you need to start building Office 365 apps.
