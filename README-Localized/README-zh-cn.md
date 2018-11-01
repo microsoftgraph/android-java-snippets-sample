@@ -74,7 +74,7 @@
 ## <a name="android-studio-requirements"></a>Android Studio 要求
 * 适用于 Gradle 3.1+ 的 Android 生成工具
 
-> **注意：**Android Studio 可能会提示安装 Android Support Repository 47.0.0+。 项目的 module build.gradle 文件逻辑使用 `implementation` 方法（而不是旧 `compile` 方法）生成模块依赖项。 这些新生成方法依赖 Android Support Repository 47.0.0 或更高版本。
+> **注意：** Android Studio 可能会提示安装 Android Support Repository 47.0.0+。 项目的 module build.gradle 文件逻辑使用 `implementation` 方法（而不是旧 `compile` 方法）生成模块依赖项。 这些新生成方法依赖 Android Support Repository 47.0.0 或更高版本。
 
 
 ### <a name="prerequisites"></a>先决条件
@@ -107,7 +107,7 @@
    * 读取和写入所有组
 13. 单击底部菜单中的“保存”****。
 
-> **注意：**在[配置项目](#configure-the-project)中，系统会要求复制应用程序注册门户生成的一些字符串。 配置项目期间，切勿离开应用程序注册页。 从应用程序注册门户复制的字符串会被粘贴到项目的源代码中。
+> **注意：** 在[配置项目](#configure-the-project)中，系统会要求复制应用程序注册门户生成的一些字符串。 配置项目期间，切勿离开应用程序注册页。 从应用程序注册门户复制的字符串会被粘贴到项目的源代码中。
 
 ## <a name="configure-the-project"></a>配置项目
 
@@ -116,7 +116,7 @@
 3. 从“**欢迎使用 Android Studio**”对话框中，选择“**导入项目(Eclipse ADT、Gradle 等)**”。
 4. 选择“android-java-snippets-sample”**** 文件夹中的“settings.gradle”**** 文件，再单击“确定”****。
 5. 单击“确定”**** 按钮，响应对话框（“Gradle 同步:尚未配置此项目的 Gradle 设置。是否希望项目使用 Gradle 包装器?”），以使用 Gradle 包装器。 
-4. 在刚刚访问过的应用程序注册页中，将自定义重定向 URI (`msal{application id as GUID}`) 复制到剪贴板。 **请勿复制 `://auth`**
+4. 在刚刚访问的应用程序注册页中，将自定义重定向 URI (`msal{application id as GUID}`) 复制到剪贴板中。**请勿复制 `://auth`**
    <br/>例如，复制 `msal0575d7fe-8ec7-4925-9ce2-87074778a039`，但忽略 `://auth`。
 4. 在 **app/src/main/AndroidManifest.xml** 的第 42 行粘贴剪贴板内容，以将 `ENTER_YOUR_CLIENT_ID` 替换为剪贴板内容。
 4. 在 **app/src/main/AndroidManifest.xml** 的第 51 行粘贴自定义重定向 URI 的 **GUID 部分**，以将 `ENTER_YOUR_CLIENT_ID` 替换为剪贴板内容。

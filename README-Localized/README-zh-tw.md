@@ -107,7 +107,7 @@
    * 讀取和寫入所有群組
 13. 按一下底端功能表的 [儲存]****。
 
-> **附註：**在[設定專案](#configure-the-project)中，系統會要求您複製應用程式註冊入口網站所產生的一些字串。 當您設定專案時，請務必保持在應用程式註冊頁面上。 從應用程式註冊中複製的字串會貼到專案的原始程式碼。
+> **附註：** 在[設定專案](#configure-the-project)中，系統會要求您複製應用程式註冊入口網站所產生的一些字串。 當您設定專案時，請務必保持在應用程式註冊頁面上。 從應用程式註冊中複製的字串會貼到專案的原始程式碼。
 
 ## <a name="configure-the-project"></a>設定專案
 
@@ -116,7 +116,7 @@
 3. 從 [歡迎使用 Android Studio]**** 對話方塊中，選擇 [匯入專案 (Eclipse ADT、Gradle 等等)]****。
 4. 在 **android-java-snippets-sample** 資料夾中選取 **settings.gradle** 檔案，然後按一下 [確定]****。
 5. 回應對話方塊 ("Gradle Sync:此專案的 Gradle 設定尚未設定。您希望專案使用 Gradle 包裝函式嗎？")，按一下 [確定]**** 按鈕即可使用 Gradle 包裝函式。 
-4. 在您剛剛瀏覽應用程式註冊頁面上，複製自訂重新導向 URI (`msal{application id as GUID}`) 到剪貼簿。 **請確定您沒有複製 `://auth`**
+4. 在您剛剛瀏覽的應用程式註冊頁面上，複製自訂重新導向 URI (`msal{application id as GUID}`) 到剪貼簿。**請確定您沒有複製 `://auth`**
    <br/>例如：已複製 `msal0575d7fe-8ec7-4925-9ce2-87074778a039`，而忽略 `://auth`。
 4. 將剪貼簿內容貼在 **app/src/main/AndroidManifest.xml** 的 42 行，以剪貼簿內容取代 `ENTER_YOUR_CLIENT_ID`。
 4. 將自訂重新導向 URI 的 **GUID 部分**複製到 **app/src/main/AndroidManifest.xml** 的 51 行，以剪貼簿內容取代 `ENTER_YOUR_CLIENT_ID`。
@@ -183,6 +183,6 @@
 |版本|變更|
 |:---|:----|
 |1.0|最初發行版本|
-|1.5|-MSAL 驗證程式庫取代 ADAL 驗證程式庫 <br/> - Microsoft Graph SDK 1.5 版|
+|1.5|- MSAL 驗證程式庫取代 ADAL 驗證程式庫 <br/> - Microsoft Graph SDK 1.5 版|
 
 Copyright (c) 2015 Microsoft. 著作權所有，並保留一切權利。

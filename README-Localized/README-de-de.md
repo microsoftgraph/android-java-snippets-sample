@@ -116,8 +116,8 @@ Sie benötigen Folgendes, um das Codeausschnittprojekt für das Microsoft Graph-
 3. Wählen Sie im Dialogfeld **Willkommen bei Android Studio** die Option **Projekt importieren (Ellipse ADT, Gradle usw.)** aus.
 4. Wählen Sie die Datei **settings.gradle** im Ordner **android-java-snippets-sample** aus, und klicken Sie dann auf **OK**.
 5. Reagieren Sie auf das Dialogfeld („Gradle-Synchronisierung: Gradle-Einstellungen für dieses Projekt sind noch nicht konfiguriert. Soll das Projekt den Gradle-Wrapper verwenden?"), indem Sie auf die Schaltfläche **OK** klicken, um den Gradle-Wrapper zu verwenden. 
-4. Kopieren Sie von der Seite für die Anwendungsregistrierung, die Sie soeben besucht haben, den benutzerdefinierten Umleitungs-URI (`msal{application id as GUID}`) in die Zwischenablage. **Achten Sie darauf, dass Sie `://auth`** nicht kopieren.
-   <br/>Beispiel: `msal0575d7fe-8ec7-4925-9ce2-87074778a039` ist kopiert und `://auth` wird ignoriert.
+4. Kopieren Sie von der Seite für die Anwendungsregistrierung, die Sie soeben besucht haben, den benutzerdefinierten Umleitungs-URI (`msal{application id as GUID}`) in die Zwischenablage. **Achten Sie darauf, dass Sie nicht `://auth` kopieren.**
+   <br/>Beispiel: `msal0575d7fe-8ec7-4925-9ce2-87074778a039` wird kopiert und `://auth` wird ignoriert.
 4. Fügen Sie den Inhalt der Zwischenablage in Zeile 42 der Datei **app/src/main/AndroidManifest.xml** ein, um `ENTER_YOUR_CLIENT_ID` durch den Inhalt der Zwischenablage zu ersetzen.
 4. Fügen Sie den **GUID-Teil** des benutzerdefinierten Umleitungs-URI in Zeile 51 der Datei **app/src/main/AndroidManifest.xml** ein, um `ENTER_YOUR_CLIENT_ID` durch den Inhalt der Zwischenablage zu ersetzen.
 

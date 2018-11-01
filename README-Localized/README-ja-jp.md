@@ -116,7 +116,7 @@ Microsoft Graph SDK のスニペット プロジェクトを使用するには�
 3. **[Android Studio へようこそ]** ダイアログ ボックスから、**[プロジェクトをインポートする (Eclipse ADT、Gradle など)]** を選択します。
 4. **android-java-snippets-sample** フォルダーで **settings.gradle** ファイルを選択して、**[OK]** をクリックします。
 5. ダイアログ ボックス ("Gradle の同期: このプロジェクトの Gradle 設定がまだ構成されていません。プロジェクトで Gradle ラッパーを使用するようにしますか?") に対し、**[OK]** ボタンをクリックすると、Gradle ラッパーが使用できるようになります。 
-4. 直前にアクセスしたアプリケーション登録ページで、カスタム リダイレクト URI (`msal{application id as GUID}`) をクリップボードにコピーします。 **`://auth` はコピーしないでください**
+4. 直前にアクセスしたアプリケーション登録ページで、カスタム リダイレクト URI (`msal{application id as GUID}`) をクリップボードにコピーします。**`://auth` はコピーしないでください**
    <br/>例: `msal0575d7fe-8ec7-4925-9ce2-87074778a039` をコピーし、`://auth` はコピーしません。
 4. クリップボードの内容を **app/src/main/AndroidManifest.xml**、第 42 行に貼り付けて、`ENTER_YOUR_CLIENT_ID` をクリップボードの内容に置換します。
 4. カスタム リダイレクト URI の **GUID 部分** を **app/src/main/AndroidManifest.xml**、第 51 行にコピーして、`ENTER_YOUR_CLIENT_ID` をクリップボードの内容に置換します。

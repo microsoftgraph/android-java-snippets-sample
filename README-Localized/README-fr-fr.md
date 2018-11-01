@@ -116,7 +116,7 @@ Pour utiliser le projet d’extraits de code du kit de développement Microsoft 
 3. Dans la boîte de dialogue **Bienvenue dans Android Studio**, choisissez **Importer un projet (Eclipse ADT, Gradle, etc.)**.
 4. Sélectionnez le fichier **settings.gradle** dans le dossier **android-java-snippets-sample**, puis cliquez sur **OK**.
 5. Répondre à la boîte de dialogue (« Synchronisation Gradle : les paramètres de Gradle pour ce projet ne sont pas encore configurés. Voulez-vous que le projet utilise le wrapper Gradle ? ») en cliquant sur le bouton **OK** pour utiliser le wrapper Gradle. 
-4. Sur la page d’inscription des applications, copiez l’URI de redirection personnalisé (`msal{application id as GUID}`) dans le presse-papiers. **Vérifiez que vous ne copiez pas `://auth`**.
+4. Sur la page d’inscription des applications, copiez l’URI de redirection personnalisé (`msal{application id as GUID}`) dans le presse-papiers. **Veillez à ne pas copier `://auth`**.
    <br/>Par exemple, `msal0575d7fe-8ec7-4925-9ce2-87074778a039` est copié et `://auth` est ignoré.
 4. Collez le contenu du presse-papiers sur la ligne 42 du fichier **app/src/main/AndroidManifest.xml** pour remplacer `ENTER_YOUR_CLIENT_ID`.
 4. Copiez la **partie GUID** de l’URI de redirection personnalisé sur la ligne 51 du fichier **app/src/main/AndroidManifest.xml** pour remplacer `ENTER_YOUR_CLIENT_ID`.

@@ -116,7 +116,7 @@ Para usar el proyecto de fragmentos de código del SDK de Microsoft Graph, neces
 3. Desde el cuadro de diálogo **Bienvenido a Android Studio**, seleccione **Importar proyecto (ADT de Eclipse, Gradle, etc.)**.
 4. Seleccione el archivo **settings.gradle** en la carpeta **android-java-snippets-sample** y haga clic en **Aceptar**.
 5. Responda al cuadro de diálogo ("sincronización de Gradle: La configuración de Gradle para este proyecto no se ha realizado todavía. ¿Desea que el proyecto utilice el contenedor de Gradle? ") haciendo clic en el botón **Aceptar** para utilizar el contenedor de Gradle. 
-4. En la página de registro de aplicación que acabe de visitar, copie el URI de redirección personalizado (`msal{application id as GUID}`) en el portapapeles. **Asegúrese de que no copia `://auth`**
+4. En la página de registro de la aplicación que acaba de visitar, copie el URI de redirección personalizado (`msal{application id as GUID}`) en el portapapeles. **Asegúrese de que no copia `://auth`**
    <br/>Por ejemplo: `msal0575d7fe-8ec7-4925-9ce2-87074778a039` se copia y `://auth` se ignora.
 4. Pegue el contenido del portapapeles en **app/src/main/AndroidManifest.xml**, línea 42 para reemplazar `ENTER_YOUR_CLIENT_ID` con el contenido del Portapapeles.
 4. Copie la **porción GUID** del URI de redirección personalizado en **app/src/main/AndroidManifest.xml**, línea 51 para reemplazar `ENTER_YOUR_CLIENT_ID` con los contenidos del portapapeles.
