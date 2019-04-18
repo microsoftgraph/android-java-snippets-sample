@@ -7,7 +7,6 @@ package com.microsoft.graph.snippets;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
 import com.microsoft.graph.snippets.application.SnippetApp;
 import com.microsoft.graph.snippets.application.AppModule;
 

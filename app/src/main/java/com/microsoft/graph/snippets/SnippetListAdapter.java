@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import com.microsoft.graph.snippets.snippet.AbstractSnippet;
 import com.microsoft.graph.snippets.snippet.SnippetContent;
 

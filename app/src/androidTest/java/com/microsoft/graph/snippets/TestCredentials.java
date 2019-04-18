@@ -5,10 +5,8 @@
 package com.microsoft.graph.snippets;
 
 import android.os.Environment;
-
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

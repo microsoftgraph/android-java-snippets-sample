@@ -16,20 +16,8 @@ import com.microsoft.graph.models.extensions.Location;
 import com.microsoft.graph.models.generated.AttendeeType;
 import com.microsoft.graph.models.generated.BodyType;
 import com.microsoft.graph.requests.extensions.IEventCollectionPage;
-//import com.microsoft.graph.extensions.Attendee;
-//import com.microsoft.graph.extensions.AttendeeType;
-//import com.microsoft.graph.extensions.BodyType;
-//import com.microsoft.graph.extensions.DateTimeTimeZone;
-//import com.microsoft.graph.extensions.EmailAddress;
-//import com.microsoft.graph.extensions.Event;
-//import com.microsoft.graph.extensions.IEventCollectionPage;
-//import com.microsoft.graph.extensions.ItemBody;
-//import com.microsoft.graph.extensions.Location;
-
 import org.joda.time.DateTime;
-
 import java.util.Collections;
-
 import static com.microsoft.graph.snippets.R.array.create_event;
 import static com.microsoft.graph.snippets.R.array.delete_event;
 import static com.microsoft.graph.snippets.R.array.get_user_events;

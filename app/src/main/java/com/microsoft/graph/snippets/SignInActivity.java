@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.microsoft.graph.models.extensions.User;
 import com.microsoft.graph.snippets.util.IManifestReader;
 import com.microsoft.graph.snippets.util.ManifestReader;
@@ -22,20 +21,12 @@ import com.microsoft.identity.client.exception.MsalClientException;
 import com.microsoft.identity.client.exception.MsalException;
 import com.microsoft.identity.client.exception.MsalServiceException;
 import com.microsoft.identity.client.exception.MsalUiRequiredException;
-//import com.microsoft.identity.client.MsalClientException;
-//import com.microsoft.identity.client.MsalException;
-//import com.microsoft.identity.client.MsalServiceException;
-//import com.microsoft.identity.client.MsalUiRequiredException;
-//import com.microsoft.identity.client.User;
-
 import java.net.URI;
 import java.util.List;
 import java.util.UUID;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static com.microsoft.graph.snippets.R.id.layout_diagnostics;
@@ -152,7 +143,7 @@ public class SignInActivity
     private void authenticate() throws IllegalArgumentException {
         validateOrganizationArgs();
         connect();
-        //AuthenticationManager.getInstance().
+        AuthenticationManager.getInstance();
     }
 
     private void connect() {
@@ -191,13 +182,7 @@ public class SignInActivity
                         this);
             }
         }
-
-//        catch (MsalClientException e) {
-//            Log.d(TAG, "MSAL Exception Generated while getting users: " + e.toString());
-//            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//
-//
-//        }
+        
         catch (IndexOutOfBoundsException e) {
             Log.d(TAG, "User at this position does not exist: " + e.toString());
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();

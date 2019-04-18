@@ -10,13 +10,8 @@ import com.microsoft.graph.core.ClientException;
 import com.microsoft.graph.models.extensions.Group;
 import com.microsoft.graph.requests.extensions.IDirectoryObjectCollectionWithReferencesPage;
 import com.microsoft.graph.requests.extensions.IGroupCollectionPage;
-//import com.microsoft.graph.extensions.Group;
-//import com.microsoft.graph.extensions.IDirectoryObjectCollectionWithReferencesPage;
-//import com.microsoft.graph.extensions.IGroupCollectionPage;
-
 import java.util.Collections;
 import java.util.UUID;
-
 import static com.microsoft.graph.snippets.R.array.delete_a_group;
 import static com.microsoft.graph.snippets.R.array.get_a_group;
 import static com.microsoft.graph.snippets.R.array.get_all_groups;

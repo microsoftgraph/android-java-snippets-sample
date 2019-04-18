@@ -7,20 +7,14 @@ package com.microsoft.graph.snippets.snippet;
 import com.google.gson.JsonObject;
 import com.microsoft.graph.concurrency.ICallback;
 import com.microsoft.graph.core.ClientException;
-//import com.microsoft.graph.extensions.DirectoryObject;
-//import com.microsoft.graph.extensions.IDirectoryObjectCollectionWithReferencesPage;
-//import com.microsoft.graph.extensions.ProfilePhoto;
-//import com.microsoft.graph.extensions.User;
 import com.microsoft.graph.models.extensions.DirectoryObject;
 import com.microsoft.graph.models.extensions.ProfilePhoto;
 import com.microsoft.graph.models.extensions.User;
 import com.microsoft.graph.options.Option;
 import com.microsoft.graph.options.QueryOption;
 import com.microsoft.graph.requests.extensions.IDirectoryObjectCollectionWithReferencesPage;
-
 import java.util.LinkedList;
 import java.util.List;
-
 import static com.microsoft.graph.snippets.R.array.get_me;
 import static com.microsoft.graph.snippets.R.array.get_me_direct_reports;
 import static com.microsoft.graph.snippets.R.array.get_me_group_membership;
@@ -200,7 +194,6 @@ public abstract class MeSnippets<Result> extends AbstractSnippet<Result> {
                 }
         };
     }
-
     @Override
     public abstract void request(ICallback<Result> callback);
 

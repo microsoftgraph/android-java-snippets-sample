@@ -12,17 +12,11 @@ import com.microsoft.graph.models.extensions.Drive;
 import com.microsoft.graph.models.extensions.DriveItem;
 import com.microsoft.graph.models.extensions.Folder;
 import com.microsoft.graph.requests.extensions.IDriveItemCollectionPage;
-//import com.microsoft.graph.extensions.Drive;
-//import com.microsoft.graph.extensions.DriveItem;
-//import com.microsoft.graph.extensions.Folder;
-//import com.microsoft.graph.extensions.IDriveItemCollectionPage;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.UUID;
-
 import static com.microsoft.graph.snippets.R.array.create_me_file;
 import static com.microsoft.graph.snippets.R.array.create_me_folder;
 import static com.microsoft.graph.snippets.R.array.delete_me_file;
@@ -421,6 +415,5 @@ abstract class DrivesSnippets<Result> extends AbstractSnippet<Result> {
                 }
         };
     }
-
     public abstract void request(ICallback<Result> callback);
 }
