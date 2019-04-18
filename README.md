@@ -103,7 +103,7 @@ To use the Microsoft Graph SDK snippets project, you need the following:
     - Ensure that the **Microsoft APIs** tab is selected 
     - In the *Commonly used Microsoft APIs* section, click on **Microsoft Graph** 
     - In the **Delegated permissions** section, ensure that the right permissions are checked. Use the search box if necessary.
-    - **User.Read**, **Mail.Send**, **Mail.ReadWrite**, **Files.ReadWrite**,**User.ReadBasic.All**, **Calendars.ReadWrite**,**Group.Read.All**  
+    - **User.Read**, **Mail.Send**, **Mail.ReadWrite**, **Files.ReadWrite**, **User.ReadBasic.All**, **Calendars.ReadWrite**, **Group.Read.All**  
     - Select the **Add permissions** button 
 
 > **Note:**
