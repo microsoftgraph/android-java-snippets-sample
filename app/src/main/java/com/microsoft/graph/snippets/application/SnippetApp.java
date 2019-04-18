@@ -9,8 +9,12 @@ import android.content.Context;
 
 import com.microsoft.graph.core.DefaultClientConfig;
 import com.microsoft.graph.core.IClientConfig;
-import com.microsoft.graph.extensions.GraphServiceClient;
-import com.microsoft.graph.extensions.IGraphServiceClient;
+
+//import com.microsoft.graph.extensions.GraphServiceClient;
+//import com.microsoft.graph.extensions.IGraphServiceClient;
+
+import com.microsoft.graph.requests.extensions.GraphServiceClient;
+import com.microsoft.graph.models.extensions.IGraphServiceClient;
 import com.microsoft.graph.snippets.AuthenticationManager;
 
 
@@ -33,7 +37,7 @@ public class SnippetApp extends Application {
         IClientConfig clientConfig = DefaultClientConfig.createWithAuthenticationProvider(
                 mAuthenticationManager
         );
-        return new GraphServiceClient.Builder().fromConfig(clientConfig).buildClient();
+        return GraphServiceClient.fromConfig(clientConfig);
     }
 
     public static Context getContext() {

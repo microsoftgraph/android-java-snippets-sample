@@ -1,7 +1,8 @@
 package com.microsoft.graph.snippets;
 
 import com.microsoft.identity.client.AuthenticationResult;
-import com.microsoft.identity.client.MsalException;
+//import com.microsoft.identity.client.MsalException;
+import com.microsoft.identity.client.exception.MsalException;
 
 
 interface MSALAuthenticationCallback {

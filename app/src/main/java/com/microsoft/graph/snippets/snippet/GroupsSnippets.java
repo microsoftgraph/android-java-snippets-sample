@@ -7,9 +7,12 @@ package com.microsoft.graph.snippets.snippet;
 import com.google.gson.JsonObject;
 import com.microsoft.graph.concurrency.ICallback;
 import com.microsoft.graph.core.ClientException;
-import com.microsoft.graph.extensions.Group;
-import com.microsoft.graph.extensions.IDirectoryObjectCollectionWithReferencesPage;
-import com.microsoft.graph.extensions.IGroupCollectionPage;
+import com.microsoft.graph.models.extensions.Group;
+import com.microsoft.graph.requests.extensions.IDirectoryObjectCollectionWithReferencesPage;
+import com.microsoft.graph.requests.extensions.IGroupCollectionPage;
+//import com.microsoft.graph.extensions.Group;
+//import com.microsoft.graph.extensions.IDirectoryObjectCollectionWithReferencesPage;
+//import com.microsoft.graph.extensions.IGroupCollectionPage;
 
 import java.util.Collections;
 import java.util.UUID;
@@ -50,13 +53,13 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                         Group group = createGroupObject();
 
                         mGraphServiceClient
-                                .getGroups()
+                                .groups()
                                 .buildRequest()
                                 .post(group, new ICallback<Group>() {
                                     @Override
                                     public void success(Group group) {
                                         mGraphServiceClient
-                                                .getGroups()
+                                                .groups()
                                                 .byId(group.id)
                                                 .buildRequest()
                                                 .get(new ICallback<Group>() {
@@ -91,15 +94,15 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                         Group group = createGroupObject();
 
                         mGraphServiceClient
-                                .getGroups()
+                                .groups()
                                 .buildRequest()
                                 .post(group, new ICallback<Group>() {
                                     @Override
                                     public void success(Group group) {
                                         mGraphServiceClient
-                                                .getGroups()
+                                                .groups()
                                                 .byId(group.id)
-                                                .getMembers()
+                                                .members()
                                                 .buildRequest()
                                                 .get(new ICallback<IDirectoryObjectCollectionWithReferencesPage>() {
                                                     @Override
@@ -133,15 +136,15 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                         Group group = createGroupObject();
 
                         mGraphServiceClient
-                                .getGroups()
+                                .groups()
                                 .buildRequest()
                                 .post(group, new ICallback<Group>() {
                                     @Override
                                     public void success(Group group) {
                                         mGraphServiceClient
-                                                .getGroups()
+                                                .groups()
                                                 .byId(group.id)
-                                                .getOwners()
+                                                .owners()
                                                 .buildRequest()
                                                 .get(new ICallback<IDirectoryObjectCollectionWithReferencesPage>() {
                                                     @Override
@@ -172,7 +175,7 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
                         mGraphServiceClient
-                                .getGroups()
+                                .groups()
                                 .buildRequest()
                                 .get(new ICallback<IGroupCollectionPage>() {
                                     @Override
@@ -199,7 +202,7 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                         Group group = createGroupObject();
 
                         mGraphServiceClient
-                                .getGroups()
+                                .groups()
                                 .buildRequest()
                                 .post(group, new ICallback<Group>() {
                                     @Override
@@ -227,18 +230,18 @@ public abstract class GroupsSnippets<Result> extends AbstractSnippet<Result> {
                         Group group = createGroupObject();
 
                         mGraphServiceClient
-                                .getGroups()
+                                .groups()
                                 .buildRequest()
                                 .post(group, new ICallback<Group>() {
                                     @Override
                                     public void success(Group group) {
                                         mGraphServiceClient
-                                                .getGroups()
+                                                .groups()
                                                 .byId(group.id)
                                                 .buildRequest()
-                                                .delete(new ICallback<Void>() {
+                                                .delete(new ICallback<Group>() {
                                                     @Override
-                                                    public void success(Void aVoid) {
+                                                    public void success(Group aVoid) {
                                                         callback.success(null);
                                                     }
 

@@ -9,12 +9,18 @@ import android.content.SharedPreferences;
 import com.google.gson.JsonObject;
 import com.microsoft.graph.concurrency.ICallback;
 import com.microsoft.graph.core.ClientException;
-import com.microsoft.graph.extensions.BodyType;
-import com.microsoft.graph.extensions.EmailAddress;
-import com.microsoft.graph.extensions.IMessageCollectionPage;
-import com.microsoft.graph.extensions.ItemBody;
-import com.microsoft.graph.extensions.Message;
-import com.microsoft.graph.extensions.Recipient;
+//import com.microsoft.graph.extensions.BodyType;
+//import com.microsoft.graph.extensions.EmailAddress;
+//import com.microsoft.graph.extensions.IMessageCollectionPage;
+//import com.microsoft.graph.extensions.ItemBody;
+//import com.microsoft.graph.extensions.Message;
+//import com.microsoft.graph.extensions.Recipient;
+import com.microsoft.graph.models.extensions.EmailAddress;
+import com.microsoft.graph.models.extensions.ItemBody;
+import com.microsoft.graph.models.extensions.Message;
+import com.microsoft.graph.models.extensions.Recipient;
+import com.microsoft.graph.models.generated.BodyType;
+import com.microsoft.graph.requests.extensions.IMessageCollectionPage;
 import com.microsoft.graph.snippets.R;
 import com.microsoft.graph.snippets.application.SnippetApp;
 import com.microsoft.graph.snippets.util.SharedPrefsUtil;
@@ -53,8 +59,8 @@ public abstract class MessageSnippets<Result> extends AbstractSnippet<Result> {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
                         mGraphServiceClient
-                                .getMe()
-                                .getMessages()
+                                .me()
+                                .messages()
                                 .buildRequest()
                                 .get(new ICallback<IMessageCollectionPage>() {
                                     @Override
@@ -80,8 +86,8 @@ public abstract class MessageSnippets<Result> extends AbstractSnippet<Result> {
                         Message message = createMessageObject();
 
                         mGraphServiceClient
-                                .getMe()
-                                .getSendMail(message, true)
+                                .me()
+                                .sendMail(message, true)
                                 .buildRequest()
                                 .post(new ICallback<Void>() {
                                     @Override
@@ -116,7 +122,7 @@ public abstract class MessageSnippets<Result> extends AbstractSnippet<Result> {
         message.subject = app.getString(R.string.mail_subject);
 
         ItemBody itemBody = new ItemBody();
-        itemBody.contentType = BodyType.text;
+        itemBody.contentType = BodyType.TEXT;
         itemBody.content = app.getString(R.string.mail_body);
         message.body = itemBody;
 

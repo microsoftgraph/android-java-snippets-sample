@@ -13,7 +13,7 @@ item 4: is admin account required to run snippet (true/false)
         <item>Gets all of the users in your tenant\'s directory.</item>
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/resources/organization</item>
         <item>true</item>
-        <item>graphServiceClient()\n    .getMe()\n    .getUsers()\n    .buildRequest()\n    .get();</item>
+        <item>graphServiceClient()\n    .me()\n    .users()\n    .buildRequest()\n    .get();</item>
     </string-array>
     <string-array name="get_organization_filtered_users">
         <item>Get all users (with $filter)</item>
@@ -26,7 +26,7 @@ options.add(\n
         \"$filter\", \"country eq \'United States\'\"\n
 )\n
 );\n\n
-graphServiceClient()\n    .getMe()\n    .getUsers()\n    .buildRequest(options)\n    .get();</item>
+graphServiceClient()\n    .me()\n    .users()\n    .buildRequest(options)\n    .get();</item>
     </string-array>
     <string-array name="insert_organization_user">
         <item>Add user</item>
@@ -45,6 +45,6 @@ password.password = \"the password\";\n
 password.forceChangePasswordNextSignIn =\n
     false;\n
 user.passwordProfile = password;\n\n
-graphServiceClient()\n    .getMe()\n    .getUsers()\n    .buildRequest()\n    .post(user);</item>
+graphServiceClient()\n    .me()\n    .users()\n    .buildRequest()\n    .post(user);</item>
     </string-array>
 </resources>
