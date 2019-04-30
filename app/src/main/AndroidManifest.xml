@@ -32,14 +32,13 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.microsoft.graph.snippets.SnippetListActivity" />
-
         <activity
             android:name="com.microsoft.identity.client.BrowserTabActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="msalENTER_YOUR_CLIENT_ID"
+                <data android:scheme="msalEnter_ClientId_Here"
                     android:host="auth" />
             </intent-filter>
         </activity>
@@ -48,8 +47,6 @@
             android:value="https://login.microsoftonline.com/common"/>
         <meta-data
             android:name="com.microsoft.identity.client.ClientId"
-            android:value="ENTER_YOUR_CLIENT_ID"/>
-
+            android:value="Enter_ClientId_Here"/>
     </application>
-
 </manifest>

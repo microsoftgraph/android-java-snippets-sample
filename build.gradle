@@ -17,6 +17,9 @@ allprojects {
     repositories {
         jcenter()
         google()
+        jcenter{
+            url 'http://oss.jfrog.org/oss-snapshot-local'
+        }
     }
 }
 

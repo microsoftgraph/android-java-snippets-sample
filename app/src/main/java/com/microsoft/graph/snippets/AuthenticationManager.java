@@ -10,14 +10,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import com.microsoft.graph.authentication.IAuthenticationProvider;
+import com.microsoft.graph.authentication.MSALAuthenticationProvider;
 import com.microsoft.graph.http.IHttpRequest;
-import com.microsoft.graph.models.extensions.User;
 import com.microsoft.graph.snippets.application.SnippetApp;
+import com.microsoft.graph.snippets.util.IManifestReader;
+import com.microsoft.graph.snippets.util.ManifestReader;
 import com.microsoft.identity.client.AuthenticationCallback;
 import com.microsoft.identity.client.AuthenticationResult;
 import com.microsoft.identity.client.IAccount;
 import com.microsoft.identity.client.PublicClientApplication;
 import com.microsoft.identity.client.exception.MsalException;
+
+
 import java.io.IOException;
 
 /**
@@ -29,6 +33,8 @@ public class AuthenticationManager implements IAuthenticationProvider {
     private static PublicClientApplication mPublicClientApplication;
     private AuthenticationResult mAuthResult;
     private MSALAuthenticationCallback mActivityCallback;
+    public static  MSALAuthenticationProvider msalAuthenticationProvider;
+
     private AuthenticationManager() {
     }
 
@@ -36,7 +42,9 @@ public class AuthenticationManager implements IAuthenticationProvider {
         if (INSTANCE == null) {
             INSTANCE = new AuthenticationManager();
             if (mPublicClientApplication == null) {
-                mPublicClientApplication = new PublicClientApplication(SnippetApp.getApp());
+                IManifestReader metaDataReader = new ManifestReader();
+                String clientID = metaDataReader.getApplicationMetadataValueString("com.microsoft.identity.client.ClientId");
+                mPublicClientApplication = new PublicClientApplication(SnippetApp.getContext(), clientID);
             }
         }
         return INSTANCE;
