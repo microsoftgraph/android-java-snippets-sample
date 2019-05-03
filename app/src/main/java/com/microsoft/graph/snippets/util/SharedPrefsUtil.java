@@ -22,7 +22,7 @@ public class SharedPrefsUtil {
     }
 
     public static void persistUserID(AuthenticationResult result) {
-        setPreference(PREF_USER_ID, result.getUser().getDisplayableId());
+        setPreference(PREF_USER_ID, result.getAccount().getUsername());
     }
 
     public static void persistAuthToken(AuthenticationResult result) {

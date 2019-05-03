@@ -9,15 +9,18 @@ import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
-
 import com.microsoft.graph.authentication.IAuthenticationProvider;
+import com.microsoft.graph.authentication.MSALAuthenticationProvider;
 import com.microsoft.graph.http.IHttpRequest;
 import com.microsoft.graph.snippets.application.SnippetApp;
+import com.microsoft.graph.snippets.util.IManifestReader;
+import com.microsoft.graph.snippets.util.ManifestReader;
 import com.microsoft.identity.client.AuthenticationCallback;
 import com.microsoft.identity.client.AuthenticationResult;
-import com.microsoft.identity.client.MsalException;
+import com.microsoft.identity.client.IAccount;
 import com.microsoft.identity.client.PublicClientApplication;
-import com.microsoft.identity.client.User;
+import com.microsoft.identity.client.exception.MsalException;
+
 
 import java.io.IOException;
 
@@ -30,6 +33,7 @@ public class AuthenticationManager implements IAuthenticationProvider {
     private static PublicClientApplication mPublicClientApplication;
     private AuthenticationResult mAuthResult;
     private MSALAuthenticationCallback mActivityCallback;
+
     private AuthenticationManager() {
     }
 
@@ -37,7 +41,9 @@ public class AuthenticationManager implements IAuthenticationProvider {
         if (INSTANCE == null) {
             INSTANCE = new AuthenticationManager();
             if (mPublicClientApplication == null) {
-                mPublicClientApplication = new PublicClientApplication(SnippetApp.getApp());
+                IManifestReader metaDataReader = new ManifestReader();
+                String clientID = metaDataReader.getApplicationMetadataValueString("com.microsoft.identity.client.ClientId");
+                mPublicClientApplication = new PublicClientApplication(SnippetApp.getContext(), clientID);
             }
         }
         return INSTANCE;
@@ -66,7 +72,7 @@ public class AuthenticationManager implements IAuthenticationProvider {
      * to null, and removing the user id from shred preferences.
      */
     public void disconnect() {
-        mPublicClientApplication.remove(mAuthResult.getUser());
+        mPublicClientApplication.removeAccount(mAuthResult.getAccount());
         // Reset the AuthenticationManager object
         AuthenticationManager.resetInstance();
     }
@@ -82,7 +88,7 @@ public class AuthenticationManager implements IAuthenticationProvider {
         mPublicClientApplication.acquireToken(
                 activity, ServiceConstants.SCOPES, getAuthInteractiveCallback());
     }
-    public void callAcquireTokenSilent(User user, boolean forceRefresh, MSALAuthenticationCallback msalAuthenticationCallback) {
+    public void callAcquireTokenSilent(IAccount user, boolean forceRefresh, MSALAuthenticationCallback msalAuthenticationCallback) {
         mActivityCallback = msalAuthenticationCallback;
         mPublicClientApplication.acquireTokenSilentAsync(ServiceConstants.SCOPES, user, null, forceRefresh, getAuthSilentCallback());
     }

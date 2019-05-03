@@ -3,7 +3,6 @@
  * See LICENSE in the project root for license information.
  */
 package com.microsoft.graph.snippets.application;
-
 import com.microsoft.graph.snippets.ServiceConstants;
 
 public class AppModule {
@@ -13,5 +12,4 @@ public class AppModule {
     public String providesRestEndpoint() {
         return ServiceConstants.AUTHENTICATION_RESOURCE_ID;
     }
-
 }

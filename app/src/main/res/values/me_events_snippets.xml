@@ -13,7 +13,7 @@ item 4: is admin account required to run snippet (true/false)
         <item>Gets the signed-in user\'s calendar events.</item>
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/api/user_list_events</item>
         <item>false</item>
-        <item>graphServiceClient()\n    .getMe()\n    .getEvents()\n    .buildRequest()\n    .get();</item>
+        <item>graphServiceClient()\n    .me()\n    .events()\n    .buildRequest()\n    .get();</item>
     </string-array>
     <string-array name="create_event">
         <item>Add an event</item>
@@ -52,7 +52,7 @@ ItemBody msg = new ItemBody();\n
 msg.content = "Let's discuss&#8230;";\n
 msg.contentType = BodyType.text;\n
 event.body = msg;\n\n
-graphServiceClient()\n    .getMe()\n    .getEvents()\n    .buildRequest()\n    .post(event);</item>
+graphServiceClient()\n    .me()\n    .events()\n    .buildRequest()\n    .post(event);</item>
     </string-array>
     <string-array name="update_event">
         <item>Update an event</item>
@@ -62,13 +62,13 @@ graphServiceClient()\n    .getMe()\n    .getEvents()\n    .buildRequest()\n    .
         <item>
 event.subject = "Updated event";\n\n
 
-graphServiceClient()\n    .getMe()\n    .getEvents()\n    .byId(eventId)\n    .buildRequest()\n    .patch(event);</item>
+graphServiceClient()\n    .me()\n    .events()\n    .byId(eventId)\n    .buildRequest()\n    .patch(event);</item>
     </string-array>
     <string-array name="delete_event">
         <item>Delete an event</item>
         <item>Adds an event to the signed-in user\'s calendar, then deletes the event.</item>
         <item>https://graph.microsoft.io/docs/api-reference/v1.0/api/event_delete</item>
         <item>false</item>
-        <item>graphServiceClient()\n    .getMe()\n    .getEvents()\n    .byId(eventId)\n    .buildRequest()\n    .delete();</item>
+        <item>graphServiceClient()\n    .me()\n    .events()\n    .byId(eventId)\n    .buildRequest()\n    .delete();</item>
     </string-array>
 </resources>

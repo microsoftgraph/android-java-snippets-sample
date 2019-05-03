@@ -5,7 +5,6 @@
 package com.microsoft.graph.snippets.snippet;
 
 import com.microsoft.graph.snippets.application.SnippetApp;
-
 import static com.microsoft.graph.snippets.R.string.section_drives;
 import static com.microsoft.graph.snippets.R.string.section_events;
 import static com.microsoft.graph.snippets.R.string.section_groups;

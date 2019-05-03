@@ -23,21 +23,17 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.microsoft.graph.concurrency.ICallback;
 import com.microsoft.graph.core.ClientException;
 import com.microsoft.graph.snippets.snippet.AbstractSnippet;
 import com.microsoft.graph.snippets.snippet.SnippetContent;
-
 import java.io.PrintWriter;
 import java.io.StringWriter;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.microsoft.graph.snippets.R.color.code_1xx;

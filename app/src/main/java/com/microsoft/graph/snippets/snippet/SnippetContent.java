@@ -7,7 +7,6 @@ package com.microsoft.graph.snippets.snippet;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import static com.microsoft.graph.snippets.snippet.DrivesSnippets.getDrivesSnippets;
 import static com.microsoft.graph.snippets.snippet.EventsSnippets.getEventsSnippets;
 import static com.microsoft.graph.snippets.snippet.GroupsSnippets.getGroupsSnippets;

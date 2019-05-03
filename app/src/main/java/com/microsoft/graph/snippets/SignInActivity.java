@@ -10,26 +10,23 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.microsoft.graph.models.extensions.User;
 import com.microsoft.graph.snippets.util.IManifestReader;
 import com.microsoft.graph.snippets.util.ManifestReader;
 import com.microsoft.graph.snippets.util.SharedPrefsUtil;
 import com.microsoft.identity.client.AuthenticationResult;
+import com.microsoft.identity.client.IAccount;
 import com.microsoft.identity.client.Logger;
-import com.microsoft.identity.client.MsalClientException;
-import com.microsoft.identity.client.MsalException;
-import com.microsoft.identity.client.MsalServiceException;
-import com.microsoft.identity.client.MsalUiRequiredException;
-import com.microsoft.identity.client.User;
-
+import com.microsoft.identity.client.exception.MsalClientException;
+import com.microsoft.identity.client.exception.MsalException;
+import com.microsoft.identity.client.exception.MsalServiceException;
+import com.microsoft.identity.client.exception.MsalUiRequiredException;
 import java.net.URI;
 import java.util.List;
 import java.util.UUID;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static com.microsoft.graph.snippets.R.id.layout_diagnostics;
@@ -84,8 +81,8 @@ public class SignInActivity
         // get the user display name
         final String userDisplayableId =
                 authenticationResult
-                        .getUser()
-                        .getDisplayableId();
+                        .getAccount()
+                        .getUsername();
 
         // get the index of their '@' in the name (to determine domain)
         final int at = userDisplayableId.indexOf("@");
@@ -146,7 +143,7 @@ public class SignInActivity
     private void authenticate() throws IllegalArgumentException {
         validateOrganizationArgs();
         connect();
-        //AuthenticationManager.getInstance().
+        AuthenticationManager.getInstance();
     }
 
     private void connect() {
@@ -164,10 +161,10 @@ public class SignInActivity
         /* Attempt to get a user and acquireTokenSilent
          * If this fails we do an interactive request
          */
-        List<User> users = null;
+        List<IAccount> users = null;
 
         try {
-            users = mgr.getPublicClient().getUsers();
+            users = mgr.getPublicClient().getAccounts();
 
             if (users != null && users.size() == 1) {
                 /* We have 1 user */
@@ -184,12 +181,9 @@ public class SignInActivity
                         this,
                         this);
             }
-        } catch (MsalClientException e) {
-            Log.d(TAG, "MSAL Exception Generated while getting users: " + e.toString());
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-
-
-        } catch (IndexOutOfBoundsException e) {
+        }
+        
+        catch (IndexOutOfBoundsException e) {
             Log.d(TAG, "User at this position does not exist: " + e.toString());
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
 
@@ -215,7 +209,7 @@ public class SignInActivity
         startActivity(appLaunch);
     }
 
-    public User mUser;
+    public IAccount mUser;
 
     @Override
     public void onError(Exception exception) {

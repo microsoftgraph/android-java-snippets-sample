@@ -7,20 +7,17 @@ package com.microsoft.graph.snippets.snippet;
 import com.google.gson.JsonObject;
 import com.microsoft.graph.concurrency.ICallback;
 import com.microsoft.graph.core.ClientException;
-import com.microsoft.graph.extensions.Attendee;
-import com.microsoft.graph.extensions.AttendeeType;
-import com.microsoft.graph.extensions.BodyType;
-import com.microsoft.graph.extensions.DateTimeTimeZone;
-import com.microsoft.graph.extensions.EmailAddress;
-import com.microsoft.graph.extensions.Event;
-import com.microsoft.graph.extensions.IEventCollectionPage;
-import com.microsoft.graph.extensions.ItemBody;
-import com.microsoft.graph.extensions.Location;
-
+import com.microsoft.graph.models.extensions.Attendee;
+import com.microsoft.graph.models.extensions.DateTimeTimeZone;
+import com.microsoft.graph.models.extensions.EmailAddress;
+import com.microsoft.graph.models.extensions.Event;
+import com.microsoft.graph.models.extensions.ItemBody;
+import com.microsoft.graph.models.extensions.Location;
+import com.microsoft.graph.models.generated.AttendeeType;
+import com.microsoft.graph.models.generated.BodyType;
+import com.microsoft.graph.requests.extensions.IEventCollectionPage;
 import org.joda.time.DateTime;
-
 import java.util.Collections;
-
 import static com.microsoft.graph.snippets.R.array.create_event;
 import static com.microsoft.graph.snippets.R.array.delete_event;
 import static com.microsoft.graph.snippets.R.array.get_user_events;
@@ -52,8 +49,8 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
                         mGraphServiceClient
-                                .getMe()
-                                .getEvents()
+                                .me()
+                                .events()
                                 .buildRequest()
                                 .get(new ICallback<IEventCollectionPage>() {
                                     @Override
@@ -80,8 +77,8 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
                         Event event = createEventObject();
 
                         mGraphServiceClient
-                                .getMe()
-                                .getEvents()
+                                .me()
+                                .events()
                                 .buildRequest()
                                 .post(event, new ICallback<Event>() {
                                     @Override
@@ -108,8 +105,8 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
                         Event event = createEventObject();
 
                         mGraphServiceClient
-                                .getMe()
-                                .getEvents()
+                                .me()
+                                .events()
                                 .buildRequest()
                                 .post(event, new ICallback<Event>() {
                                     @Override
@@ -118,8 +115,8 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
                                         event.subject = "Updated event";
 
                                         mGraphServiceClient
-                                                .getMe()
-                                                .getEvents()
+                                                .me()
+                                                .events()
                                                 .byId(event.id)
                                                 .buildRequest()
                                                 .patch(event, new ICallback<Event>() {
@@ -155,8 +152,8 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
                         Event event = createEventObject();
 
                         mGraphServiceClient
-                                .getMe()
-                                .getEvents()
+                                .me()
+                                .events()
                                 .buildRequest()
                                 .post(event, new ICallback<Event>() {
                                     @Override
@@ -165,13 +162,13 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
                                         event.subject = "Updated event";
 
                                         mGraphServiceClient
-                                                .getMe()
-                                                .getEvents()
+                                                .me()
+                                                .events()
                                                 .byId(event.id)
                                                 .buildRequest()
-                                                .delete(new ICallback<Void>() {
+                                                .delete(new ICallback<Event>() {
                                                     @Override
-                                                    public void success(Void aVoid) {
+                                                    public void success(Event aVoid) {
                                                         callback.success(null);
                                                     }
 
@@ -217,7 +214,7 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
 
         // add attendees
         Attendee attendee = new Attendee();
-        attendee.type = AttendeeType.required;
+        attendee.type = AttendeeType.REQUIRED;
         attendee.emailAddress = new EmailAddress();
         attendee.emailAddress.address = "mara@fabrikam.com";
         event.attendees = Collections.singletonList(attendee);
@@ -225,7 +222,7 @@ public abstract class EventsSnippets<Result> extends AbstractSnippet<Result> {
         // add a msg
         ItemBody msg = new ItemBody();
         msg.content = "Let's discuss the Microsoft Graph SDK.";
-        msg.contentType = BodyType.text;
+        msg.contentType = BodyType.TEXT;
         event.body = msg;
 
         return event;

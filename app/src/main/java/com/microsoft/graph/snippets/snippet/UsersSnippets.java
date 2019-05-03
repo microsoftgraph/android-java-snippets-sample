@@ -5,21 +5,18 @@
 package com.microsoft.graph.snippets.snippet;
 
 import android.content.SharedPreferences;
-
 import com.google.gson.JsonObject;
 import com.microsoft.graph.concurrency.ICallback;
 import com.microsoft.graph.core.ClientException;
-import com.microsoft.graph.extensions.IUserCollectionPage;
-import com.microsoft.graph.extensions.PasswordProfile;
-import com.microsoft.graph.extensions.User;
+import com.microsoft.graph.models.extensions.PasswordProfile;
+import com.microsoft.graph.models.extensions.User;
 import com.microsoft.graph.options.Option;
 import com.microsoft.graph.options.QueryOption;
+import com.microsoft.graph.requests.extensions.IUserCollectionPage;
 import com.microsoft.graph.snippets.util.SharedPrefsUtil;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
-
 import static com.microsoft.graph.snippets.R.array.get_organization_filtered_users;
 import static com.microsoft.graph.snippets.R.array.get_organization_users;
 import static com.microsoft.graph.snippets.R.array.insert_organization_user;
@@ -51,7 +48,7 @@ public abstract class UsersSnippets<Result> extends AbstractSnippet<Result> {
                     @Override
                     public void request(final ICallback<JsonObject> callback) {
                         mGraphServiceClient
-                                .getUsers()
+                                .users()
                                 .buildRequest()
                                 .get(new ICallback<IUserCollectionPage>() {
                                     @Override
@@ -79,7 +76,7 @@ public abstract class UsersSnippets<Result> extends AbstractSnippet<Result> {
                         options.add(new QueryOption("$filter", "country eq 'United States'"));
 
                         mGraphServiceClient
-                                .getUsers()
+                                .users()
                                 .buildRequest(options)
                                 .get(new ICallback<IUserCollectionPage>() {
                                     @Override
@@ -125,7 +122,7 @@ public abstract class UsersSnippets<Result> extends AbstractSnippet<Result> {
                         user.passwordProfile = password;
 
                         mGraphServiceClient
-                                .getUsers()
+                                .users()
                                 .buildRequest()
                                 .post(user, new ICallback<User>() {
                                     @Override
