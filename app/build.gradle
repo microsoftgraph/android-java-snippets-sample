@@ -55,7 +55,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-intents:2.2.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-web:2.2.2'
-    //implementation 'com.microsoft.graph:microsoft-graph:1.2.0'
-  //  implementation 'com.microsoft.identity.client:msal:0.2.2'
+    
     implementation 'com.microsoft.graph:microsoft-graph-android-auth:0.1.0-SNAPSHOT'
 }
