@@ -33,7 +33,6 @@ public class AuthenticationManager implements IAuthenticationProvider {
     private static PublicClientApplication mPublicClientApplication;
     private AuthenticationResult mAuthResult;
     private MSALAuthenticationCallback mActivityCallback;
-    public static  MSALAuthenticationProvider msalAuthenticationProvider;
 
     private AuthenticationManager() {
     }

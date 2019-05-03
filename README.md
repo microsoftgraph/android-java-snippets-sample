@@ -118,8 +118,8 @@ To use the Microsoft Graph SDK snippets project, you need the following:
 5. Respond to the dialog box ("Gradle Sync: Gradle settings for this project are not configured yet. Would you like the project to use the Gradle wrapper? ") by clicking the **OK** button to use the Gradle wrapper. 
 4. In the application registration page that you just visited, copy the custom redirect URI (`msal{application id as GUID}`) to the clipboard. **Be sure you don't copy `://auth`**
    <br/>For example: `msal0575d7fe-8ec7-4925-9ce2-87074778a039` is copied and `://auth` is ignored.
-4. Paste the clipboard contents in **app/src/main/AndroidManifest.xml**, line 42 to replace `ENTER_YOUR_CLIENT_ID` with the clipboard contents.
-4. Copy the **GUID portion** of the custom redirect URI into **app/src/main/AndroidManifest.xml**, line 51 to replace `ENTER_YOUR_CLIENT_ID` with the clipboard contents.
+4. Paste the clipboard contents in **app/src/main/AndroidManifest.xml**, line 41 to replace `ENTER_YOUR_CLIENT_ID` with the clipboard contents.
+4. Copy the **GUID portion** of the custom redirect URI into **app/src/main/AndroidManifest.xml**, line 49 to replace `ENTER_YOUR_CLIENT_ID` with the clipboard contents.
 
 ## Run the project
 After you've built the project you can run it on an emulator or device.

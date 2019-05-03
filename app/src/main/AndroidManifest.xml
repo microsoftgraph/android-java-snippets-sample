@@ -38,8 +38,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="msalEnter_ClientId_Here"
-                    android:host="auth" />
+                <data android:scheme="msalENTER_YOUR_CLIENT_ID"  android:host="auth" />
             </intent-filter>
         </activity>
         <meta-data
@@ -47,6 +46,6 @@
             android:value="https://login.microsoftonline.com/common"/>
         <meta-data
             android:name="com.microsoft.identity.client.ClientId"
-            android:value="Enter_ClientId_Here"/>
+            android:value="ENTER_YOUR_CLIENT_ID"/>
     </application>
 </manifest>

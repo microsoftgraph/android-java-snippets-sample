@@ -17,6 +17,8 @@ public class SnippetApp extends Application {
     private static SnippetApp sSnippetApp;
     private static SignInActivity signInActivity;
     private AuthenticationManager mAuthenticationManager;
+    private MSALAuthenticationProvider msalAuthenticationProvider;
+    private IGraphServiceClient graphClient;
 
     public static SnippetApp getApp() {
         return sSnippetApp;
@@ -33,17 +35,22 @@ public class SnippetApp extends Application {
 
     public IGraphServiceClient getGraphServiceClient() {
 
-        MSALAuthenticationProvider msalAuthenticationProvider = new MSALAuthenticationProvider(
-                getAppActivity(),
-                SnippetApp.getApp(),
-                mAuthenticationManager.getPublicClient(),
-                ServiceConstants.SCOPES);
+        if(msalAuthenticationProvider == null) {
+            msalAuthenticationProvider = new MSALAuthenticationProvider(
+                    getAppActivity(),
+                    SnippetApp.getApp(),
+                    mAuthenticationManager.getPublicClient(),
+                    ServiceConstants.SCOPES);
+        }
 
-         IGraphServiceClient graphClient =
-                GraphServiceClient
-                        .builder()
-                        .authenticationProvider(msalAuthenticationProvider)
-                        .buildClient();
+        if(graphClient == null) {
+            graphClient =
+                    GraphServiceClient
+                            .builder()
+                            .authenticationProvider(msalAuthenticationProvider)
+                            .buildClient();
+        }
+
          return graphClient;
     }
 
