@@ -76,6 +76,20 @@ public class SnippetListFragment extends ListFragment {
         mCallbacks = (Callbacks) context;
     }
 
+    
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // Activities containing this fragment must implement its callbacks.
+        if (!(activity instanceof Callbacks)) {
+            throw new IllegalStateException("Activity must implement fragment's callbacks.");
+        }
+        
+        mCallbacks = (Callbacks) activity;
+    }
+
+    
     @Override
     public void onDetach() {
         super.onDetach();
