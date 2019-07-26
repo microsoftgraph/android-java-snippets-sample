@@ -12,7 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-
+import android.app.Activity;
 public class SnippetListFragment extends ListFragment {
 
     private static final String STATE_ACTIVATED_POSITION = "activated_position";
