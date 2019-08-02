@@ -1,3 +1,25 @@
+---
+page_type: sample
+products:
+- office-365
+- office-outlook
+- ms-graph
+languages:
+- java
+extensions:
+  contentType: samples
+  technologies:
+  - Microsoft Graph
+  - Microsoft identity platform
+  services:
+  - Office 365
+  - Outlook
+  - Microsoft identity platform
+  - Groups
+  platforms:
+  - Android
+  createdDate: 5/26/2016 1:04:52 PM
+---
 # Snippets Sample for Android Using the Microsoft Graph SDK
 **Version 1.5**
 
