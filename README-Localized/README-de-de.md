@@ -173,6 +173,8 @@ Allgemeine Fragen zur Microsoft Graph-Entwicklung sollten in [Stack Overflow](ht
 
 ## Versionsverlauf
 
-|Version|Änderungen| |:---|:----| |1.0|Erstveröffentlichung| |1.5|– MSAL-Authentifizierungsbibliothek wurde durch ADAL-Authentifizierungsbibliothek ersetzt <br/> – Microsoft Graph SDK Version 1.5|
+|Version|Änderungen| |:---|:----|
+|1.0|Erstveröffentlichung|
+|1.5|– MSAL-Authentifizierungsbibliothek wurde durch ADAL-Authentifizierungsbibliothek ersetzt <br/> – Microsoft Graph SDK Version 1.5|
 
 Copyright (c) 2019 Microsoft. Alle Rechte vorbehalten.
