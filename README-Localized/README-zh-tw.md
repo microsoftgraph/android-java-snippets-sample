@@ -82,22 +82,22 @@
 ## Azure 用戶端應用程式註冊
 
 1. 導覽至 \[Azure 入口網站 - 應用程式註冊][](https://go.microsoft.com/fwlink/?linkid=2083908) 頁面。 
-1. 選取 \[新增註冊]****。 
-1. 當 \[註冊應用程式]**** 頁面出現時，輸入您應用程式的註冊資訊： 
-    - 在 \[名稱]**** 區段中，輸入將對應用程式使用者顯示且有意義的應用程式名稱，例如 `Android Java 程式碼片段範例`。 
-    - 在 \[支援的帳戶類型]**** 區段中，選取 \[任何組織目錄中的帳戶]****。 
-1. 選取 \[註冊]**** 以建立應用程式。 
-1. 在應用程式 \[概觀]**** 頁面上，找到 \[應用程式 (用戶端) 識別碼]**** 值，並將它記下供稍後使用。您需要這個值，才能設定此專案的 Visual Studio 組態檔。 
-1. 在應用程式頁面清單中，選取 \[資訊清單]****，並且： 
+1. 選取 \[新增註冊]。 
+1. 當 \[註冊應用程式] 頁面出現時，輸入您應用程式的註冊資訊： 
+    - 在 \[名稱] 區段中，輸入將對應用程式使用者顯示且有意義的應用程式名稱，例如 `Android Java 程式碼片段範例`。 
+    - 在 \[支援的帳戶類型] 區段中，選取 \[任何組織目錄中的帳戶]。 
+1. 選取 \[註冊] 以建立應用程式。 
+1. 在應用程式 \[概觀] 頁面上，找到 \[應用程式 (用戶端) 識別碼] 值，並將它記下供稍後使用。您需要這個值，才能設定此專案的 Visual Studio 組態檔。 
+1. 在應用程式頁面清單中，選取 \[資訊清單]，並且： 
     - 在資訊清單編輯器中，將 ``allowPublicClient`` 屬性設為 **true** 
-    - 在資訊清單編輯器上方列中選取 \[儲存]****。 
-1. 在應用程式頁面清單中，選取 \[API 權限]**** 
-    - 按一下 \[新增權限]**** 按鈕，然後， 
+    - 在資訊清單編輯器上方列中選取 \[儲存]。 
+1. 在應用程式頁面清單中，選取 \[API 權限] 
+    - 按一下 \[新增權限] 按鈕，然後， 
     - 確定已選取 **Microsoft API** 索引標籤 
     - 在 \[常用的 Microsoft API]** 區段中，按一下 **Microsoft Graph** 
-    - 在 \[委派權限]**** 區段中，確定已選取適當的權限。如有需要，請使用搜尋方塊。
+    - 在 \[委派權限] 區段中，確定已選取適當的權限。如有需要，請使用搜尋方塊。
     - **User.Read**、**Mail.Send**、**Mail.ReadWrite**、**Files.ReadWrite**、**User.ReadBasic.All**、**Calendars.ReadWrite**、**Group.Read.All**  
-    - 選取 \[新增權限]**** 按鈕 
+    - 選取 \[新增權限] 按鈕 
 
 > **附註：** 在 \[設定專案][](#configure-the-project) 中，系統會要求您複製應用程式註冊入口網站所產生的一些字串。當您設定專案時，請務必保持在應用程式註冊頁面上。從應用程式註冊中複製的字串會貼到專案的原始程式碼。
 
@@ -105,9 +105,9 @@
 
 1. 下載或複製[程式碼片段範例](../../)。
 2. 啟動 Android Studio。
-3. 從 \[歡迎使用 Android Studio]**** 對話方塊中，選擇 \[匯入專案 (Eclipse ADT、Gradle 等等)]****。
-4. 在 **android-java-snippets-sample** 資料夾中選取 **settings.gradle** 檔案，然後按一下 \[確定]****。
-5. 回應對話方塊 ("Gradle Sync:此專案的 Gradle 設定尚未設定。您希望專案使用 Gradle 包裝函式嗎？")，按一下 \[確定]**** 按鈕即可使用 Gradle 包裝函式。 
+3. 從 \[歡迎使用 Android Studio] 對話方塊中，選擇 \[匯入專案 (Eclipse ADT、Gradle 等等)]。
+4. 在 **android-java-snippets-sample** 資料夾中選取 **settings.gradle** 檔案，然後按一下 \[確定]。
+5. 回應對話方塊 ("Gradle Sync:此專案的 Gradle 設定尚未設定。您希望專案使用 Gradle 包裝函式嗎？")，按一下 \[確定] 按鈕即可使用 Gradle 包裝函式。 
 4. 在您剛剛瀏覽的應用程式註冊頁面上，複製自訂重新導向 URI (`msal{application id as GUID}`) 到剪貼簿。**請確定您沒有複製 `://auth`**
    <br/>例如：複製 `msal0575d7fe-8ec7-4925-9ce2-87074778a039`，但略過 `://auth`。
 4. 將剪貼簿內容貼在 **app/src/main/AndroidManifest.xml** 的 41 行，以剪貼簿內容取代 `ENTER_YOUR_CLIENT_ID`。
@@ -117,12 +117,12 @@
 建置專案之後，您可以在模擬器或裝置上執行它。
 
 1. 執行專案。
-2. 按一下 \[連接至 Microsoft Graph]**** 按鈕以登入。
+2. 按一下 \[連接至 Microsoft Graph] 按鈕以登入。
 3. 輸入您的認證。
 4. 檢閱並接受應用程式要求的權限範圍。
 4. 按一下主要活動的作業，以顯示作業詳細資料。
-5. 按一下 \[執行]**** 按鈕來啟動作業，並等候該作業完成。
-6. 按一下 \[原始物件]**** 文字方塊，將方塊內容複製到模擬器/裝置剪貼簿。
+5. 按一下 \[執行] 按鈕來啟動作業，並等候該作業完成。
+6. 按一下 \[原始物件] 文字方塊，將方塊內容複製到模擬器/裝置剪貼簿。
 7. 按一下工具列上的返回按鈕以返回作業清單。
 8. (選擇性) 按一下溢位功能表以取得中斷連線功能表選項。
 
@@ -139,7 +139,14 @@
 * [`應用程式`](/app)。UI 和商務邏輯模組。SDK 作業是在此模組中的程式碼片段類別啟動。
 
 ### 程式碼片段類別
-程式碼片段會執行單一作業，並傳回結果。程式碼片段位於[應用程式](/app)模組。程式碼片段會設定必要的狀態，以在如下所述的 Microsoft Graph 服務類別上進行呼叫。* [`AbstractSnippet`](/app/src/main/java/com/microsoft/graph/snippets/snippet/AbstractSnippet.java) * [`DrivesSnippets`](/app/src/main/java/com/microsoft/graph/snippets/snippet/DrivesSnippets.java) * [`EventsSnippets`](/app/src/main/java/com/microsoft/graph/snippets/snippet/EventsSnippets.java) * [`GroupsSnippets`](/app/src/main/java/com/microsoft/graph/snippets/snippet/GroupsSnippets.java) * [`MeSnippets`](/app/src/main/java/com/microsoft/graph/snippets/snippet/MeSnippets.java) * [`MessageSnippets`](/app/src/main/java/com/microsoft/graph/snippets/snippet/MessageSnippets.java) * [`UsersSnippets`](/app/src/main/java/com/microsoft/graph/snippets/snippet/UsersSnippets.java)
+程式碼片段會執行單一作業，並傳回結果。程式碼片段位於[應用程式](/app)模組。程式碼片段會設定必要的狀態，以在如下所述的 Microsoft Graph 服務類別上進行呼叫。
+* [`AbstractSnippet`](/app/src/main/java/com/microsoft/graph/snippets/snippet/AbstractSnippet.java)
+* [`DrivesSnippets`](/app/src/main/java/com/microsoft/graph/snippets/snippet/DrivesSnippets.java)
+* [`EventsSnippets`](/app/src/main/java/com/microsoft/graph/snippets/snippet/EventsSnippets.java)
+* [`GroupsSnippets`](/app/src/main/java/com/microsoft/graph/snippets/snippet/GroupsSnippets.java)
+* [`MeSnippets`](/app/src/main/java/com/microsoft/graph/snippets/snippet/MeSnippets.java)
+* [`MessageSnippets`](/app/src/main/java/com/microsoft/graph/snippets/snippet/MessageSnippets.java)
+* [`UsersSnippets`](/app/src/main/java/com/microsoft/graph/snippets/snippet/UsersSnippets.java)
 
 ### 驗證類別
 驗證方法可在 [`AuthenticationManager`](/app/src/main/java/com/microsoft/graph/snippets/AuthenticationManager.java) 類別中找到。這些方法會使用 [Microsoft Authentication Library (MSAL) for Android](https://github.com/AzureAD/microsoft-authentication-library-for-android) 連線到 Microsoft Graph。 
