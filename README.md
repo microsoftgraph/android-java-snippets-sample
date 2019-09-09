@@ -1,7 +1,7 @@
 ---
 page_type: sample
 products:
-- office-365
+- office-365 
 - office-outlook
 - ms-graph
 languages:
