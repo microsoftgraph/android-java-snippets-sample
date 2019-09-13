@@ -6,6 +6,7 @@ products:
 - ms-graph
 languages:
 - java
+description: "This sample uses the Microsoft Graph Client Library to work with the data, and the Microsoft Authentication Library (MSAL) for authentication of users' Office 365 accounts."
 extensions:
   contentType: samples
   technologies:
