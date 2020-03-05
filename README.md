@@ -1,26 +1,3 @@
----
-page_type: sample
-products:
-- office-365 
-- office-outlook
-- ms-graph
-languages:
-- java
-description: "This sample uses the Microsoft Graph Client Library to work with the data, and the Microsoft Authentication Library (MSAL) for authentication of users' Office 365 accounts."
-extensions:
-  contentType: samples
-  technologies:
-  - Microsoft Graph
-  - Microsoft identity platform
-  services:
-  - Office 365
-  - Outlook
-  - Microsoft identity platform
-  - Groups
-  platforms:
-  - Android
-  createdDate: 5/26/2016 1:04:52 PM
----
 # Snippets Sample for Android Using the Microsoft Graph SDK
 **Version 1.5**
 
